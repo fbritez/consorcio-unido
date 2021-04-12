@@ -1,6 +1,7 @@
 # coding=utf-8
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
+import json
 
 from src.service.consorsium_service import ConsortiumService
 from src.service.expense_service import ExpenseService
@@ -20,7 +21,9 @@ def expenses():
 @cross_origin(support_credentials=True)
 def consortiums():
 
-    return consortium_service.get_consortium_for()
+    return {
+        'consortiums': [consortium.__dict__ for consortium in consortium_service.get_consortium_for()]
+    }
 
 if __name__ == '__main__':
     app.run()
