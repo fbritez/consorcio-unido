@@ -1,4 +1,3 @@
-import { ConsortiumsView } from "../components/consortium/consortiums-view"
 
 class Consortium{
 

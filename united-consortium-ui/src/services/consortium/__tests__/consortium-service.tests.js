@@ -1,20 +1,20 @@
 import Consortium from "../../../model/consortium";
-import ConsortiumService from "../consortium-service"
+import ConsortiumService from "../consortium-service";
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
 
 const mockName = 'name'
 const mockAddress = 'address'
-
-jest.mock(axios, () => ({
-    get : jest.fn().mockRetrunValue({data: { consortiums : [{name: mockName, address : mockAddress }]}})
-}))
+const consortiumData =  { consortiums : [{name: mockName, address: mockAddress}]}
 
 describe( 'consortium service tests', () => {
-    const service = new ConsortiumService()
+    const mock = new MockAdapter(axios);
+    mock.onGet('http://localhost:5000/consortiums').reply(200, consortiumData);
+    
+    const service = new ConsortiumService();
 
-    it('consortium service get all consortium', () => {
-        const result = service.getConsortiums();
-        
-
-        expected(result).toEqual([new Consortium(mockName, mockAddress)])
+    it('consortium service get all consortium', async () => {
+        const result =  await service.getConsortiums();
+        expect(result).toEqual([new Consortium(mockName, mockAddress)])
     })
 })
