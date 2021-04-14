@@ -4,18 +4,19 @@ from flask_cors import CORS, cross_origin
 import json
 
 from src.service.consorsium_service import ConsortiumService
-from src.service.expense_service import ExpenseService
+from src.service.expense_receipt_service import ExpensesReceiptService
 
 app = Flask(__name__)
 CORS(app, suppport_credentials=True)
 
 consortium_service = ConsortiumService()
+service = ExpensesReceiptService()
 
 @app.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():
 
-    return ExpenseService.get_expense_for()
+   service.get_expense_for()
 
 @app.route('/consortiums', methods=['GET'])
 @cross_origin(support_credentials=True)
