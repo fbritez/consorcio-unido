@@ -30,6 +30,7 @@ def expenses():
 @cross_origin(support_credentials=True)
 def newExpenses():
     # remove this dependency:
+    # dummy comment
     expense_receipt = ExpensesReceiptDAO().create_model(request.json.get('newExpense'))
 
     expenses_service.udpate_expense(expense_receipt)
