@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import Mock, patch
 from unittest import mock
 from src.model.consortium import Consortium
 from src.service.consorsium_service import ConsortiumService

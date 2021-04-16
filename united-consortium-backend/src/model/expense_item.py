@@ -1,5 +1,4 @@
-
-class ExpenseItem():
+class ExpenseItem:
 
     def __init__(self, title, description, amount):
         self.title = title

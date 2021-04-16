@@ -8,9 +8,13 @@ class ExpensesReceiptTest(unittest.TestCase):
 
     def test_initialization(self):
         mock_consortium = Mock()
-        receipt = ExpensesReceipt(mock_consortium)
+        mock_consortium.get_name.return_value = 'some name'
+        receipt = ExpensesReceipt(mock_consortium, 'April', 2021)
 
         self.assertEqual(receipt.get_consortium(), mock_consortium)
+        self.assertEqual(receipt.consortium_name(), mock_consortium.get_name())
+        self.assertEqual(receipt.get_year(), 2021)
+        self.assertEqual(receipt.get_month(), 'April')
         self.assertEqual(receipt.get_expeses_items(), [])
 
     def test_total_amount(self):
@@ -23,3 +27,4 @@ class ExpensesReceiptTest(unittest.TestCase):
         receipt = ExpensesReceipt(mock_consortium, expese_items=items)
 
         self.assertEqual(receipt.get_total_amount(), 200)
+
