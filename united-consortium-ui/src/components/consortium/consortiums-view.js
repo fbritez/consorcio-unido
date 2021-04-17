@@ -6,8 +6,6 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import { Redirect } from 'react-router-dom'
 
 
-
-
 export class ConsortiumsView extends React.Component {
     constructor(props) {
         super(props);
@@ -30,10 +28,10 @@ export class ConsortiumsView extends React.Component {
     render() {
         return(
             <div className='consortiums'>
-                <CardGroup>
+                
                 {this.state.consortiums.map(consortium => {
                     return(
-                        <div onClick={() => this.viewExpenses(consortium.name) }>
+                        <div onClick={() => { debugger; this.props.setConsortium(this.props.parent, consortium) }}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src="" />
                             <Card.Body>
@@ -45,7 +43,7 @@ export class ConsortiumsView extends React.Component {
                         </Card> 
                         </div>
                     )})}
-                </CardGroup>
+                
             </div>
         )
     }

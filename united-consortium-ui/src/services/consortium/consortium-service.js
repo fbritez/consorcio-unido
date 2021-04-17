@@ -6,7 +6,11 @@ class ConsortiumService {
 
     getConsortiums = async () => {
         const consortiumsData =  await axios.get(`${SERVICE_URL}/consortiums`);
-        return consortiumsData.data.consortiums.map( data => new Consortium(data.name, data.address))
+        return consortiumsData.data.consortiums.map( data => this.createModel(data))
+    }
+
+    createModel = (data) => {
+        return new Consortium(data.name, data.address)
     }
 }
 

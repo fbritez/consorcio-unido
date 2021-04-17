@@ -1,12 +1,12 @@
 
 import './App.css';
-import { ConsortiumsView } from './components/consortium/consortiums-view';
+import { ExpensesReceiptMainView } from './components/expenses-receipt/expenses-receipt-main-view';
 
 
 function App() {
   return (
     <div className="App">
-      <ConsortiumsView/>
+      <ExpensesReceiptMainView/>
     </div>
   );
 }
