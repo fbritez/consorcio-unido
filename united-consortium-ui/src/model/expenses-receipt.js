@@ -10,6 +10,10 @@ class ExpensesReceipt{
     getTotalAmount(){
         return this.expensesItems.reduce((a, b) => a + b.amount, 0)
     }
+
+    getCurrencyAndTotalAmount(){
+        return `$${this.getTotalAmount()}`
+    }
 }
 
 export default ExpensesReceipt;

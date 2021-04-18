@@ -20,19 +20,16 @@ export class ConsortiumsView extends React.Component {
         this.setState({consortiums : consortiums });
     }
 
-    viewExpenses(name){
-        debugger
-        return <Redirect to='/target' />
-    }
-
     render() {
         return(
             <div className='consortiums'>
-                
+                Consorcios disponibles
+                <br/>
                 {this.state.consortiums.map(consortium => {
                     return(
                         <div onClick={() => { debugger; this.props.setConsortium(this.props.parent, consortium) }}>
-                        <Card style={{ width: '18rem' }}>
+                        <div >
+                        <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                             <Card.Img variant="top" src="" />
                             <Card.Body>
                                 <Card.Title>{consortium.name}</Card.Title>
@@ -41,6 +38,7 @@ export class ConsortiumsView extends React.Component {
                                 </Card.Text>  
                             </Card.Body>
                         </Card> 
+                        </div>
                         </div>
                     )})}
                 

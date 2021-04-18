@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { ExpensesReceiptMainView } from './components/expenses-receipt/main-view/expenses-receipt-main-view';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ExpensesReceiptMainView />
   </React.StrictMode>,
   document.getElementById('root')
 );
