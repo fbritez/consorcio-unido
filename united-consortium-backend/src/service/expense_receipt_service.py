@@ -12,16 +12,6 @@ class ExpensesReceiptService:
 
     def __init__(self):
         self.dao = ExpensesReceiptDAO()
-        #self.initMockData()
-
-    def initMockData(self):
-        receipt = ExpensesReceipt(Consortium('Deco Torre', 'address'),
-                                  'Abril',
-                                  2021,
-                                  expense_items=[ExpenseItem('titulo', 'description', 100),
-                                                 ExpenseItem('titulo', 'description', 100)])
-        self.dao.insert_all([receipt])
-        return receipt
 
     def get_expenses_for(self, consortium_name):
         exp = self.dao.get_all({'consortium.name': consortium_name})

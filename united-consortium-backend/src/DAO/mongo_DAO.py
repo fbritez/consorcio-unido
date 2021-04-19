@@ -13,9 +13,12 @@ class GenericDAO(object):
         client = MongoClient('localhost:27017')
         self.db = client.unitedConsortiums
 
+    def object_to_json(self, element):
+        return json.loads(json.dumps(element.__dict__, default= lambda obj: obj.__dict__ ))
+
     def insert_all(self, elements):
         for element in elements:
-            json_element = json.loads(json.dumps(element.__dict__, default= lambda obj: obj.__dict__ ))
+            json_element = self.object_to_json(element)
             self.collection().insert_one(json_element)
 
     def get_all(self, query_obj = None):
@@ -26,7 +29,8 @@ class GenericDAO(object):
         return [self.create_model(element) for element in elements]
 
     def update_all(self, query_obj, new_element):
-        self.collection().update_one(query_obj, {"$set": new_element})
+        json_element = self.object_to_json(new_element)
+        self.collection().update_one(query_obj, {"$set": json_element})
 
     def collection(self):
         pass
