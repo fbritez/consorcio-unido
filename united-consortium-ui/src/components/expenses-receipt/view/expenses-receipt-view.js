@@ -7,6 +7,10 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BsFillTrashFill, BsPencil } from 'react-icons/bs'
+
+
+
 
 export class ExpensesReceiptView extends React.Component {
 
@@ -15,21 +19,45 @@ export class ExpensesReceiptView extends React.Component {
         this.service = new ExpensesReceiptService();
         this.state = {
             expenses: [],
+            selectedItem: null,
+            selectedAction: null,
+            selectedDescription: '',
+            showExpenseCRUD: false
         }
     };
 
     async componentWillReceiveProps() {
-        
         const consortium = this.props.consortium ? this.props.consortium : ''
         const exp = await this.service.getExpensesFor(consortium);
         this.setState({ expenses: exp });
     }
 
     async _componentDidMount() {
-        
+
         const consortium = this.props.consortium ? this.props.consortium : ''
         const exp = await this.service.getExpensesFor(consortium);
         this.setState({ expenses: exp });
+    }
+
+    update = (item) => {
+        const expensesItem = this.service.createItemModel(item);
+        const updatedExpenses = this.state.expenses;
+        updatedExpenses[0].expense_items.pop(expensesItem);
+        return updatedExpenses
+    }
+
+    remove = (item, service) => {
+        const expensesItem = this.service.createItemModel(item);
+        const updatedExpenses = this.state.expenses;
+        updatedExpenses[0].expense_items.pop(expensesItem);
+        return updatedExpenses
+    }
+
+    add = (item) => {
+        const expensesItem = this.service.createItemModel(item);
+        const updatedExpenses = this.state.expenses;
+        updatedExpenses[0].expense_items.push(expensesItem);
+        return updatedExpenses
     }
 
 
@@ -62,6 +90,10 @@ export class ExpensesReceiptView extends React.Component {
                                                 </Card.Header>
                                                 <Accordion.Collapse eventKey={eventKey}>
                                                     <Card.Body >
+                                                        <div className='right'>
+                                                            <Button className='option-button' onClick={() => this.setItemAction(item, this.update, 'Modificar')}><BsPencil /></Button>
+                                                            <Button className='option-button' onClick={() => this.setItemAction(item, this.remove, 'Eliminar')}><BsFillTrashFill /></Button>
+                                                        </div>
                                                         <div className='card-details'>
                                                             {item.title}
                                                             <p>{`Descripcion: ${item.description}`}</p>
@@ -88,16 +120,23 @@ export class ExpensesReceiptView extends React.Component {
             </div>)
     }
 
-    updateExpense = async (item) => {
+    setItemAction = async (item, action, description) => {
         debugger
-        const expensesItem = this.service.createItemModel(item);
-        const updatedExpenses = this.state.expenses;
-        updatedExpenses[0].expense_items.push(expensesItem);
-        const resutl = await this.service.save(updatedExpenses[0])
-        debugger
-        this.setState({expenses: updatedExpenses})
+        this.setState({ selectedItem: item, 
+                        selectedAction: action, 
+                        selectedDescription: description, 
+                        showExpenseCRUD: true })
     }
 
+    runAction = async (item, action) => {
+        const updatedExpenses = action(item)
+        const resutl = await this.service.save(updatedExpenses[0])
+        this.setState({ expenses: updatedExpenses })
+    }
+
+    showExpensesCRUD(value) {
+        this.setState({ showExpenseCRUD: value })
+    }
     render() {
 
         return (
@@ -113,7 +152,19 @@ export class ExpensesReceiptView extends React.Component {
                         </Col>
                         <Col sm={4}>{
                             this.state.expenses.length > 0 &&
-                            <ExpenseItemView handleAddItem={(item) => this.updateExpense(item)}/>
+                            <div>
+                                <div>
+                                    <p>{' '}</p>
+                                </div>
+                                <div>
+                                    <Button onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
+                                    <ExpenseItemView item={this.state.selectedItem}
+                                        handleAction={(item) => this.runAction(item, this.state.selectedAction)}
+                                        actionDescription = {this.state.selectedDescription} 
+                                        show={this.state.showExpenseCRUD} 
+                                        showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />
+                                </div>
+                            </div>
                         }
                         </Col>
                     </Row>
