@@ -19,14 +19,14 @@ export class ExpensesReceiptView extends React.Component {
     };
 
     async componentWillReceiveProps() {
-        debugger
+        
         const consortium = this.props.consortium ? this.props.consortium : ''
         const exp = await this.service.getExpensesFor(consortium);
         this.setState({ expenses: exp });
     }
 
     async _componentDidMount() {
-        debugger
+        
         const consortium = this.props.consortium ? this.props.consortium : ''
         const exp = await this.service.getExpensesFor(consortium);
         this.setState({ expenses: exp });
@@ -50,8 +50,8 @@ export class ExpensesReceiptView extends React.Component {
                     <div>
                         {
                             <Accordion defaultActiveKey="0">
-                                {this.state.expenses[0].expensesItems?.map(item => {
-                                    let eventKey = this.state.expenses[0].expensesItems.indexOf(item) + 1;
+                                {this.state.expenses[0].expense_items?.map(item => {
+                                    let eventKey = this.state.expenses[0].expense_items.indexOf(item) + 1;
                                     return (
                                         <div className='contenedore-item'>
                                             <Card>
@@ -88,9 +88,13 @@ export class ExpensesReceiptView extends React.Component {
             </div>)
     }
 
-    updateExpense(item){
+    updateExpense = async (item) => {
+        debugger
+        const expensesItem = this.service.createItemModel(item);
         const updatedExpenses = this.state.expenses;
-        updatedExpenses.push(item);
+        updatedExpenses[0].expense_items.push(expensesItem);
+        const resutl = await this.service.save(updatedExpenses[0])
+        debugger
         this.setState({expenses: updatedExpenses})
     }
 
@@ -109,7 +113,7 @@ export class ExpensesReceiptView extends React.Component {
                         </Col>
                         <Col sm={4}>{
                             this.state.expenses.length > 0 &&
-                            <ExpenseItemView handleItem={(item) => this.updateExpense(item)}/>
+                            <ExpenseItemView handleAddItem={(item) => this.updateExpense(item)}/>
                         }
                         </Col>
                     </Row>

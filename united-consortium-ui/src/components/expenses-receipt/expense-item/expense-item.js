@@ -22,6 +22,8 @@ export class ExpensesItemView extends React.Component {
     }
 
     addExpenseItem() {
+        this.setState({showAddExpense: false})
+        this.props.handleAddItem(this.state.currentItem);
 
     }
 
@@ -31,8 +33,7 @@ export class ExpensesItemView extends React.Component {
             ...this.state.currentItem,
             ...newValue
         }
-        debugger
-        this.setState(updatedItem)
+        this.setState({currentItem: updatedItem})
     }
 
     render() {
@@ -58,30 +59,30 @@ export class ExpensesItemView extends React.Component {
                                     <label htmlFor="basic-url">Titulo</label>
                                 </div>
                                 <InputGroup className="mb-3">
-                                    <FormControl id="basic-url" aria-describedby="basic-addon3" />
+                                    <FormControl id="basic-url" aria-describedby="basic-addon3" onChange={event => this.handleChange({'title': event.target.value})}/>
                                 </InputGroup>
                                 <label htmlFor="costo">Monto/Costo</label>
                                 <InputGroup className="mb-3">
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>$</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <NumericInput className="form-control" aria-label="Monto" onChange={value => { debugger; this.handleChange({'amount': value})}}/>
+                                    <NumericInput className="form-control" aria-label="Monto" onChange={value => this.handleChange({'amount': value})}/>
                                 </InputGroup>
                                 <InputGroup>
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>Descripcion</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <FormControl as="textarea" aria-label="description" />
+                                    <FormControl as="textarea" aria-label="description" onChange={event => this.handleChange({'description': event.target.value})}/>
                                 </InputGroup>
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={() => this.handleAddExpense(false)}>
                                 Cancelar
-                                                </Button>
+                            </Button>
                             <Button variant="primary" onClick={() => this.addExpenseItem()}>
                                 Agregar
-                                                </Button>
+                            </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

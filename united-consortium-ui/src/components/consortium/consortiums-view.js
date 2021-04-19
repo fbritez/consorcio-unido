@@ -27,7 +27,7 @@ export class ConsortiumsView extends React.Component {
                 <br/>
                 {this.state.consortiums.map(consortium => {
                     return(
-                        <div onClick={() => { debugger; this.props.setConsortium(this.props.parent, consortium) }}>
+                        <div onClick={() => this.props.setConsortium(this.props.parent, consortium)}>
                         <div >
                         <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                             <Card.Img variant="top" src="" />

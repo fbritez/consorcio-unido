@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Consortium from '../../model/consortium'
-const SERVICE_URL = 'http://localhost:5000';
+import SERVICE_URL from '../utils/constants'
 
 class ConsortiumService {
 
