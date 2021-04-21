@@ -21,7 +21,7 @@ export class ExpensesReceiptView extends React.Component {
             expenses: [],
             selectedItem: null,
             selectedAction: null,
-            selectedDescription: '',
+            selectedDescription: {},
             showExpenseCRUD: false
         }
     };
@@ -121,7 +121,6 @@ export class ExpensesReceiptView extends React.Component {
     }
 
     setItemAction = async (item, action, description) => {
-        debugger
         this.setState({ selectedItem: item, 
                         selectedAction: action, 
                         selectedDescription: description, 
@@ -157,12 +156,12 @@ export class ExpensesReceiptView extends React.Component {
                                     <p>{' '}</p>
                                 </div>
                                 <div>
-                                    <Button onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
-                                    <ExpenseItemView item={this.state.selectedItem}
+                                    <Button className='add-local-button' onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
+                                    {this.state.showExpenseCRUD &&  <ExpenseItemView item={this.state.selectedItem}
                                         handleAction={(item) => this.runAction(item, this.state.selectedAction)}
                                         actionDescription = {this.state.selectedDescription} 
                                         show={this.state.showExpenseCRUD} 
-                                        showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />
+                                        showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />}
                                 </div>
                             </div>
                         }

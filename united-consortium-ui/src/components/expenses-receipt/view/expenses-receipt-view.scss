@@ -1,6 +1,4 @@
-.expenses-receipt{
-
-  }
+@import '../../utils/basic-colours.scss';
 
 .content {
   width: 100%;
@@ -27,20 +25,25 @@
   
 .total{
   margin-top: 1%;
-  background-color: chartreuse;
+  background-color: #64d37e;
 }
 
-.card-details{
+.card-details {
   padding-right: 0.5%;
   padding-left: 0.5%;
   width: 99%;
 }
 
-.amount-detail{
+.amount-detail {
   margin-bottom: 1%;
 }
 
-.option-button{
-  background-color: red;
+.option-button {
+  @extend .button;
   font-size: xx-small;
 }
+
+.add-local-button {
+  @extend .button;
+}
+

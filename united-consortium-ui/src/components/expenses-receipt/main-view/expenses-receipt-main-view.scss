@@ -1,6 +1,8 @@
+@import '../../utils/basic-colours.scss';
 
 .expenses-receipt{
-    background-color: #fee5a5;
+    @extend .background;
+    
   }
 
   .container{

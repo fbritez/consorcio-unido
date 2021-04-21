@@ -5,18 +5,18 @@ import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import NumericInput from 'react-numeric-input';
+import './expense-item.scss';
 
 export class ExpensesItemView extends React.Component {
 
     constructor(props) {
         super(props);
         const currentItem = this.props.item ? this.props.item : { title: null, description: null, amount: null }
-        const shouldDisable = this.props.actionDescription === 'Eliminar'
-        console.log(this.props.actionDescription )
-        debugger
+        
         this.state = {
             currentItem: currentItem,
-            shouldBeDisable: shouldDisable
+            description: this.props.actionDescription,
+            shouldBeDisable:(this.props.actionDescription === "Eliminar")
         }
     }
 
@@ -25,6 +25,7 @@ export class ExpensesItemView extends React.Component {
     handleExpenseItem() {
         this.props.showExpensesCRUD(false)
         this.props.handleAction(this.state.currentItem);
+        this.setState({description: null})
     }
 
 
@@ -34,6 +35,28 @@ export class ExpensesItemView extends React.Component {
             ...newValue
         }
         this.setState({ currentItem: updatedItem })
+    }
+
+    detectActionClassName(){
+        const action = this.state.description;
+        let ret;
+        switch(action){
+            case "Agregar":
+                ret = 'add-button'
+                break
+            case "Modificar":
+                ret = 'update-button'
+                break
+            case "Eliminar":
+                ret = 'remove-button'
+                break
+            default:
+                ret = 'update-button'
+        }
+
+        return ret
+
+
     }
 
     render() {
@@ -81,14 +104,15 @@ export class ExpensesItemView extends React.Component {
                                             defaultValue={this.props.item?.description}
                                             disabled={this.state.shouldBeDisable}/>
                         </InputGroup>
+                        <input type='file'/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.props.showExpensesCRUD(false)}>
                         Cancelar
                             </Button>
-                    <Button variant="primary" onClick={() => this.handleExpenseItem()}>
-                        {this.props.actionDescription}
+                    <Button className= {this.detectActionClassName()} onClick={() => {debugger; this.handleExpenseItem()}}>
+                        {this.state.description}
                             </Button>
                 </Modal.Footer>
             </Modal>

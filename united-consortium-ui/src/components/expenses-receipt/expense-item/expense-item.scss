@@ -1,0 +1,13 @@
+@import '../../utils/basic-colours.scss';
+
+.add-button {
+    background-color: #29a039;
+}
+
+.remove-button {
+    background-color: #fd624d;
+}
+
+.update-button {
+    @extend .button
+}
