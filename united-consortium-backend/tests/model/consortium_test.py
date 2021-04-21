@@ -9,7 +9,7 @@ class ConsortiumTests(unittest.TestCase):
     def test_initialization(self):
         name = 'some name'
         address = 'some address'
-        consortium = Consortium(name, address)
+        consortium = Consortium(name, address, [])
         self.assertEqual(consortium.get_name(), name)
         self.assertEqual(consortium.get_address(), address)
         self.assertEqual(consortium.get_members(), [])

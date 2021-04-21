@@ -1,7 +1,4 @@
 from src.DAO.mongo_DAO import ExpensesReceiptDAO
-from src.model.consortium import Consortium
-from src.model.expense_item import ExpenseItem
-from src.model.expeses_receipt import ExpensesReceipt
 
 
 class ExpenseReceipt(object):
@@ -10,8 +7,8 @@ class ExpenseReceipt(object):
 
 class ExpensesReceiptService:
 
-    def __init__(self):
-        self.dao = ExpensesReceiptDAO()
+    def __init__(self, dao=ExpensesReceiptDAO()):
+        self.dao = dao
 
     def get_expenses_for(self, consortium_name):
         exp = self.dao.get_all({'consortium.name': consortium_name})

@@ -24,7 +24,7 @@ class ExpensesReceiptTest(unittest.TestCase):
         mock_item_2 = Mock()
         mock_item_2.get_amount.return_value = 100
         items = [mock_item_1, mock_item_2]
-        receipt = ExpensesReceipt(mock_consortium, expese_items=items)
+        receipt = ExpensesReceipt(mock_consortium, 2021, 'April', items)
 
         self.assertEqual(receipt.get_total_amount(), 200)
 

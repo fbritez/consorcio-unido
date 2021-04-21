@@ -9,9 +9,8 @@ from src.model.expeses_receipt import ExpensesReceipt
 
 class GenericDAO(object):
 
-    def __init__(self):
-        client = MongoClient('localhost:27017')
-        self.db = client.unitedConsortiums
+    def __init__(self, db_client=MongoClient('localhost:27017') ):
+        self.db = db_client.unitedConsortiums
 
     def object_to_json(self, element):
         return json.loads(json.dumps(element.__dict__, default= lambda obj: obj.__dict__ ))
@@ -33,6 +32,9 @@ class GenericDAO(object):
         self.collection().update_one(query_obj, {"$set": json_element})
 
     def collection(self):
+        pass
+
+    def create_model(self):
         pass
 
 
