@@ -17,6 +17,7 @@ export class ExpensesReceiptView extends React.Component {
     constructor(props) {
         super(props);
         this.service = new ExpensesReceiptService();
+
         this.state = {
             expenses: [],
             selectedItem: null,
@@ -27,26 +28,31 @@ export class ExpensesReceiptView extends React.Component {
     };
 
     async componentWillReceiveProps() {
-        const consortium = this.props.consortium ? this.props.consortium : ''
-        const exp = await this.service.getExpensesFor(consortium);
-        this.setState({ expenses: exp });
+        debugger
+        const consortium = this.props.consortium
+        if (consortium){
+            const exp = await this.service.getExpensesFor(consortium);
+            this.setState({ expenses: exp });
+        } 
+        
     }
 
-    async _componentDidMount() {
-
-        const consortium = this.props.consortium ? this.props.consortium : ''
-        const exp = await this.service.getExpensesFor(consortium);
-        this.setState({ expenses: exp });
+    async componentDidMount() {
+        const consortium = this.props.consortium
+        if (consortium){
+            const exp = await this.service.getExpensesFor(consortium);
+            this.setState({ expenses: exp });
+        } 
     }
 
     update = (item) => {
         const expensesItem = this.service.createItemModel(item);
         const updatedExpenses = this.state.expenses;
-        updatedExpenses[0].expense_items.pop(expensesItem);
+        updatedExpenses[0].expense_items.fiter(item => item.equal(expensesItem));
         return updatedExpenses
     }
 
-    remove = (item, service) => {
+    remove = (item) => {
         const expensesItem = this.service.createItemModel(item);
         const updatedExpenses = this.state.expenses;
         updatedExpenses[0].expense_items.pop(expensesItem);

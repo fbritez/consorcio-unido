@@ -1,6 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ConsortiumService  from '../../services/consortium/consortium-service'
+import ConsortiumService from '../../services/consortium/consortium-service'
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import { Redirect } from 'react-router-dom'
@@ -11,37 +11,38 @@ export class ConsortiumsView extends React.Component {
         super(props);
         this.service = new ConsortiumService();
         this.state = {
-           consortiums : []
+            consortiums: []
         }
     }
 
-    async componentWillMount(){
+    async componentWillMount() {
         const consortiums = await this.service.getConsortiums();
-        this.setState({consortiums : consortiums });
+        this.setState({ consortiums: consortiums });
     }
 
     render() {
-        return(
+        return (
             <div className='consortiums'>
                 Consorcios disponibles
-                <br/>
+                <br />
                 {this.state.consortiums.map(consortium => {
-                    return(
-                        <div onClick={() => this.props.setConsortium(this.props.parent, consortium)}>
-                        <div >
-                        <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                            <Card.Img variant="top" src="" />
-                            <Card.Body>
-                                <Card.Title>{consortium.name}</Card.Title>
-                                <Card.Text>
-                                    {consortium.address}
-                                </Card.Text>  
-                            </Card.Body>
-                        </Card> 
+                    return (
+
+                        <div onClick={() => { debugger; this.props.setConsortium(consortium)}}>
+                            <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+                                <Card.Img variant="top" src="" />
+                                <Card.Body>
+                                    <Card.Title>{consortium.name}</Card.Title>
+                                    <Card.Text>
+                                        {consortium.address}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
                         </div>
-                        </div>
-                    )})}
-                
+
+                    )
+                })}
+
             </div>
         )
     }

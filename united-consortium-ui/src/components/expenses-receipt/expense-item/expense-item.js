@@ -12,7 +12,6 @@ export class ExpensesItemView extends React.Component {
     constructor(props) {
         super(props);
         const currentItem = this.props.item ? this.props.item : { title: null, description: null, amount: null }
-        
         this.state = {
             currentItem: currentItem,
             description: this.props.actionDescription,
@@ -20,14 +19,11 @@ export class ExpensesItemView extends React.Component {
         }
     }
 
-
-
     handleExpenseItem() {
         this.props.showExpensesCRUD(false)
         this.props.handleAction(this.state.currentItem);
         this.setState({description: null})
     }
-
 
     handleChange(newValue) {
         const updatedItem = {
@@ -55,8 +51,6 @@ export class ExpensesItemView extends React.Component {
         }
 
         return ret
-
-
     }
 
     render() {
@@ -104,14 +98,18 @@ export class ExpensesItemView extends React.Component {
                                             defaultValue={this.props.item?.description}
                                             disabled={this.state.shouldBeDisable}/>
                         </InputGroup>
-                        <input type='file'/>
+                        <hr/>
+                        <div>
+                            <label>Agregar comprobante</label>
+                            <input type='file' disabled={this.state.shouldBeDisable}/>
+                        </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => this.props.showExpensesCRUD(false)}>
                         Cancelar
                             </Button>
-                    <Button className= {this.detectActionClassName()} onClick={() => {debugger; this.handleExpenseItem()}}>
+                    <Button className= {this.detectActionClassName()} onClick={() => this.handleExpenseItem()}>
                         {this.state.description}
                             </Button>
                 </Modal.Footer>

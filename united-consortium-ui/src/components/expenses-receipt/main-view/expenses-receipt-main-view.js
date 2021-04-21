@@ -16,11 +16,13 @@ export class ExpensesReceiptMainView extends React.Component {
             consortium: null
         }
     }
-    setConsortium(view, selectedConsortium) {
-        view.setState({ consortium: selectedConsortium })
+    setConsortium(selectedConsortium) {
+        debugger
+        this.setState({ consortium: selectedConsortium })
     }
 
     render() {
+        debugger
         return (
             <div className='expenses-receipt'>
                 <AppliactionNavView />
@@ -29,14 +31,16 @@ export class ExpensesReceiptMainView extends React.Component {
                         <Row>
                             <Col sm={3}>{
                                 <div>
-                                    <ConsortiumsView parent={this} setConsortium={this.setConsortium} />
+                                    <ConsortiumsView setConsortium={(consortium) => this.setConsortium(consortium)} />
                                 </div>
                             }
                             </Col>
                             <Col sm={9}>{
-                                <div>
-                                    <ExpensesReceiptView consortium={this.state.consortium} />
-                                </div>
+                                
+                                    this.state.consortium &&   
+                                    <div>
+                                        <ExpensesReceiptView consortium={this.state.consortium} />
+                                    </div>
                             }
                             </Col>
                         </Row>
