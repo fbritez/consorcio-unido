@@ -36,7 +36,7 @@ export class ExpensesReceiptMainView extends React.Component {
                             }
                             </Col>
                             <Col sm={9}>{
-                                
+                                    
                                     this.state.consortium &&   
                                     <div>
                                         <ExpensesReceiptView consortium={this.state.consortium} />

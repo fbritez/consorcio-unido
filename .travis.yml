@@ -6,5 +6,5 @@ before_install:
   - pip install -U pip
   - pip install -U pytest
 install:
-  - pip install united-consortium-backend/requirements.txt
+  - pip install -r requirements.txt
 script: pytest
