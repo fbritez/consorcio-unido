@@ -30,19 +30,19 @@ export class ExpensesReceiptView extends React.Component {
     async componentWillReceiveProps() {
         debugger
         const consortium = this.props.consortium
-        if (consortium){
+        if (consortium) {
             const exp = await this.service.getExpensesFor(consortium);
             this.setState({ expenses: exp });
-        } 
-        
+        }
+
     }
 
-    async componentDidMount() {
+    async _componentDidMount() {
         const consortium = this.props.consortium
-        if (consortium){
+        if (consortium) {
             const exp = await this.service.getExpensesFor(consortium);
             this.setState({ expenses: exp });
-        } 
+        }
     }
 
     update = (item) => {
@@ -79,7 +79,9 @@ export class ExpensesReceiptView extends React.Component {
     renderDetails() {
         return (
             <div>
-                <p> {`Gastos correspondientes al mes de ${this.state.expenses[0].month} ${this.state.expenses[0].year}`}</p>
+                <div className='text-center'> 
+                    <p>{`Gastos correspondientes al mes de ${this.state.expenses[0].month} ${this.state.expenses[0].year}`}</p>
+                </div>
                 <div>
                     <div>
                         {
@@ -127,10 +129,12 @@ export class ExpensesReceiptView extends React.Component {
     }
 
     setItemAction = async (item, action, description) => {
-        this.setState({ selectedItem: item, 
-                        selectedAction: action, 
-                        selectedDescription: description, 
-                        showExpenseCRUD: true })
+        this.setState({
+            selectedItem: item,
+            selectedAction: action,
+            selectedDescription: description,
+            showExpenseCRUD: true
+        })
     }
 
     runAction = async (item, action) => {
@@ -152,7 +156,10 @@ export class ExpensesReceiptView extends React.Component {
                             {this.state.expenses.length > 0 ?
                                 this.renderDetails()
                                 :
-                                'Por favor seleccione un consorcio'
+                                <div className='text-center'>
+                                    <lable > Este consorcio no tiene expensas disponibles</lable>
+                                </div>
+
                             }
                         </Col>
                         <Col sm={4}>{
@@ -163,10 +170,10 @@ export class ExpensesReceiptView extends React.Component {
                                 </div>
                                 <div>
                                     <Button className='add-local-button' onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
-                                    {this.state.showExpenseCRUD &&  <ExpenseItemView item={this.state.selectedItem}
+                                    {this.state.showExpenseCRUD && <ExpenseItemView item={this.state.selectedItem}
                                         handleAction={(item) => this.runAction(item, this.state.selectedAction)}
-                                        actionDescription = {this.state.selectedDescription} 
-                                        show={this.state.showExpenseCRUD} 
+                                        actionDescription={this.state.selectedDescription}
+                                        show={this.state.showExpenseCRUD}
                                         showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />}
                                 </div>
                             </div>

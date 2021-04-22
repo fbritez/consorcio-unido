@@ -28,7 +28,7 @@ export class ExpensesReceiptMainView extends React.Component {
                 <AppliactionNavView />
                 <Container>
                     <div>
-                        <Row>
+                        <Row style={ {marginTop: '1%'}}>
                             <Col sm={3}>{
                                 <div>
                                     <ConsortiumsView setConsortium={(consortium) => this.setConsortium(consortium)} />
@@ -37,10 +37,15 @@ export class ExpensesReceiptMainView extends React.Component {
                             </Col>
                             <Col sm={9}>{
                                     
-                                    this.state.consortium &&   
+                                    this.state.consortium ?   
                                     <div>
                                         <ExpensesReceiptView consortium={this.state.consortium} />
                                     </div>
+                                    :
+                                    <div className='text-center'>
+                                        <lable > Por favor seleccione un consorcio</lable>
+                                    </div>
+                                   
                             }
                             </Col>
                         </Row>

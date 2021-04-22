@@ -2,8 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsortiumService from '../../services/consortium/consortium-service'
 import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import { Redirect } from 'react-router-dom'
+import { BiBuilding } from 'react-icons/bi'
 
 
 export class ConsortiumsView extends React.Component {
@@ -23,23 +22,25 @@ export class ConsortiumsView extends React.Component {
     render() {
         return (
             <div className='consortiums'>
-                Consorcios disponibles
-                <br />
+                <div className='text-center'>
+                    Consorcios disponibles
+                </div>
+                <hr />
                 {this.state.consortiums.map(consortium => {
                     return (
-
-                        <div onClick={() => { debugger; this.props.setConsortium(consortium)}}>
+                        <div  style={{display: 'flex',  justifyContent:'center'}} onClick={() => { debugger; this.props.setConsortium(consortium)}}>
                             <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                                 <Card.Img variant="top" src="" />
                                 <Card.Body>
-                                    <Card.Title>{consortium.name}</Card.Title>
+                                    <Card.Title>
+                                        {consortium.name}
+                                    </Card.Title>
                                     <Card.Text>
                                         {consortium.address}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
                         </div>
-
                     )
                 })}
 
