@@ -17,7 +17,7 @@ export class ExpensesReceiptView extends React.Component {
     constructor(props) {
         super(props);
         this.service = new ExpensesReceiptService();
-
+        this.consortium = null
         this.state = {
             expenses: [],
             selectedItem: null,
@@ -27,22 +27,17 @@ export class ExpensesReceiptView extends React.Component {
         }
     };
 
-    async componentWillReceiveProps() {
-        debugger
-        const consortium = this.props.consortium
-        if (consortium) {
-            const exp = await this.service.getExpensesFor(consortium);
-            this.setState({ expenses: exp });
-        }
 
-    }
-
-    async _componentDidMount() {
-        const consortium = this.props.consortium
-        if (consortium) {
-            const exp = await this.service.getExpensesFor(consortium);
-            this.setState({ expenses: exp });
+    async componentDidUpdate(prev) {
+        
+        if(prev.consortium !== this.props.consortium){
+            const consortium = this.props.consortium
+            if (consortium) {
+                const exp = await this.service.getExpensesFor(this.props.consortium);
+                this.setState({ expenses: exp });
+            }
         }
+     
     }
 
     update = (item) => {
@@ -146,6 +141,7 @@ export class ExpensesReceiptView extends React.Component {
     showExpensesCRUD(value) {
         this.setState({ showExpenseCRUD: value })
     }
+
     render() {
 
         return (

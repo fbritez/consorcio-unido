@@ -28,17 +28,19 @@ export class ConsortiumsView extends React.Component {
                 <hr />
                 {this.state.consortiums.map(consortium => {
                     return (
-                        <div  style={{display: 'flex',  justifyContent:'center'}} onClick={() => { debugger; this.props.setConsortium(consortium)}}>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                                 <Card.Img variant="top" src="" />
-                                <Card.Body>
-                                    <Card.Title>
-                                        {consortium.name}
-                                    </Card.Title>
-                                    <Card.Text>
-                                        {consortium.address}
-                                    </Card.Text>
-                                </Card.Body>
+                                <div onClick={() => { debugger; this.props.setConsortium(consortium) }}>
+                                    <Card.Body>
+                                        <Card.Title>
+                                            {consortium.name}
+                                        </Card.Title>
+                                        <Card.Text>
+                                            {consortium.address}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </div>
                             </Card>
                         </div>
                     )
