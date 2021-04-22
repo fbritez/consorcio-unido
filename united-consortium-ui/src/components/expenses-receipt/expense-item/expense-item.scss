@@ -2,12 +2,23 @@
 
 .add-button {
     background-color: #29a039;
+    margin-left: 3%;
+    float: right
 }
 
 .remove-button {
     background-color: #fd624d;
+    margin-left: 3%;
+    float: right;
 }
 
 .update-button {
-    @extend .button
+    @extend .button;
+    margin-left: 3%;
+    float: right
+}
+
+
+.cancel-button{
+    float: right
 }

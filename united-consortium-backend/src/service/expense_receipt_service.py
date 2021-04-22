@@ -9,6 +9,9 @@ class ExpensesReceiptService():
     def get_dao(self):
         return self.dao
 
+    def create_model(self, expense_json):
+        return self.dao.create_model(expense_json)
+
     def get_expenses_for(self, consortium_name):
         exp = self.dao.get_all({'consortium.name': consortium_name})
         return exp

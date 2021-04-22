@@ -27,12 +27,10 @@ def expenses():
 @expenses_receipt_api.route('/newExpenses', methods=['POST'])
 @cross_origin(support_credentials=True)
 def new_expenses():
-    # remove this dependency:
-    # other dummy change
     try:
         expense_receipt = service.create_model(request.json.get('updatedExpensesReceipt'))
 
-        service.udpate_expense(expense_receipt)
+        service.update_expense(expense_receipt)
     except Exception as ex:
         logging.error(ex)
 
