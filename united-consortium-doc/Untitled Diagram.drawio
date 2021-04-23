@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-23T23:01:51.677Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="uz7uyxz5A_3UiBITiHPF" version="14.6.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-23T23:02:25.337Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="jzu0ONzEOJC0a4qr7a90" version="14.6.6" type="github">
   <diagram id="DMdYSBL_EJJrb_-I5IRT" name="Page-1">
     <mxGraphModel dx="946" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -29,7 +29,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-10" value="Agregar/modificar/&lt;br&gt;eliminar" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="278" y="260" width="120" height="80" as="geometry" />
+          <mxGeometry x="277.5" y="250" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-11" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="DQ_E5rbUf5ejN1yuJWk_-2" target="DQ_E5rbUf5ejN1yuJWk_-10">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
