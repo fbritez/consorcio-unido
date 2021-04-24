@@ -4,7 +4,7 @@
 
 <div align="center"><img src="united-consortium-doc/medium-icon.png" alt="drawing" width="300"/></div>
 
-Consorcio unido es una aplicación que busca mejorar la comunicación entre la administración del consorcio y los vecinos.
+Consorcio Unido es una aplicación que busca mejorar la comunicación entre la administración del consorcio y los vecinos.
 
 La idea principal es garantizar las transparencia de cada una de las acciones que ocurran en un consorcio como ser
 
@@ -12,7 +12,7 @@ La idea principal es garantizar las transparencia de cada una de las acciones qu
 * Gastos particulares.
 * Detalles de pagos y morosidad.
 * Notificaciones generales.
-* Comunicacion directa con laadministracion.
+* Comunicacion directa con la administracion.
 
 
 ## Como lo hace?
