@@ -14,6 +14,7 @@ class ExpensesReceipt{
     getCurrencyAndTotalAmount(){
         return `$${this.getTotalAmount()}`
     }
+    
 }
 
 export default ExpensesReceipt;

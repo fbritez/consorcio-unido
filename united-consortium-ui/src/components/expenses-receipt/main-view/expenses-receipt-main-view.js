@@ -17,12 +17,10 @@ export class ExpensesReceiptMainView extends React.Component {
         }
     }
     setConsortium(selectedConsortium) {
-        debugger
         this.setState({ consortium: selectedConsortium })
     }
 
     render() {
-        debugger
         return (
             <div className='expenses-receipt'>
                 <AppliactionNavView />

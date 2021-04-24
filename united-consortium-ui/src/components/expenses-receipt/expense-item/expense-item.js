@@ -13,6 +13,7 @@ export class ExpensesItemView extends React.Component {
         const currentItem = this.props.item ? this.props.item : { title: '', description: '', amount: null }
         this.state = {
             currentItem: currentItem,
+            oldItem: currentItem,
             description: this.props.actionDescription,
             shouldBeDisable: (this.props.actionDescription === "Eliminar"),
             valid: false
@@ -20,9 +21,8 @@ export class ExpensesItemView extends React.Component {
     }
 
     handleExpenseItem() {
-        debugger
         this.props.showExpensesCRUD(false)
-        this.props.handleAction(this.state.currentItem);
+        this.props.handleAction({ newItem: this.state.currentItem, oldItem :this.state.oldItem});
         this.setState({ description: null , valid: true})
     }
 

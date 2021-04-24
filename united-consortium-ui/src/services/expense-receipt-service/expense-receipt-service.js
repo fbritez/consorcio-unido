@@ -18,7 +18,6 @@ class ExpensesReceiptService {
         try {
             const result = await axios.post(`${SERVICE_URL}/newExpenses`, {updatedExpensesReceipt: expensesReceipt});
         } catch (error) {
-            debugger
             console.log(error)
         }
     }

@@ -27,35 +27,43 @@ export class ExpensesReceiptView extends React.Component {
         }
     };
 
+    async componentDidMount(){
+        await this.getExpenses()
+    }
 
     async componentDidUpdate(prev) {
-        
-        if(prev.consortium !== this.props.consortium){
-            const consortium = this.props.consortium
-            if (consortium) {
-                const exp = await this.service.getExpensesFor(this.props.consortium);
-                this.setState({ expenses: exp });
-            }
+        if (prev.consortium !== this.props.consortium) {
+            await this.getExpenses()
         }
-     
+    }
+
+    async getExpenses() {
+        const consortium = this.props.consortium
+        if (consortium) {
+            const exp = await this.service.getExpensesFor(this.props.consortium);
+            this.setState({ expenses: exp });
+        }
     }
 
     update = (item) => {
-        const expensesItem = this.service.createItemModel(item);
+        const expensesItem = this.service.createItemModel(item.newItem);
         const updatedExpenses = this.state.expenses;
-        updatedExpenses[0].expense_items.fiter(item => item.equal(expensesItem));
+        debugger
+        const idx = updatedExpenses[0].expense_items.findIndex( i => i === item.oldItem)
+        const element = updatedExpenses[0].expense_items[idx] = expensesItem
+        debugger
         return updatedExpenses
     }
 
     remove = (item) => {
-        const expensesItem = this.service.createItemModel(item);
+        const expensesItem = this.service.createItemModel(item.newItem);
         const updatedExpenses = this.state.expenses;
         updatedExpenses[0].expense_items.pop(expensesItem);
         return updatedExpenses
     }
 
     add = (item) => {
-        const expensesItem = this.service.createItemModel(item);
+        const expensesItem = this.service.createItemModel(item.newItem);
         const updatedExpenses = this.state.expenses;
         updatedExpenses[0].expense_items.push(expensesItem);
         return updatedExpenses
@@ -74,7 +82,7 @@ export class ExpensesReceiptView extends React.Component {
     renderDetails() {
         return (
             <div>
-                <div className='text-center'> 
+                <div className='text-center'>
                     <p>{`Gastos correspondientes al mes de ${this.state.expenses[0].month} ${this.state.expenses[0].year}`}</p>
                 </div>
                 <div>
@@ -143,7 +151,6 @@ export class ExpensesReceiptView extends React.Component {
     }
 
     render() {
-
         return (
             <div className='expenses-receipt'>
                 <Container>

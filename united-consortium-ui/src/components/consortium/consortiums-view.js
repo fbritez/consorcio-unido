@@ -31,7 +31,7 @@ export class ConsortiumsView extends React.Component {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                                 <Card.Img variant="top" src="" />
-                                <div onClick={() => { debugger; this.props.setConsortium(consortium) }}>
+                                <div onClick={() => { this.props.setConsortium(consortium) }}>
                                     <Card.Body>
                                         <Card.Title>
                                             {consortium.name}
