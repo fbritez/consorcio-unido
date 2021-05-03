@@ -12,12 +12,12 @@ class ExpensesReceiptService():
     def create_model(self, expense_json):
         return self.dao.create_model(expense_json)
 
-    def get_expenses_for(self, consortium_name):
-        exp = self.dao.get_all({'consortium.name': consortium_name})
+    def get_expenses_for(self, consortium_id):
+        exp = self.dao.get_all({'consortium_id': consortium_id})
         return exp
 
     def update_expense(self, new_expense):
-        return self.dao.update_all({'consortium.name': new_expense.consortium_name(),
+        return self.dao.update_all({'consortium_id': new_expense.consortium_identifier(),
                                     'year': new_expense.get_year(),
                                     'month': new_expense.get_month()},
                                    new_expense)

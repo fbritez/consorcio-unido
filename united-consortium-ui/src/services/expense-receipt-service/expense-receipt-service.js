@@ -10,7 +10,7 @@ class ExpensesReceiptService {
         this.consortiumService = new ConsortiumService()
     }
     getExpensesFor = async (consortium) => {
-        const espensesData =  await axios.get(`${SERVICE_URL}/expenses?consortium_name=${consortium.name}`);
+        const espensesData =  await axios.get(`${SERVICE_URL}/expenses?consortium_identifier=${consortium.identifier}`);
         return espensesData.data.expenses.map( data => this.createModel(data));
     }
 
@@ -26,9 +26,9 @@ class ExpensesReceiptService {
     
 
     createModel = (data) => {
-        const consortium = this.consortiumService.createModel(data.consortium);
+       //console.log('eeeeeeeeeeeeeeeeeeeee', data)
         const items = data.expense_items.map(data => this.createItemModel(data));
-        return new ExpensesReceipt( consortium , items, data.month, data.year)
+        return new ExpensesReceipt( data.consortium_id , items, data.month, data.year)
     }
 }
 

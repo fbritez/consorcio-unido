@@ -1,7 +1,7 @@
 class ExpensesReceipt{
 
-    constructor(consortium, items, month, year){
-        this.consortium = consortium;
+    constructor(consortium_id, items, month, year){
+        this.consortium_id = consortium_id;
         this.expense_items = items;
         this.month = month;
         this.year = year;
@@ -14,7 +14,7 @@ class ExpensesReceipt{
     getCurrencyAndTotalAmount(){
         return `$${this.getTotalAmount()}`
     }
-    
+
 }
 
 export default ExpensesReceipt;

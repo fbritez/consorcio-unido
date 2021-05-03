@@ -44,7 +44,7 @@ class ConsortiumDAO(GenericDAO):
         return self.db.consortiums
 
     def create_model(self, element):
-        return Consortium(element.get('name'), element.get('address'), element.get('members'))
+        return Consortium(element.get('name'), element.get('address'), element.get('members'), element.get('id'))
 
 
 class ExpensesReceiptDAO(GenericDAO):
@@ -55,6 +55,5 @@ class ExpensesReceiptDAO(GenericDAO):
     def create_model(self, element):
         items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount')) for item in element.get('expense_items')]
 
-        consortium = ConsortiumDAO().create_model(element.get('consortium'))
-        receipt = ExpensesReceipt(consortium, element.get('month'), element.get('year'), expense_items=items)
+        receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'), expense_items=items)
         return receipt

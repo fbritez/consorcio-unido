@@ -2,17 +2,14 @@
 
 class ExpensesReceipt:
 
-    def __init__(self, consortium, month, year, expense_items=[]):
-        self.consortium = consortium
+    def __init__(self, consortium_id, month, year, expense_items=[]):
+        self.consortium_id = consortium_id
         self.month = month
         self.year = year
         self.expense_items = expense_items
 
-    def get_consortium(self):
-        return self.consortium
-
-    def consortium_name(self):
-        return self.consortium.get_name()
+    def consortium_identifier(self):
+        return self.consortium_id
 
     def get_month(self):
         return self.month

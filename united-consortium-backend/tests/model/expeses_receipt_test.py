@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from unittest.mock import Mock
 
 from src.model.expeses_receipt import ExpensesReceipt
@@ -7,12 +8,10 @@ from src.model.expeses_receipt import ExpensesReceipt
 class ExpensesReceiptTest(unittest.TestCase):
 
     def test_initialization(self):
-        mock_consortium = Mock()
-        mock_consortium.get_name.return_value = 'some name'
+        mock_consortium = uuid.uuid4()
         receipt = ExpensesReceipt(mock_consortium, 'April', 2021)
 
-        self.assertEqual(receipt.get_consortium(), mock_consortium)
-        self.assertEqual(receipt.consortium_name(), mock_consortium.get_name())
+        self.assertEqual(receipt.consortium_identifier(), mock_consortium)
         self.assertEqual(receipt.get_year(), 2021)
         self.assertEqual(receipt.get_month(), 'April')
         self.assertEqual(receipt.get_expeses_items(), [])

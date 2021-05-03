@@ -10,7 +10,7 @@ class ConsortiumService {
     }
 
     createModel = (data) => {
-        return new Consortium(data.name, data.address)
+        return new Consortium(data.name, data.address, data.id)
     }
 }
 

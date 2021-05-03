@@ -16,11 +16,11 @@ service = ExpensesReceiptService()
 @expenses_receipt_api.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():
-    consortium_name = request.args.get('consortium_name')
+    consortium_id = request.args.get('consortium_identifier')
 
     return {
         'expenses': [json_dumps(expense_receipt) for expense_receipt in
-                     service.get_expenses_for(consortium_name)]
+                     service.get_expenses_for(consortium_id)]
     }
 
 
