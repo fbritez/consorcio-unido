@@ -4,6 +4,7 @@ from unittest.mock import Mock, patch
 from src.service.expense_receipt_service import ExpensesReceiptService
 
 name = 'some name'
+identifier = 'qwertyuiop'
 address = 'some address'
 
 
@@ -22,7 +23,7 @@ class ExpenseReceiptServiceTests(unittest.TestCase):
         service = ExpensesReceiptService(mock_dao)
         expenses = service.get_expenses_for(name)
 
-        mock_dao.get_all.assert_called_once_with({'consortium.name': name})
+        mock_dao.get_all.assert_called_once_with({'consortium_id': name})
         self.assertEqual(expenses, [mock_expense])
 
     def test_update_expense(self):
@@ -31,11 +32,11 @@ class ExpenseReceiptServiceTests(unittest.TestCase):
         mock_expense = Mock()
         mock_dao = Mock()
 
-        mock_expense.consortium_name.return_value = name
+        mock_expense.consortium_identifier.return_value = identifier
         mock_expense.get_year.return_value = year_number
         mock_expense.get_month.return_value = month_string
 
-        expected_value = {'consortium.name': name,
+        expected_value = {'consortium_id': identifier,
                           'year': year_number,
                           'month': month_string}
 
