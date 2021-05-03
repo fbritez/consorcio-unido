@@ -31,7 +31,7 @@ class LoginServiceTest(unittest.TestCase):
         email = 'example@example.com'
         service.set_credentials(email, password)
 
-        mock_dao.insert_all.assert_called_with({'user_email': email, 'password': password})
+        mock_dao.insert.assert_called_with({'user_email': email, 'password': password})
 
     def test_authenticate(self):
         mock_dao = Mock()

@@ -19,9 +19,8 @@ class ConsortiumMemberTests(unittest.TestCase):
     def test_initialization(self):
         email = 'axample@domain.com'
         member_id = 'identifier'
-        user = User(email, '')
 
-        member = ConsortiumMember(user, member_id)
+        member = ConsortiumMember(email, member_id)
 
         self.assertEqual(member.get_name(), member_id)
         self.assertEqual(member.get_email(), email)
