@@ -1,6 +1,5 @@
 from src.DAO.mongo_DAO import ConsortiumDAO
 import uuid
-from src.model.consortium import Consortium
 
 
 class ConsortiumService:
@@ -8,17 +7,20 @@ class ConsortiumService:
     def __init__(self):
         self.dao = ConsortiumDAO()
 
-    def get_consortium_for(self):
-        return self.dao.get_all()
+    def get_consortium_for(self, user_identifier=None):
+        values = []
+        if user_identifier:
+            values = self.dao.get_all({'members.user_email':user_identifier})
+        else:
+            values = self.dao.get_all()
+
+        return values
 
     def save_consortium(self, consortiums):
         consortiums.set_id(uuid.uuid4())
 
-        self.dao.insert_all([consortiums])
+        self.dao.insert(consortiums)
 
     def update_consortium(self, consortium):
-        query_obj = {
-            '': ''
-        }
-        return self.dao.update_all(query_obj, consortium)
+        return self.dao.update_all({'id': consortium.get_id()}, consortium)
 

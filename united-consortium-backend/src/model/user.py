@@ -13,12 +13,12 @@ class User:
 
 class ConsortiumMember:
 
-    def __init__(self, user, member_name):
-        self.user = user
+    def __init__(self, user_email, member_name):
+        self.user_email = user_email
         self.member_name = member_name
 
     def get_email(self):
-        return self.user.get_email()
+        return self.user_email
 
     def get_name(self):
         return self.member_name

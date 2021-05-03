@@ -53,6 +53,14 @@ class GenericDAOTest(unittest.TestCase):
 
         mock_collection_access.asset_called_with(expected_json)
 
+    @patch('src.DAO.mongo_DAO.GenericDAO.insert_all')
+    def test_insert(self, mock_insert_all_method):
+        some_object = DummyObject()
+        service = GenericDAO(mock_db_client)
+        service.insert(some_object)
+
+        mock_insert_all_method.assert_called_with([some_object])
+
     @patch('src.DAO.mongo_DAO.GenericDAO.create_model')
     def test_create_model_from_collection(self, mock_create_model_function):
         some_object = DummyObject()

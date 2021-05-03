@@ -9,18 +9,21 @@ from src.model.expeses_receipt import ExpensesReceipt
 
 class GenericDAO(object):
 
-    def __init__(self, db_client=MongoClient('localhost:27017') ):
+    def __init__(self, db_client=MongoClient('localhost:27017')):
         self.db = db_client.unitedConsortiums
 
     def object_to_json(self, element):
-        return json.loads(json.dumps(element.__dict__, default= lambda obj: obj.__dict__ ))
+        return json.loads(json.dumps(element, default=lambda obj: obj.__dict__))
 
     def insert_all(self, elements):
         for element in elements:
             json_element = self.object_to_json(element)
             self.collection().insert_one(json_element)
 
-    def get_all(self, query_obj = None):
+    def insert(self, element):
+        self.insert_all([element])
+
+    def get_all(self, query_obj=None):
         elements = self.collection().find(query_obj)
         return self.create_model_from_collection(elements)
 
@@ -44,7 +47,12 @@ class ConsortiumDAO(GenericDAO):
         return self.db.consortiums
 
     def create_model(self, element):
-        return Consortium(element.get('name'), element.get('address'), element.get('members'), element.get('id'))
+        from src.model.user import ConsortiumMember
+
+        members = [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
+                   element.get('members')]
+
+        return Consortium(element.get('name'), element.get('address'), members, element.get('id'))
 
 
 class ExpensesReceiptDAO(GenericDAO):
@@ -53,7 +61,18 @@ class ExpensesReceiptDAO(GenericDAO):
         return self.db.espenses_receipts
 
     def create_model(self, element):
-        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount')) for item in element.get('expense_items')]
+        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount')) for item in
+                 element.get('expense_items')]
 
-        receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'), expense_items=items)
+        receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
+                                  expense_items=items)
         return receipt
+
+
+class LoginDAO(GenericDAO):
+
+    def collection(self):
+        return self.db.login
+
+    def create_model(self, element):
+        return element
