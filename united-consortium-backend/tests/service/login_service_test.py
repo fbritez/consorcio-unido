@@ -22,7 +22,7 @@ class LoginServiceTest(unittest.TestCase):
         service = LoginService(dao=mock_dao, consortium_service=mock_service)
 
         result = service.validate_user_email('email@example.com')
-        self.assertEqual(result, False)
+        self.assertEqual(result, True)
 
     def test_valid_user_not_first_login(self):
         mock_service = Mock()
@@ -32,7 +32,7 @@ class LoginServiceTest(unittest.TestCase):
         service = LoginService(dao=mock_dao, consortium_service=mock_service)
 
         result = service.validate_user_email('email@example.com')
-        self.assertEqual(result, True)
+        self.assertEqual(result, False)
 
     def test_set_credentials(self):
         mock_dao = Mock()
