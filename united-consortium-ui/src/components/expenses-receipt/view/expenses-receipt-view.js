@@ -48,10 +48,8 @@ export class ExpensesReceiptView extends React.Component {
     update = (item) => {
         const expensesItem = this.service.createItemModel(item.newItem);
         const updatedExpenses = this.state.expenses;
-        debugger
         const idx = updatedExpenses[0].expense_items.findIndex( i => i === item.oldItem)
         const element = updatedExpenses[0].expense_items[idx] = expensesItem
-        debugger
         return updatedExpenses
     }
 

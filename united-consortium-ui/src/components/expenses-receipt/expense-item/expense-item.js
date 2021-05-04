@@ -1,50 +1,49 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import './expense-item.scss';
 
-export class ExpensesItemView extends React.Component {
+const ExpensesItemView = (props) => {
 
-    constructor(props) {
-        super(props);
-        const currentItem = this.props.item ? this.props.item : { title: '', description: '', amount: null }
-        this.state = {
-            currentItem: currentItem,
-            oldItem: currentItem,
-            description: this.props.actionDescription,
-            shouldBeDisable: (this.props.actionDescription === "Eliminar"),
-            valid: false
-        }
+    const item = props.item ? props.item : { title: '', description: '', amount: null }
+    const shouldBeDisable = (props.actionDescription === "Eliminar")
+
+    const [currentItem, setCurrentItem] = useState(item)
+    const [oldItem, setOldItem] = useState(item)
+    const [valid, setValid] = useState(false)
+    const [description, setDescription] = useState(props.actionDescription)
+
+    const handleExpenseItem = () => {
+        props.showExpensesCRUD(false)
+        props.handleAction({ newItem: currentItem, oldItem: oldItem });
+        setDescription(null)
+        setValid(true)
     }
 
-    handleExpenseItem() {
-        this.props.showExpensesCRUD(false)
-        this.props.handleAction({ newItem: this.state.currentItem, oldItem :this.state.oldItem});
-        this.setState({ description: null , valid: true})
-    }
-
-    handleChange(newValue) {
+    const handleChange = (newValue) => {
         const updatedItem = {
-            ...this.state.currentItem,
+            ...currentItem,
             ...newValue
         }
-        this.setState({ currentItem: updatedItem })
+        setCurrentItem(updatedItem)
     }
 
-    handleSubmit(event) {
+    const handleSubmit = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        this.handleExpenseItem()
+        handleExpenseItem()
     };
 
-    detectActionClassName() {
-        const action = this.state.description;
+    const handleClose = () => {}
+
+    const detectActionClassName = () => {
+        const action = description;
         let ret;
         switch (action) {
             case "Agregar":
@@ -63,78 +62,76 @@ export class ExpensesItemView extends React.Component {
         return ret
     }
 
-    render() {
-        return (
-            <Modal show={this.props.show} onHide={this.handleCloseAddExpense}>
-                <Modal.Header closeButton onClick={() => this.props.showExpensesCRUD(false)}>
-                    <Modal.Title>Agregar nuevo gasto</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+    return (
+        <Modal show={props.show} onHide={handleClose}>
+            <Modal.Header closeButton onClick={() => props.showExpensesCRUD(false)}>
+                <Modal.Title>Agregar nuevo gasto</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div>
                     <div>
-                        <div>
-                            <label htmlFor="basic-url">Agregue detalles del gasto</label>
-                        </div>
-                        <Form noValidate validated={this.state.valid} onSubmit={(event) => this.handleSubmit(event)}>
+                        <label htmlFor="basic-url">Agregue detalles del gasto</label>
+                    </div>
+                    <Form noValidate validated={valid} onSubmit={(event) => handleSubmit(event)}>
 
-                            <Form.Group controlId="validateTitle">
-                                <Form.Label>Titulo</Form.Label>
-                                <Form.Control
-                                    id="basic-title"
-                                    aria-describedby="basic-addon3"
-                                    required
-                                    onChange={event => this.handleChange({ 'title': event.target.value })}
-                                    defaultValue={this.props.item?.title}
-                                    disabled={this.state.shouldBeDisable} />
-                                <Form.Control.Feedback type="invalid">
-                                    Por favor defina un titulo
+                        <Form.Group controlId="validateTitle">
+                            <Form.Label>Titulo</Form.Label>
+                            <Form.Control
+                                id="basic-title"
+                                aria-describedby="basic-addon3"
+                                required
+                                onChange={event => handleChange({ 'title': event.target.value })}
+                                defaultValue={props.item?.title}
+                                disabled={shouldBeDisable} />
+                            <Form.Control.Feedback type="invalid">
+                                Por favor defina un titulo
                                     </Form.Control.Feedback>
-                            </Form.Group>
-                            <Form.Group controlId="validateAmount">
-                                <Form.Label>Monto</Form.Label>
-                                <Form.Control className="form-control"
-                                    aria-label="Monto"
-                                    type="number"
-                                    required
-                                    onChange={event => this.handleChange({ 'amount': parseFloat(event.target.value) })}
-                                    defaultValue={this.props.item?.amount}
-                                    disabled={this.state.shouldBeDisable}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Por favor defina un monto
+                        </Form.Group>
+                        <Form.Group controlId="validateAmount">
+                            <Form.Label>Monto</Form.Label>
+                            <Form.Control className="form-control"
+                                aria-label="Monto"
+                                type="number"
+                                required
+                                onChange={event => handleChange({ 'amount': parseFloat(event.target.value) })}
+                                defaultValue={props.item?.amount}
+                                disabled={shouldBeDisable}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Por favor defina un monto
                                 </Form.Control.Feedback>
 
+                        </Form.Group>
+                        <Form.Group controlId="validateDescription">
+                            <Form.Label>{'Descripción'}</Form.Label>
+                            <FormControl as="textarea"
+                                aria-label="description"
+                                onChange={event => handleChange({ 'description': event.target.value })}
+                                defaultValue={props.item?.description}
+                                disabled={shouldBeDisable} />
+                        </Form.Group>
+                        <Form.Row>
+                            <Form.Group controlId="validateTicket">
+                                <Form.Label>Agregar comprobante</Form.Label>
+                                <div>
+                                    <input type='file' disabled={shouldBeDisable} />
+                                </div>
                             </Form.Group>
-                            <Form.Group controlId="validateDescription">
-                                <Form.Label>{'Descripción'}</Form.Label>
-                                <FormControl as="textarea"
-                                    aria-label="description"
-                                    onChange={event => this.handleChange({ 'description': event.target.value })}
-                                    defaultValue={this.props.item?.description}
-                                    disabled={this.state.shouldBeDisable} />
-                            </Form.Group>
-                            <Form.Row>
-                                <Form.Group controlId="validateTicket">
-                                    <Form.Label>Agregar comprobante</Form.Label>
-                                    <div>
-                                        <input type='file' disabled={this.state.shouldBeDisable} />
-                                    </div>
-                                </Form.Group>
-                            </Form.Row>
-                            <hr />
-                            <div className='buttons'>
-                                <Button className={this.detectActionClassName()} type="submit">
-                                    {this.state.description}
-                                </Button>
-                                <Button variant="secondary" className={'cancel-button'} onClick={() => this.props.showExpensesCRUD(false)}>
-                                    Cancelar
+                        </Form.Row>
+                        <hr />
+                        <div className='buttons'>
+                            <Button className={detectActionClassName()} type="submit">
+                                {description}
                             </Button>
-                            </div>
-                        </Form>
-                    </div>
-                </Modal.Body>
-            </Modal>
-        )
-    }
+                            <Button variant="secondary" className={'cancel-button'} onClick={() => props.showExpensesCRUD(false)}>
+                                Cancelar
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+            </Modal.Body>
+        </Modal>
+    )
 
 }
 

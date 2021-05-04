@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsortiumService from '../../services/consortium/consortium-service'
 import Card from 'react-bootstrap/Card';
-import { BiBuilding } from 'react-icons/bi'
+
 
 const service = new ConsortiumService();
 
@@ -13,8 +13,7 @@ const ConsortiumsView = (props) => {
     useEffect(async () => {
         const consortiums = await service.getConsortiums();
         setConsortiums(consortiums)
-    });
-
+    }, []);
 
     return (
         <div className='consortiums'>

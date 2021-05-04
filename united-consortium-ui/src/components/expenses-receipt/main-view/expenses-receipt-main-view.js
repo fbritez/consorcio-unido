@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import ConsortiumsView from '../../consortium/consortiums-view';
 import { ExpensesReceiptView } from '../view/expenses-receipt-view';
 import AppliactionNavView from '../../application-nav/application-nav-view';
@@ -8,49 +7,38 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
-export class ExpensesReceiptMainView extends React.Component {
+const ExpensesReceiptMainView = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            consortium: null
-        }
-    }
-    setConsortium(selectedConsortium) {
-        this.setState({ consortium: selectedConsortium })
-    }
+    const [consortium, setConsortium] = useState(undefined);
 
-    render() {
-        return (
-            <div className='expenses-receipt'>
-                <AppliactionNavView />
-                <Container>
-                    <div>
-                        <Row style={ {marginTop: '1%'}}>
-                            <Col sm={3}>{
+    return (
+        <div className='expenses-receipt'>
+            <AppliactionNavView />
+            <Container>
+                <div>
+                    <Row style={{ marginTop: '1%' }}>
+                        <Col sm={3}>{
+                            <div>
+                                <ConsortiumsView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} />
+                            </div>
+                        }
+                        </Col>
+                        <Col sm={9}>{
+                            consortium ?
                                 <div>
-                                    <ConsortiumsView setConsortium={(consortium) => this.setConsortium(consortium)} />
+                                    <ExpensesReceiptView consortium={consortium} />
+                                </div>
+                                :
+                                <div className='text-center'>
+                                    <lable > Por favor seleccione un consorcio</lable>
                                 </div>
                             }
-                            </Col>
-                            <Col sm={9}>{
-                                    
-                                    this.state.consortium ?   
-                                    <div>
-                                        <ExpensesReceiptView consortium={this.state.consortium} />
-                                    </div>
-                                    :
-                                    <div className='text-center'>
-                                        <lable > Por favor seleccione un consorcio</lable>
-                                    </div>
-                                   
-                            }
-                            </Col>
-                        </Row>
-                    </div>
-                </Container>
-            </div >
-        )
-    }
-
+                        </Col>
+                    </Row>
+                </div>
+            </Container>
+        </div >
+    )
 }
+
+export default ExpensesReceiptMainView
