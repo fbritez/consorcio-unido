@@ -58,8 +58,8 @@ function Login() {
     return (
         <div className='login-background'>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Card className='main-card'>
-                    <Card.Img variant="top" src={logo} />
+                <Card className='my-card' style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+                    <Card.Img variant="top" src={logo} width='50'/>
                     <div>
                         <Card.Body>
                             <Card.Title>

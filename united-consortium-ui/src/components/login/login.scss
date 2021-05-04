@@ -10,9 +10,7 @@
     float: right
 }
 
-.main-card {
+.my-card {
     @extend .background;
-    width: '18rem';
-    margin-top: '10px';
-    text-align: 'center';
+
 }
