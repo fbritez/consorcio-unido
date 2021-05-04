@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import logo from '../../images/medium-icon.png';
 import LoginService from '../../services/login/login-service';
 import Alert from 'react-bootstrap/Alert';
+import { Redirect } from 'react-router-dom';
 
 const service = new LoginService()
 
@@ -40,8 +41,8 @@ function Login() {
 
     const authenticate = async () => {
         const result = await service.authenticate(email, password);
-        debugger
-        setInvalidPassword(!result)
+        setInvalidPassword(!result);
+        window.location.href = '/expenses'
     }
 
     const clean = () =>{

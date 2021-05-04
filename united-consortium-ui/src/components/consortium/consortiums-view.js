@@ -1,52 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsortiumService from '../../services/consortium/consortium-service'
 import Card from 'react-bootstrap/Card';
 import { BiBuilding } from 'react-icons/bi'
 
+const service = new ConsortiumService();
 
-export class ConsortiumsView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.service = new ConsortiumService();
-        this.state = {
-            consortiums: []
-        }
-    }
+const ConsortiumsView = (props) => {
 
-    async componentWillMount() {
-        const consortiums = await this.service.getConsortiums();
-        this.setState({ consortiums: consortiums });
-    }
+    const [consortiums, setConsortiums] = useState();
 
-    render() {
-        return (
-            <div className='consortiums'>
-                <div className='text-center'>
-                    Consorcios disponibles
+    useEffect(async () => {
+        const consortiums = await service.getConsortiums();
+        setConsortiums(consortiums)
+    });
+
+
+    return (
+        <div className='consortiums'>
+            <div className='text-center'>
+                Consorcios disponibles
                 </div>
-                <hr />
-                {this.state.consortiums.map(consortium => {
-                    return (
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                                <Card.Img variant="top" src="" />
-                                <div onClick={() => { this.props.setConsortium(consortium) }}>
-                                    <Card.Body>
-                                        <Card.Title>
-                                            {consortium.name}
-                                        </Card.Title>
-                                        <Card.Text>
-                                            {consortium.address}
-                                        </Card.Text>
-                                    </Card.Body>
-                                </div>
-                            </Card>
-                        </div>
-                    )
-                })}
+            <hr />
+            {consortiums?.map(consortium => {
+                return (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+                            <Card.Img variant="top" src="" />
+                            <div onClick={() => { props.setConsortium(consortium) }}>
+                                <Card.Body>
+                                    <Card.Title>
+                                        {consortium.name}
+                                    </Card.Title>
+                                    <Card.Text>
+                                        {consortium.address}
+                                    </Card.Text>
+                                </Card.Body>
+                            </div>
+                        </Card>
+                    </div>
+                )
+            })}
 
-            </div>
-        )
-    }
+        </div>
+    )
+
 }
+
+export default ConsortiumsView

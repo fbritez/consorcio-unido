@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { ConsortiumsView } from '../../consortium/consortiums-view';
+import ConsortiumsView from '../../consortium/consortiums-view';
 import { ExpensesReceiptView } from '../view/expenses-receipt-view';
-import { AppliactionNavView } from '../../application-nav/application-nav-view';
+import AppliactionNavView from '../../application-nav/application-nav-view';
 import './expenses-receipt-main-view.scss';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';

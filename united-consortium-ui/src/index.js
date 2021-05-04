@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { ExpensesReceiptMainView } from './components/expenses-receipt/main-view/expenses-receipt-main-view';
-import  Login  from './components/login/login'
+import Main from './components/main/main-view'
+
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Login />
+    <Main />
   </React.StrictMode>,
   document.getElementById('root')
 );
