@@ -16,10 +16,10 @@ class LoginService:
         else:
             raise Exception('Invalid User')
 
-        return result
+        return not bool(result)
 
     def set_credentials(self, email, password):
         self.dao.insert({'user_email': email, 'password': password})
 
     def authenticate(self, email, password):
-        return self.dao.get_all({'user_email': email, 'password': password})
+        return bool(self.dao.get_all({'user_email': email, 'password': password}))

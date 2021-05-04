@@ -26,7 +26,6 @@ class ExpensesReceiptService {
     
 
     createModel = (data) => {
-       //console.log('eeeeeeeeeeeeeeeeeeeee', data)
         const items = data.expense_items.map(data => this.createItemModel(data));
         return new ExpensesReceipt( data.consortium_id , items, data.month, data.year)
     }

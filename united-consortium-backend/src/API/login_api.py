@@ -26,8 +26,8 @@ def validate_user_email():
 @cross_origin(support_credentials=True)
 def set_credentials():
     try:
-        user_email = request.args.get('user_email')
-        password = request.args.get('password')
+        user_email = request.json.get('user_email')
+        password = request.json.get('password')
 
         service.set_credentials(user_email, password)
     except:
@@ -39,8 +39,8 @@ def set_credentials():
 @cross_origin(support_credentials=True)
 def authenticate():
 
-    user_email = request.args.get('user_email')
-    password = request.args.get('password')
+    user_email = request.json.get('user_email')
+    password = request.json.get('password')
 
     result = service.authenticate(user_email, password)
 
