@@ -6,11 +6,12 @@ import './expenses-receipt-main-view.scss';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
+import userService from '../../../services/user-service/user-service';
 
 const ExpensesReceiptMainView = (props) => {
 
     const [consortium, setConsortium] = useState(undefined);
-
+    
     return (
         <div className='expenses-receipt'>
             <AppliactionNavView />

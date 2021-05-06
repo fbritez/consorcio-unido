@@ -5,8 +5,13 @@ import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import './expense-item.scss';
+import userService from '../../../services/user-service/user-service'
 
 const ExpensesItemView = (props) => {
+
+    const user = userService.getLoggedUser();
+
+    debugger
 
     const item = props.item ? props.item : { title: '', description: '', amount: null }
     const shouldBeDisable = (props.actionDescription === "Eliminar")

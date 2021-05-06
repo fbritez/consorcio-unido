@@ -1,13 +1,17 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from src.DAO.mongo_DAO import ConsortiumDAO, GenericDAO
+from src.DAO.mongo_DAO import ConsortiumDAO, GenericDAO, LoginDAO, UserDAO, ExpensesReceiptDAO
 from src.model.consortium import Consortium
+from src.model.expeses_receipt import ExpensesReceipt
+from src.model.user import User
 
 name = 'some name'
 address = 'some address'
+email = 'some@email.com'
 
 mock_db_client = Mock()
+
 
 class DummyObject:
 
@@ -16,21 +20,22 @@ class DummyObject:
         self.integer_value = 12345
         self.list_value = [1, 'string', 1.5, "string"]
         self.dict_value = {
-                            'string':'string',
-                            'number': 1,
-                            'list' : ['string, 1'],
-                            'dict': { 'value' : 'value'}
-                            }
+            'string': 'string',
+            'number': 1,
+            'list': ['string, 1'],
+            'dict': {'value': 'value'}
+        }
 
     def json(self):
         return {'dict_value': {'dict': {'value': 'value'},
-                'list': ['string, 1'],
-                'number': 1,
-                'string': 'string'},
+                               'list': ['string, 1'],
+                               'number': 1,
+                               'string': 'string'},
                 'integer_value': 12345,
                 'list_value': [1, 'string', 1.5, 'string'],
                 'string_value': 'String'
                 }
+
 
 class GenericDAOTest(unittest.TestCase):
 
@@ -42,7 +47,6 @@ class GenericDAOTest(unittest.TestCase):
         json = service.object_to_json(some_object)
 
         self.assertEqual(json, expected_json)
-
 
     @patch('src.DAO.mongo_DAO.GenericDAO.collection')
     def test_insert_all(self, mock_collection_access):
@@ -82,8 +86,6 @@ class GenericDAOTest(unittest.TestCase):
         mock_collection_access.update_one.asset_called_with(query_dict, {"$set": expectedJson})
 
 
-
-
 class ConsortiumDAOTest(unittest.TestCase):
 
     def test_create_Model(self):
@@ -92,3 +94,39 @@ class ConsortiumDAOTest(unittest.TestCase):
         model_obj = service.create_model(element)
 
         self.assertEqual(model_obj, Consortium(name, address))
+
+
+class ExpensesReceiptDAOTest(unittest.TestCase):
+
+    def test_create_Model(self):
+        month = 'Abril'
+        year = 2021
+        service = ExpensesReceiptDAO()
+        element = {'consortium_id': name, 'month': month, 'year' : year, 'expense_items': []}
+
+        receipt = ExpensesReceipt(name, month, year)
+
+        model_obj = service.create_model(element)
+
+        self.assertEqual(model_obj, receipt)
+
+
+class LoginDao(unittest.TestCase):
+
+    def test_create_Model(self):
+        service = LoginDAO()
+        element = {'name': name, 'address': address, 'members': []}
+
+        model_obj = service.create_model(element)
+
+        self.assertEqual(model_obj, element)
+
+
+class UserDao(unittest.TestCase):
+
+    def test_create_Model(self):
+        service = UserDAO()
+        element = {'name': name, 'email': email}
+        model_obj = service.create_model(element)
+
+        self.assertEqual(model_obj, User(email, name))

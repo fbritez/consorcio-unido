@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ConsortiumService from '../../services/consortium/consortium-service'
+import ConsortiumService from '../../services/consortium-service/consortium-service';
 import Card from 'react-bootstrap/Card';
 
 

@@ -5,6 +5,7 @@ from pymongo import MongoClient
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt
+from src.model.user import User
 
 
 class GenericDAO(object):
@@ -76,3 +77,12 @@ class LoginDAO(GenericDAO):
 
     def create_model(self, element):
         return element
+
+
+class UserDAO(GenericDAO):
+
+    def collection(self):
+        return self.db.users
+
+    def create_model(self, element):
+        return User(element.get('email'), element.get('name'))

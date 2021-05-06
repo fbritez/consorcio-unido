@@ -32,8 +32,6 @@ class LoginService {
         }catch{
             result = {data: {success: false}}
         }
-            
-        debugger
         return result.data.success
     }
 }

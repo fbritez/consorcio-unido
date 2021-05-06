@@ -1,7 +1,7 @@
 import axios from 'axios';
 import ExpensesReceipt from '../../model/expenses-receipt';
 import ExpenseReceiptitem from '../../model/expense-receipt-item';
-import ConsortiumService from '../consortium/consortium-service';
+import ConsortiumService from '../consortium-service/consortium-service';
 import SERVICE_URL from '../utils/constants'
 
 class ExpensesReceiptService {

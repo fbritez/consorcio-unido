@@ -8,6 +8,9 @@ class ExpensesReceipt:
         self.year = year
         self.expense_items = expense_items
 
+    def __eq__(self, obj):
+        return isinstance(obj, ExpensesReceipt) and obj.consortium_id == self.consortium_id and obj.month == self.month and obj.year == self.year
+
     def consortium_identifier(self):
         return self.consortium_id
 

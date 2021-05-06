@@ -1,4 +1,4 @@
-import Login from '../login/login';
+import Login from '../login/login-view';
 import ExpensesReceiptMainView from '../expenses-receipt/main-view/expenses-receipt-main-view';
 
 import React from "react";

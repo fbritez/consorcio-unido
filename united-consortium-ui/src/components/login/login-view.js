@@ -4,11 +4,12 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import logo from '../../images/medium-icon.png';
-import LoginService from '../../services/login/login-service';
+import LoginService from '../../services/login-service/login-service';
 import Alert from 'react-bootstrap/Alert';
-import { Redirect } from 'react-router-dom';
+import userService  from '../../services/user-service/user-service'
 
 const service = new LoginService()
+
 
 function Login() {
 
@@ -36,12 +37,16 @@ function Login() {
         } else {
             setInvalidPassword(true);
         }
-
     }
 
     const authenticate = async () => {
         const result = await service.authenticate(email, password);
         setInvalidPassword(!result);
+    }
+
+    const processAuthentication = async () => {
+        await authenticate()
+        await userService.setUser(email)
         window.location.href = '/expenses'
     }
 
@@ -122,7 +127,7 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' onClick={() => authenticate()}>
+                                        <Button className='update-button' onClick={() => processAuthentication()}>
                                             Login
                                         </Button>
                                         <Button variant="secondary" className='cancel-button' onClick={() => clean()}>

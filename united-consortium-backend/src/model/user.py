@@ -1,4 +1,3 @@
-
 class User:
 
     def __init__(self, email, name):
@@ -10,6 +9,9 @@ class User:
 
     def get_name(self):
         return self.name
+
+    def __eq__(self, obj):
+        return isinstance(obj, User) and obj.name == self.name and obj.email == self.email
 
 class ConsortiumMember:
 
