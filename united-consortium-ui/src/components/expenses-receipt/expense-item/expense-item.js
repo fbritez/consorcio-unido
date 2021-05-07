@@ -5,25 +5,23 @@ import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import './expense-item.scss';
-import userService from '../../../services/user-service/user-service'
+
 
 const ExpensesItemView = (props) => {
 
-    const user = userService.getLoggedUser();
-
-    debugger
-
-    const item = props.item ? props.item : { title: '', description: '', amount: null }
+    const item = props.item ? props.item : { title: '', description: '', amount: null, ticket: null }
     const shouldBeDisable = (props.actionDescription === "Eliminar")
 
     const [currentItem, setCurrentItem] = useState(item)
     const [oldItem, setOldItem] = useState(item)
     const [valid, setValid] = useState(false)
     const [description, setDescription] = useState(props.actionDescription)
+    const [selectedFile, setSelectedFile] = useState()
 
     const handleExpenseItem = () => {
+        debugger
         props.showExpensesCRUD(false)
-        props.handleAction({ newItem: currentItem, oldItem: oldItem });
+        props.handleAction({ newItem: { item: currentItem, updatedFile: selectedFile }, oldItem: oldItem });
         setDescription(null)
         setValid(true)
     }
@@ -45,7 +43,11 @@ const ExpensesItemView = (props) => {
         handleExpenseItem()
     };
 
-    const handleClose = () => {}
+    const getTicketName = (ticketName) => {
+        return ticketName? ticketName.split('/')[1] : ''
+    }
+
+    const handleClose = () => { }
 
     const detectActionClassName = () => {
         const action = description;
@@ -65,6 +67,18 @@ const ExpensesItemView = (props) => {
         }
 
         return ret
+    }
+
+    const onFileChange = (event) => {
+        const filename = event.target.files[0]
+        const name = generateName(filename.name)
+        const file = { filename: filename, name: name }
+        setSelectedFile(file)
+        handleChange({ ticket: name });
+    }
+
+    const generateName = (filename) => {
+        return `${new Date().getTime()}/${filename}`
     }
 
     return (
@@ -115,11 +129,17 @@ const ExpensesItemView = (props) => {
                                 defaultValue={props.item?.description}
                                 disabled={shouldBeDisable} />
                         </Form.Group>
+                        <hr />
                         <Form.Row>
                             <Form.Group controlId="validateTicket">
-                                <Form.Label>Agregar comprobante</Form.Label>
+                                <Form.Label>Comprobante</Form.Label>
                                 <div>
-                                    <input type='file' disabled={shouldBeDisable} />
+                                    <p>
+                                        {`Archivo actual: ${getTicketName(currentItem.ticket)}`}
+                                    </p>
+                                </div>
+                                <div>
+                                    <input type='file' onChange={onFileChange} disabled={shouldBeDisable} />
                                 </div>
                             </Form.Group>
                         </Form.Row>

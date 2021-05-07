@@ -10,7 +10,8 @@ class ConsortiumService:
     def get_consortium_for(self, user_identifier=None):
         values = []
         if user_identifier:
-            values = self.dao.get_all({'members.user_email':user_identifier})
+            query_obj = {'$or': [{'members.user_email' : user_identifier}, {'administrators' : user_identifier}]}
+            values = self.dao.get_all(query_obj)
         else:
             values = self.dao.get_all()
 

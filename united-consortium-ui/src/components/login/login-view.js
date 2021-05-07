@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../user-provider/user-provider';
 import './login.scss'
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +11,12 @@ import userService  from '../../services/user-service/user-service'
 
 const service = new LoginService()
 
+const RedirectToMain = async (email) => {
+    const { user, setUser } = useContext(UserContext);
+    const loggedUser = userService.getUser(email);
+    setUser(loggedUser);
+    window.location.href = '/expenses'
+}
 
 function Login() {
 
@@ -34,6 +41,7 @@ function Login() {
     const setCredentials = () => {
         if (password === confirmPassword) {
             service.setCredentials(email, password);
+            RedirectToMain(email)
         } else {
             setInvalidPassword(true);
         }
@@ -46,11 +54,10 @@ function Login() {
 
     const processAuthentication = async () => {
         await authenticate()
-        await userService.setUser(email)
-        window.location.href = '/expenses'
+        RedirectToMain(email)
     }
 
-    const clean = () =>{
+    const clean = () => {
         setValidEmail(false);
         setFirstLogin(false);
         setLoaded(false);

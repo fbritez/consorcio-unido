@@ -6,6 +6,7 @@ from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt
 from src.model.user import User
+import gridfs
 
 
 class GenericDAO(object):
@@ -53,7 +54,9 @@ class ConsortiumDAO(GenericDAO):
         members = [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
                    element.get('members')]
 
-        return Consortium(element.get('name'), element.get('address'), members, element.get('id'))
+        administrators = [adm for adm in element.get('administrators')]
+
+        return Consortium(element.get('name'), element.get('address'), members, administrators, element.get('id'))
 
 
 class ExpensesReceiptDAO(GenericDAO):
@@ -62,7 +65,8 @@ class ExpensesReceiptDAO(GenericDAO):
         return self.db.espenses_receipts
 
     def create_model(self, element):
-        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount')) for item in
+        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount'), item.get('ticket')) for
+                 item in
                  element.get('expense_items')]
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
@@ -86,3 +90,17 @@ class UserDAO(GenericDAO):
 
     def create_model(self, element):
         return User(element.get('email'), element.get('name'))
+
+
+class ImageDAO(GenericDAO):
+
+    def store(self, file_id, file):
+        fs = gridfs.GridFS(self.db)
+        fs.put(file.read(), filename=file_id)
+
+    def read(self, file_id):
+        fs = gridfs.GridFS(self.db)
+        file = fs.find_one({'filename': file_id})
+
+        return file.read()
+

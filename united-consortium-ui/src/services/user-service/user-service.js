@@ -10,11 +10,9 @@ class UserService {
     }
 
 
-    async setUser(email) {
+    async getUser(email) {
         const user = await this.getUserData(email);
-        debugger
-        this.user = user
-        debugger
+        return user
     }
 
     getLoggedUser() {

@@ -1,10 +1,11 @@
 
 class Consortium(object):
 
-    def __init__(self, name, address, members=[], identifier=None):
+    def __init__(self, name, address, members=[], administrators=[], identifier=None):
         self.name = name
         self.address = address
         self.members = members
+        self.administrators = administrators
         self.id = identifier
 
     def __eq__(self, obj):
@@ -27,4 +28,7 @@ class Consortium(object):
 
     def get_members(self):
         return self.members
+
+    def get_administrators(self):
+        return self.administrators
 

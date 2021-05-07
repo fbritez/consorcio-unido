@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ConsortiumsView from '../../consortium/consortiums-view';
 import { ExpensesReceiptView } from '../view/expenses-receipt-view';
 import AppliactionNavView from '../../application-nav/application-nav-view';
@@ -6,12 +6,14 @@ import './expenses-receipt-main-view.scss';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
-import userService from '../../../services/user-service/user-service';
+import { UserContext } from '../../user-provider/user-provider';
 
 const ExpensesReceiptMainView = (props) => {
 
     const [consortium, setConsortium] = useState(undefined);
-    
+
+    const { user, setUser } = useContext(UserContext);
+
     return (
         <div className='expenses-receipt'>
             <AppliactionNavView />

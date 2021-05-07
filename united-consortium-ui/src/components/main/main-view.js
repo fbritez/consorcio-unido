@@ -1,4 +1,5 @@
 import Login from '../login/login-view';
+import { UserContextProvider } from '../user-provider/user-provider';
 import ExpensesReceiptMainView from '../expenses-receipt/main-view/expenses-receipt-main-view';
 
 import React from "react";
@@ -12,7 +13,8 @@ import {
 const Main = () => {
 
     return (
-        <Router>
+        <UserContextProvider>
+            <Router>
                 <Switch>
                     <Route path="/adm-expenses">
                         <ExpensesReceiptMainView />
@@ -24,7 +26,9 @@ const Main = () => {
                         <Login />
                     </Route>
                 </Switch>
-        </Router>
+            </Router>
+        </UserContextProvider>
+
     )
 }
 

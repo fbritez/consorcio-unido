@@ -12,7 +12,6 @@ CORS(expenses_receipt_api, suppport_credentials=True)
 
 service = ExpensesReceiptService()
 
-
 @expenses_receipt_api.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():

@@ -1,16 +1,21 @@
 import React from 'react';
 import './expenses-receipt-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
+import ImageService from '../../../services/image-service/image-service'
 import ExpenseItemView from '../expense-item/expense-item'
 import { Card, Accordion, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsFillTrashFill, BsPencil } from 'react-icons/bs'
+import { BsFillTrashFill, BsPencil, BsFileEarmarkArrowDown } from 'react-icons/bs'
 
 
-
+const downloadTicket = (file_id) => {
+    const service = new ImageService();
+    debugger
+    service.downloadImage(file_id)
+}
 
 export class ExpensesReceiptView extends React.Component {
 
@@ -27,7 +32,7 @@ export class ExpensesReceiptView extends React.Component {
         }
     };
 
-    async componentDidMount(){
+    async componentDidMount() {
         await this.getExpenses()
     }
 
@@ -46,25 +51,25 @@ export class ExpensesReceiptView extends React.Component {
     }
 
     update = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem);
+        const expensesItem = this.service.createItemModel(item.newItem.item);
         const updatedExpenses = this.state.expenses;
-        const idx = updatedExpenses[0].expense_items.findIndex( i => i === item.oldItem)
+        const idx = updatedExpenses[0].expense_items.findIndex(i => i === item.oldItem)
         const element = updatedExpenses[0].expense_items[idx] = expensesItem
-        return updatedExpenses
+        return { expenses: updatedExpenses, file: item.newItem.updatedFile }
     }
 
     remove = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem);
+        const expensesItem = this.service.createItemModel(item.newItem.item);
         const updatedExpenses = this.state.expenses;
         updatedExpenses[0].expense_items.pop(expensesItem);
-        return updatedExpenses
+        return { expenses: updatedExpenses, file: item.newItem.updatedFile }
     }
 
     add = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem);
+        const expensesItem = this.service.createItemModel(item.newItem.item);
         const updatedExpenses = this.state.expenses;
         updatedExpenses[0].expense_items.push(expensesItem);
-        return updatedExpenses
+        return { expenses: updatedExpenses, file: item.newItem.updatedFile }
     }
 
 
@@ -106,7 +111,12 @@ export class ExpensesReceiptView extends React.Component {
                                                         <div className='card-details'>
                                                             {item.title}
                                                             <p>{`Descripcion: ${item.description}`}</p>
-                                                            <div> Descargar Comprobante</div>
+                                                            {item.ticket &&
+                                                                <div>
+                                                                    <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
+                                                                        Descargar Comprobante
+                                                                </Button>
+                                                                </div>}
                                                             <hr />
                                                             <div className='amount-detail'>
                                                                 {this.renderOneLineDescription('Costo', item.getCurrencyAmount())}
@@ -139,9 +149,9 @@ export class ExpensesReceiptView extends React.Component {
     }
 
     runAction = async (item, action) => {
-        const updatedExpenses = action(item)
-        const resutl = await this.service.save(updatedExpenses[0])
-        this.setState({ expenses: updatedExpenses })
+        const { expenses, file } = action(item)
+        const resutl = await this.service.save(expenses[0], file)
+        this.setState({ expenses: expenses })
     }
 
     showExpensesCRUD(value) {
