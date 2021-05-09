@@ -11,13 +11,6 @@ import userService  from '../../services/user-service/user-service'
 
 const service = new LoginService()
 
-const RedirectToMain = async (email) => {
-    const { user, setUser } = useContext(UserContext);
-    const loggedUser = userService.getUser(email);
-    setUser(loggedUser);
-    window.location.href = '/expenses'
-}
-
 function Login() {
 
     const [email, setEmail] = useState();
@@ -28,6 +21,7 @@ function Login() {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState(false);
     const [invalidPassword, setInvalidPassword] = useState(false);
+    const { user, setUser } = useContext(UserContext);
 
     const validateEmail = async (email) => {
         let response = await service.validateEmail(email);
@@ -41,10 +35,16 @@ function Login() {
     const setCredentials = () => {
         if (password === confirmPassword) {
             service.setCredentials(email, password);
-            RedirectToMain(email)
+            redirectToMain(email)
         } else {
             setInvalidPassword(true);
         }
+    }
+
+    const redirectToMain = async (email) => {
+        const loggedUser = await userService.getUser(email);
+        setUser(loggedUser);
+        window.location.href = '/expenses'
     }
 
     const authenticate = async () => {
@@ -54,7 +54,7 @@ function Login() {
 
     const processAuthentication = async () => {
         await authenticate()
-        RedirectToMain(email)
+        redirectToMain(email)
     }
 
     const clean = () => {
