@@ -15,11 +15,6 @@ class UserService {
         return user
     }
 
-    getLoggedUser() {
-        debugger
-        return this.user
-    }
-
     async getUserData(email) {
         const userData = await axios.get(`${SERVICE_URL}/userData?userEmail=${email}`);
         return userData.data.user.map(data => this.createModel(data))[0]
