@@ -1,16 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2021-04-23T23:26:17.796Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="_DxirZIs4DkmrvUr5MSi" version="14.6.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-14T03:01:55.729Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="nDekHqO1rgha3vFd6Sb7" version="14.6.13" type="github">
   <diagram id="DMdYSBL_EJJrb_-I5IRT" name="Page-1">
     <mxGraphModel dx="946" dy="514" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-7" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="240" y="50" width="190" height="310" as="geometry" />
+          <mxGeometry x="240" y="50" width="190" height="500" as="geometry" />
         </mxCell>
-        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-2" value="Administor&lt;br&gt;Consorcio" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
-          <mxGeometry x="100" y="170" width="30" height="60" as="geometry" />
+        <mxCell id="fV96u1m6ZCXZrQFcsbss-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="DQ_E5rbUf5ejN1yuJWk_-2" target="fV96u1m6ZCXZrQFcsbss-1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-5" value="Ver consorcios" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-2" value="Administrador&lt;br&gt;Consorcio" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="90" y="100" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-5" value="Ver consorcios" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="277.5" y="60" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-6" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DQ_E5rbUf5ejN1yuJWk_-2" target="DQ_E5rbUf5ejN1yuJWk_-5" edge="1">
@@ -19,16 +22,16 @@
             <mxPoint x="450" y="240" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-8" value="Ver gastos del mes&lt;br&gt;de un consorcio" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-8" value="Ver gastos del mes&lt;br&gt;de un consorcio" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="275" y="150" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-9" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="DQ_E5rbUf5ejN1yuJWk_-8" edge="1">
+        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-9" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DQ_E5rbUf5ejN1yuJWk_-2" target="DQ_E5rbUf5ejN1yuJWk_-8" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="130" y="190" as="sourcePoint" />
             <mxPoint x="450" y="240" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-10" value="Agregar/modificar/&lt;br&gt;eliminar gastos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="DQ_E5rbUf5ejN1yuJWk_-10" value="Agregar/modificar/&lt;br&gt;eliminar gastos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
           <mxGeometry x="277.5" y="250" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-11" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="DQ_E5rbUf5ejN1yuJWk_-2" target="DQ_E5rbUf5ejN1yuJWk_-10" edge="1">
@@ -51,6 +54,27 @@
         </mxCell>
         <mxCell id="DQ_E5rbUf5ejN1yuJWk_-20" value="Sin Terminar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="545" y="190" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="sHpydHbunjuv73alF5IP-1" value="Descargar Comprobante de gastos" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="277.5" y="350" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sHpydHbunjuv73alF5IP-3" value="Logearse al sistema" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="277.5" y="450" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sHpydHbunjuv73alF5IP-5" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="sHpydHbunjuv73alF5IP-1" edge="1" source="fV96u1m6ZCXZrQFcsbss-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="260" as="sourcePoint" />
+            <mxPoint x="285" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sHpydHbunjuv73alF5IP-6" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.333;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="sHpydHbunjuv73alF5IP-3" edge="1" source="fV96u1m6ZCXZrQFcsbss-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="160" y="400" as="sourcePoint" />
+            <mxPoint x="285" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fV96u1m6ZCXZrQFcsbss-1" value="Usuario" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="370" width="30" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
