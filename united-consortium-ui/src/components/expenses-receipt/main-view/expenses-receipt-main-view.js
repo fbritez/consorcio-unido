@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import { UserContext } from '../../user-provider/user-provider';
+import authenticationHandler from '../../login/authentication-handler';
 
 const ExpensesReceiptMainView = (props) => {
 
@@ -44,4 +45,4 @@ const ExpensesReceiptMainView = (props) => {
     )
 }
 
-export default ExpensesReceiptMainView
+export default authenticationHandler(ExpensesReceiptMainView)

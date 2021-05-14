@@ -17,10 +17,8 @@ class ImageService {
     async downloadImage(file_id){
         try {
             const image = await axios.get(`${SERVICE_URL}/getTicket?file_id=${file_id}`)
-            debugger
             download(image.data, file_id.split('/')[1])    
-        } catch (error) {
-            debugger
+        } catch (error) {    
             console.log(error)
         }
             

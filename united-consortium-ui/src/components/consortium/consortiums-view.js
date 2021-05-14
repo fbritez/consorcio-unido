@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsortiumService from '../../services/consortium-service/consortium-service';
 import Card from 'react-bootstrap/Card';
+import { UserContext } from '../user-provider/user-provider';
 
 
 const service = new ConsortiumService();
@@ -9,9 +10,10 @@ const service = new ConsortiumService();
 const ConsortiumsView = (props) => {
 
     const [consortiums, setConsortiums] = useState();
+    const {user, setUser} = useContext(UserContext);
 
     useEffect(async () => {
-        const consortiums = await service.getConsortiums();
+        const consortiums = await service.getConsortiums(user);
         setConsortiums(consortiums)
     }, []);
 

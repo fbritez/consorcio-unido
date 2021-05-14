@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 import logo from '../../images/medium-icon.png';
 import LoginService from '../../services/login-service/login-service';
 import Alert from 'react-bootstrap/Alert';
-import userService  from '../../services/user-service/user-service'
+import userService  from '../../services/user-service/user-service';
+import { useHistory } from "react-router-dom";
 
 const service = new LoginService()
 
@@ -22,6 +23,7 @@ function Login() {
     const [confirmPassword, setConfirmPassword] = useState(false);
     const [invalidPassword, setInvalidPassword] = useState(false);
     const { user, setUser } = useContext(UserContext);
+    const history = useHistory();
 
     const validateEmail = async (email) => {
         let response = await service.validateEmail(email);
@@ -44,7 +46,7 @@ function Login() {
     const redirectToMain = async (email) => {
         const loggedUser = await userService.getUser(email);
         setUser(loggedUser);
-        window.location.href = '/expenses'
+        history.push('/expenses');
     }
 
     const authenticate = async () => {
@@ -65,7 +67,6 @@ function Login() {
     }
 
     useEffect(() => {
-        console.log('hereeee')
     }, [validEmail, firstLogin]);
 
     return (

@@ -15,8 +15,10 @@ service = ConsortiumService()
 @consortium_api.route('/consortiums', methods=['GET'])
 @cross_origin(support_credentials=True)
 def consortiums():
+    user_identifier = request.args.get('user_identifier')
+    cons = service.get_consortium_for(user_identifier)
     return {
-        'consortiums': [object_to_json(consortium) for consortium in service.get_consortium_for()]
+        'consortiums': [object_to_json(consortium) for consortium in cons]
     }
 
 

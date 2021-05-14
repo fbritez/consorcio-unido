@@ -1,16 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from "../user-provider/user-provider";
-import Login from "./login-view";
+import { Redirect } from "react-router-dom";
 
 
 const authenticationHandler = (functionComponent) => {
 
-
     const AuthenticationHandlerComponent = (props) => {
-        //const { user, setUser } = useContext(UserContext);
-        //debugger
-        //return user ? functionComponent(props) : window.location.href = '/login'
-        return functionComponent(props)
+        const { user, setUser } = useContext(UserContext);
+        return user ? functionComponent(props) : <Redirect to={'/login'} />
+        
     }
 
     return AuthenticationHandlerComponent

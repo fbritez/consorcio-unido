@@ -4,8 +4,8 @@ import SERVICE_URL from '../utils/constants'
 
 class ConsortiumService {
 
-    getConsortiums = async () => {
-        const consortiumsData =  await axios.get(`${SERVICE_URL}/consortiums`);
+    getConsortiums = async user => {
+        const consortiumsData =  await axios.get(`${SERVICE_URL}/consortiums?user_identifier=${user.email}`);
         return consortiumsData.data.consortiums.map( data => this.createModel(data))
     }
 
