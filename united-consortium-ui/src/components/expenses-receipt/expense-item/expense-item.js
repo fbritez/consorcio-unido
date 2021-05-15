@@ -35,7 +35,9 @@ const ExpensesItemView = (props) => {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        debugger
+        if (!form.checkValidity()) {
+            debugger
             event.preventDefault();
             event.stopPropagation();
         }
@@ -117,8 +119,7 @@ const ExpensesItemView = (props) => {
                             />
                             <Form.Control.Feedback type="invalid">
                                 Por favor defina un monto
-                                </Form.Control.Feedback>
-
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId="validateDescription">
                             <Form.Label>{'Descripción'}</Form.Label>

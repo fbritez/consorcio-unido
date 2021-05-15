@@ -13,8 +13,8 @@ const AppliactionNavView = (props) => {
                 <Nav className="mr-auto">
                     <img src={logo} alt="drawing" width="50" classNAme="icon" />
                     <div className="vl" />
-                    <Nav.Link href="#expenses"> {'Expensas'} </Nav.Link>
-                    <Nav.Link href="#consorcios">{'Consorcios'}</Nav.Link>
+                    <Nav.Link href="expenses"> {'Expensas'} </Nav.Link>
+                    <Nav.Link href="consorcios">{'Consorcios'}</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <Navbar.Brand href="#home" className='right'>

@@ -1,4 +1,5 @@
 import Login from '../login/login-view';
+import PageNotFoundView from '../login/page-not-found';
 import { UserContextProvider } from '../user-provider/user-provider';
 import ExpensesReceiptMainView from '../expenses-receipt/main-view/expenses-receipt-main-view';
 
@@ -24,6 +25,9 @@ const Main = () => {
                     </Route>
                     <Route exact path="/login">
                         <Login />
+                    </Route>
+                    <Route >
+                        <PageNotFoundView />
                     </Route>
                 </Switch>
             </Router>
