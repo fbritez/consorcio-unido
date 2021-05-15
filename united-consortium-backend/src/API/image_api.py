@@ -32,13 +32,7 @@ def get_ticket():
 
     file_id = request.args.get('file_id')
     image = imageService.read(file_id)
-    '''
-    response = make_response(image)
-    response.headers.set('Content-Type', 'image/jpeg')
-    response.headers.set(
-        'Content-Disposition', 'attachment', filename='%s.jpg' % file_id)
-    return response
-    '''
+
     return send_file(
         io.BytesIO(image),
         mimetype='image/jpeg',
