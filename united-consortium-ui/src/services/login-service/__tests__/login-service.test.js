@@ -2,6 +2,7 @@
 import axios from 'axios';
 import LoginService from "../login-service";
 import SERVICE_URL from "../../utils/constants";
+import CryptoJS from 'crypto-js';
 
 
 const validEmailResponse = {data: true};
@@ -17,6 +18,13 @@ jest.mock('axios', () => ({
     get: jest.fn(),
     post: jest.fn()
 }));
+
+jest.mock('crypto-js', () => ({
+        AES: {
+            encrypt: () => password
+        }
+}));
+
 
 describe('login tests', () => {
 
