@@ -73,7 +73,7 @@ function Login() {
         <div className='login-background'>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Card className='my-card' style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                    <Card.Img variant="top" src={logo} width='50'/>
+                    <Card.Img variant="top" src={logo} className='imagen-login'/>
                     <div>
                         <Card.Body>
                             <Card.Title>
@@ -93,7 +93,7 @@ function Login() {
                                 }
                                 {!validEmail &&
                                     <div>
-                                        <Button className='update-button' onClick={() => validateEmail(email)}>
+                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={() => validateEmail(email)}>
                                             Siguiente
                                         </Button>
                                     </div>
@@ -112,11 +112,11 @@ function Login() {
                                             invalidPassword &&
                                             <div>
                                                 <Alert variant='warning'>
-                                                    Las contraseñas no coinciden.
+                                                    Las contraseñas ingresadas no coinciden.
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' onClick={setCredentials}>
+                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={setCredentials}>
                                             Confirmar
                                         </Button>
                                     </div>
@@ -135,10 +135,10 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' onClick={() => processAuthentication()}>
+                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={() => processAuthentication()}>
                                             Login
                                         </Button>
-                                        <Button variant="secondary" className='cancel-button' onClick={() => clean()}>
+                                        <Button variant="secondary" className='cancel-button' style={{ marginBottom: '3%'}} onClick={() => clean()}>
                                             Otro mail
                                         </Button>
                                     </div>

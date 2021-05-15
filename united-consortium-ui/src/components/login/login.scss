@@ -10,7 +10,14 @@
     float: right
 }
 
-.my-card {
+
+
+.my-card.card{
     @extend .background;
 
 }
+
+.imagen-login{
+    margin-left: 0%;
+    width: 3px;
+  }

@@ -1,5 +1,10 @@
 import axios from 'axios';
-import SERVICE_URL from '../utils/constants'
+import SERVICE_URL from '../utils/constants';
+import CryptoJS from 'crypto-js';
+
+const encrypt = value => {
+    return CryptoJS.AES.encrypt(value, "Secret Passphrase").toString();;
+}
 
 class LoginService {
 
@@ -22,13 +27,17 @@ class LoginService {
     }
 
     async setCredentials( email, password){
-        const result = await axios.post(`${SERVICE_URL}/setCredentials`, {user_email: email, password: password});
+        const encryptedPassword = encrypt(password)
+        
+        const result = await axios.post(`${SERVICE_URL}/setCredentials`, {user_email: email, password: encryptedPassword});
     }
 
     async authenticate(email, password){
         let result
+        const encryptedPassword = encrypt(password)
+        debugger
         try{
-            result = await axios.post(`${SERVICE_URL}/authenticate`, {user_email: email, password: password});
+            result = await axios.post(`${SERVICE_URL}/authenticate`, {user_email: email, password: encryptedPassword});
         }catch{
             result = {data: {success: false}}
         }
