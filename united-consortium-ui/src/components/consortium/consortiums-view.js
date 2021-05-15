@@ -10,10 +10,9 @@ const service = new ConsortiumService();
 const ConsortiumsView = (props) => {
 
     const [consortiums, setConsortiums] = useState();
-    const {user, setUser} = useContext(UserContext);
 
     useEffect(async () => {
-        const consortiums = await service.getConsortiums(user);
+        const consortiums = await service.getConsortiums(props.user);
         setConsortiums(consortiums)
     }, []);
 

@@ -35,7 +35,6 @@ class LoginService {
     async authenticate(email, password){
         let result
         const encryptedPassword = encrypt(password)
-        debugger
         try{
             result = await axios.post(`${SERVICE_URL}/authenticate`, {user_email: email, password: encryptedPassword});
         }catch{

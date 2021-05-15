@@ -19,7 +19,6 @@ const ExpensesItemView = (props) => {
     const [selectedFile, setSelectedFile] = useState()
 
     const handleExpenseItem = () => {
-        debugger
         props.showExpensesCRUD(false)
         props.handleAction({ newItem: { item: currentItem, updatedFile: selectedFile }, oldItem: oldItem });
         setDescription(null)

@@ -11,13 +11,6 @@ const expecetedParameter = { updatedExpensesReceipt: expensesReceipt }
 const mockImage = { filename: 'file name', name: 'description name' }
 const expensesData = { data: { expenses: [{ consortium_id: mockConsortiumID, month: mockMonthDescription, year: mockYear, expense_items: [] }] } }
 
-
-
-function FormDataMock() {
-    this.append = jest.fn();
-}
-global.FormData = FormDataMock
-
 jest.mock('axios', () => ({
     post: jest.fn(),
     get: jest.fn()
@@ -31,12 +24,11 @@ describe('expenses receipt service tests', () => {
         axios.get.mockReturnValueOnce(expensesData)
         const result = await service.getExpensesFor({ identifier: mockConsortiumID });
         expect(result).toEqual([new ExpensesReceipt(mockConsortiumID, [], mockMonthDescription, mockYear)])
-    })
+    });
 
     it('expenses service save expenses', async () => {
         await service.save(expensesReceipt, mockImage);
         expect(axios.post).toHaveBeenNthCalledWith(1, `${SERVICE_URL}/newExpenses`, expecetedParameter)
         //expect(axios.post).toHaveBeenNthCalledWith(2, `${SERVICE_URL}/storeTicket`, FormDataMock)
-
     })
 })

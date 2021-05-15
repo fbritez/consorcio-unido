@@ -20,6 +20,4 @@ test('loads and displays greeting', async () => {
     render(<ConsortiumsView />);
 
     expect(screen.getByText('Consorcios disponibles')).toBeInTheDocument()
-    //expect(screen.getByText(name)).toBeInTheDocument()
-    //expect(screen.getByText(address).toBeInTheDocument()
 })

@@ -3,12 +3,11 @@ import axios from 'axios';
 import SERVICE_URL from '../utils/constants'
 
 const  download = (data, filename) => {
-    debugger
     const element = document.createElement("a");
     const file = new Blob([data], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
     element.download = filename;
-    document.body.appendChild(element); // Required for this to work in FireFox
+    document.body.appendChild(element);
     element.click();
 }
 
@@ -21,8 +20,14 @@ class ImageService {
         } catch (error) {    
             console.log(error)
         }
-            
-        
+    }
+
+    async save(imageFile){
+        if(imageFile){
+            let formData = new FormData();
+            formData.append("file", imageFile.filename, imageFile.name);
+            await axios.post(`${SERVICE_URL}/storeTicket`, formData);   
+        }
     }
 }
 

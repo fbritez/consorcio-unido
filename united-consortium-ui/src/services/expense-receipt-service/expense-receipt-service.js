@@ -2,12 +2,14 @@ import axios from 'axios';
 import ExpensesReceipt from '../../model/expenses-receipt';
 import ExpenseReceiptitem from '../../model/expense-receipt-item';
 import ConsortiumService from '../consortium-service/consortium-service';
-import SERVICE_URL from '../utils/constants'
+import ImageService from '../image-service/image-service';
+import SERVICE_URL from '../utils/constants';
 
 class ExpensesReceiptService {
 
     constructor() {
-        this.consortiumService = new ConsortiumService()
+        this.consortiumService = new ConsortiumService();
+        this.imageService = new ImageService();
     }
 
     getExpensesFor = async (consortium) => {
@@ -17,11 +19,8 @@ class ExpensesReceiptService {
 
     save = async (expensesReceipt, imageFile) => {
         try {
-            let formData = new FormData();
-            formData.append("file", imageFile.filename, imageFile.name)
-
             await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
-            await axios.post(`${SERVICE_URL}/storeTicket`, formData);
+            this.imageService.save(imageFile)
         } catch (error) {
             console.log(error)
         }

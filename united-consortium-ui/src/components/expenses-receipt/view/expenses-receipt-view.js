@@ -13,7 +13,6 @@ import { BsFillTrashFill, BsPencil, BsFileEarmarkArrowDown } from 'react-icons/b
 
 const downloadTicket = (file_id) => {
     const service = new ImageService();
-    debugger
     service.downloadImage(file_id)
 }
 

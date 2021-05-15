@@ -23,7 +23,7 @@ const ExpensesReceiptMainView = (props) => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} />
+                                <ConsortiumsView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user}/>
                             </div>
                         }
                         </Col>
