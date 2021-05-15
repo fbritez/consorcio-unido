@@ -22,7 +22,7 @@ const ExpensesItemView = (props) => {
         props.showExpensesCRUD(false)
         props.handleAction({ newItem: { item: currentItem, updatedFile: selectedFile }, oldItem: oldItem });
         setDescription(null)
-        setValid(true)
+        setValid(false)
     }
 
     const handleChange = (newValue) => {
@@ -35,13 +35,14 @@ const ExpensesItemView = (props) => {
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        debugger
         if (!form.checkValidity()) {
-            debugger
+            setValid(true)
             event.preventDefault();
             event.stopPropagation();
+        }else{
+           
+            handleExpenseItem();
         }
-        handleExpenseItem()
     };
 
     const getTicketName = (ticketName) => {
