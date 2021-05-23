@@ -13,7 +13,7 @@ class ExpensesReceiptService {
     }
 
     getExpensesFor = async (consortium) => {
-        const espensesData = await axios.get(`${SERVICE_URL}/expenses?consortium_identifier=${consortium.identifier}`);
+        const espensesData = await axios.get(`${SERVICE_URL}/expenses?consortium_identifier=${consortium.id}`);
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
 

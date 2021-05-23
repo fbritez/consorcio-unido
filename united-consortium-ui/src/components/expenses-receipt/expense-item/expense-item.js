@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
+import { detectActionClassName } from '../../utils/detect-action-button-class';
 import './expense-item.scss';
 
 
@@ -50,26 +51,6 @@ const ExpensesItemView = (props) => {
     }
 
     const handleClose = () => { }
-
-    const detectActionClassName = () => {
-        const action = description;
-        let ret;
-        switch (action) {
-            case "Agregar":
-                ret = 'add-button'
-                break
-            case "Modificar":
-                ret = 'update-button'
-                break
-            case "Eliminar":
-                ret = 'remove-button'
-                break
-            default:
-                ret = 'update-button'
-        }
-
-        return ret
-    }
 
     const onFileChange = (event) => {
         const filename = event.target.files[0]
@@ -146,7 +127,7 @@ const ExpensesItemView = (props) => {
                         </Form.Row>
                         <hr />
                         <div className='buttons'>
-                            <Button className={detectActionClassName()} type="submit">
+                            <Button className={detectActionClassName(description)} type="submit">
                                 {description}
                             </Button>
                             <Button variant="secondary" className={'cancel-button'} onClick={() => props.showExpensesCRUD(false)}>

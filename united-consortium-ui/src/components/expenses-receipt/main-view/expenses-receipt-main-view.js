@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import ConsortiumsView from '../../consortium/consortiums-view';
+import ConsortiumsListView from '../../consortium/consortiums-list-view/consortiums-list-view';
 import { ExpensesReceiptView } from '../view/expenses-receipt-view';
 import AppliactionNavView from '../../application-nav/application-nav-view';
 import './expenses-receipt-main-view.scss';
@@ -23,7 +23,7 @@ const ExpensesReceiptMainView = (props) => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user}/>
+                                <ConsortiumsListView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user}/>
                             </div>
                         }
                         </Col>

@@ -22,6 +22,15 @@ class ConsortiumService:
 
         self.dao.insert(consortiums)
 
+    def save_update_consortium(self, consortium):
+        if consortium.get_id():
+            self.update_consortium(consortium)
+        else:
+            self.save_consortium(consortium)
+
     def update_consortium(self, consortium):
         return self.dao.update_all({'id': consortium.get_id()}, consortium)
+
+    def create_model(self, expense_json):
+        return self.dao.create_model(expense_json)
 

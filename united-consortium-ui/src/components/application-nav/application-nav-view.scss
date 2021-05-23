@@ -6,6 +6,10 @@
 
 .nav-link{
   display: flex;
+
+  .a{
+    @extend .nav-bar-text;
+  }
 }
 
 .right {

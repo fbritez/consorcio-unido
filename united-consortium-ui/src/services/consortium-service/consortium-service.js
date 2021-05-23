@@ -10,7 +10,17 @@ class ConsortiumService {
     }
 
     createModel = (data) => {
-        return new Consortium(data.name, data.address, data.id)
+        return new Consortium(data?.name, data?.address, data?.id, data?.members, data?.administrators);
+    }
+
+    createEmptyConsortium = () => this.createModel({});
+
+    update = async (consortium) =>{
+        try {
+            await axios.post(`${SERVICE_URL}/updateConsortium`, {updatedConsortium: consortium});
+        }catch(error) {
+            console.log(error)
+        }
     }
 }
 

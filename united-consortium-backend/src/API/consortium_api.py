@@ -28,7 +28,7 @@ def update_consortium():
     try:
         consortium = service.create_model(request.json.get('updatedConsortium'))
 
-        service.update_consortium(consortium)
+        service.save_update_consortium(consortium)
     except Exception as ex:
         logging.error(ex)
 
