@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BsFillTrashFill, BsPencil, BsFileEarmarkArrowDown } from 'react-icons/bs'
+import { UpdateItemButton, RemoveItemButton } from '../../common/buttons';
 
 
 const downloadTicket = (file_id) => {
@@ -104,8 +104,8 @@ export class ExpensesReceiptView extends React.Component {
                                                 <Accordion.Collapse eventKey={eventKey}>
                                                     <Card.Body >
                                                         <div className='right'>
-                                                            <Button className='option-button' onClick={() => this.setItemAction(item, this.update, 'Modificar')}><BsPencil /></Button>
-                                                            <Button className='option-button' onClick={() => this.setItemAction(item, this.remove, 'Eliminar')}><BsFillTrashFill /></Button>
+                                                            <UpdateItemButton onClick={() => this.setItemAction(item, this.update, 'Modificar')}/>
+                                                            <RemoveItemButton onClick={() => this.setItemAction(item, this.remove, 'Eliminar')}/>
                                                         </div>
                                                         <div className='card-details'>
                                                             {item.title}

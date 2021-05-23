@@ -1,0 +1,6 @@
+@import '../utils/basic-colours.scss';
+
+.option-button {
+    @extend .button;
+    font-size: xx-small;
+  }

@@ -23,7 +23,7 @@ const ConsortiumsGeneralView = (props) => {
     }
  
     return (
-        <div className='consortium-main-view'>
+        <div className='background'>
             <AppliactionNavView />
             <Container>
                 <div>
