@@ -10,13 +10,16 @@ const ConsortiumMembersTable = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const [members, setMembers] = useState();
-    const [m, setM] = useState();
-
+    const [gridApi, setGridApi] = useState(null);
 
     useEffect(() => {
-        debugger
         setMembers(consortium?.members);
     }, [consortium]);
+
+    const onGridReady = params => {
+        setGridApi(params.api);
+        //setGridColumnApi(params.columnApi);
+    };
 
     const memberChage = (change) => {
         const idx = members.findIndex(i => i === change.data);
@@ -26,9 +29,12 @@ const ConsortiumMembersTable = (props) => {
         props.setMembers(sortedMembers);
     }
 
-    const raiseMembersChanges = (members) =>{ 
-        props.setMembers(members);
-        setMembers(members);
+    const raiseMembersChanges = async (members) => {
+        
+        await props.setMembers(members);
+        await setMembers(members);
+        gridApi.setRowData(members);
+        await gridApi.refreshCells()
     }
 
     const setNewMember = (newMember) => {
@@ -37,32 +43,19 @@ const ConsortiumMembersTable = (props) => {
     }
 
     const removeItem = (props) => {
-        debugger
-        const removedMember = m
-        const newMembers = 
-        members.pop(removedMember)
-        debugger
-        raiseMembersChanges(members);
+        const updatedMembers = members.filter(item => item !== props.data)
+        raiseMembersChanges(updatedMembers);
     }
 
     const RemoveCellRenderer = (props) => {
-        const removeSelectedItem = params => {
-            
-            debugger
-            const selectedRows = params.api.getSelectedRows();
-            setMembers(
-                members.filter(row => {
-                  return selectedRows.indexOf(row) == -1; // filter out selected rows
-                })
-              );
-        }
+
         return (
             <div>
-                <RemoveItemButton onClick={() => removeSelectedItem(props)} />
+                <RemoveItemButton onClick={() => props.removeItem(props)} />
             </div>
         );
     }
-    debugger
+
     return (
         <div>
             <div>
@@ -86,23 +79,28 @@ const ConsortiumMembersTable = (props) => {
                     }}
                     rowData={members}
                     pagination={true}
-                    paginationPageSize={5}>
+                    paginationPageSize={5}
+                    onGridReady={onGridReady}>
                     <AgGridColumn
                         headerName="Identificador"
                         field="member_name"
                         editable={true}
-                        onCellValueChanged={memberChage}>
+                        onCellValueChanged={memberChage}
+                    >
                     </AgGridColumn>
                     <AgGridColumn
                         field="user_email"
                         headerName="Correo de contacto"
                         editable={true}
-                        onCellValueChanged={memberChage}>
+                        onCellValueChanged={memberChage}
+                    >
                     </AgGridColumn>
                     <AgGridColumn
                         field="options"
                         headerName="Opciones"
-                        cellRenderer="removeCellRenderer">
+                        cellRenderer="removeCellRenderer"
+                        cellRendererParams={{ removeItem: removeItem }}
+                    >
                     </AgGridColumn>
                 </AgGridReact>
 

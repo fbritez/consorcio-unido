@@ -17,6 +17,7 @@ class ConsortiumService {
 
     update = async (consortium) =>{
         try {
+            debugger
             await axios.post(`${SERVICE_URL}/updateConsortium`, {updatedConsortium: consortium});
         }catch(error) {
             console.log(error)

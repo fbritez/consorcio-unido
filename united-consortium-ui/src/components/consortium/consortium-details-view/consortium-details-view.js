@@ -36,13 +36,11 @@ const ConsortiumDetails = (props) => {
     }
 
     const handleSubmit = (event) => {
-        consortium.setMembers(updatedMembers);
+        consortium.setMembers(updatedMembers)
         service.update(consortium);
         setConsortium(consortium);
         setValid(false)
     }
-
-
 
     const name = () => consortium? consortium.name : ''
 
