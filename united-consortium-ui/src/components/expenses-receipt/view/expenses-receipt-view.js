@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './expenses-receipt-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import ImageService from '../../../services/image-service/image-service'
@@ -7,11 +7,12 @@ import { Card, Accordion, Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import ListGroup from 'react-bootstrap/ListGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UpdateItemButton, RemoveItemButton } from '../../common/buttons';
 
 
-const downloadTicket = (file_id) => {
+const downloadTicket = file_id => {
     const service = new ImageService();
     service.downloadImage(file_id)
 }
@@ -27,9 +28,13 @@ export class ExpensesReceiptView extends React.Component {
             selectedItem: null,
             selectedAction: null,
             selectedDescription: {},
-            showExpenseCRUD: false
+            showExpenseCRUD: false,
+            isAdministrator: false
         }
+        this.user = props.user
     };
+
+
 
     async componentDidMount() {
         await this.getExpenses()
@@ -38,6 +43,8 @@ export class ExpensesReceiptView extends React.Component {
     async componentDidUpdate(prev) {
         if (prev.consortium !== this.props.consortium) {
             await this.getExpenses()
+            const isAdmin =  this.service.isAdministrator(this.user);
+            this.setState({ isAdministrator: isAdmin });
         }
     }
 
@@ -103,10 +110,13 @@ export class ExpensesReceiptView extends React.Component {
                                                 </Card.Header>
                                                 <Accordion.Collapse eventKey={eventKey}>
                                                     <Card.Body >
-                                                        <div className='right'>
-                                                            <UpdateItemButton onClick={() => this.setItemAction(item, this.update, 'Modificar')}/>
-                                                            <RemoveItemButton onClick={() => this.setItemAction(item, this.remove, 'Eliminar')}/>
-                                                        </div>
+                                                        {
+                                                            this.state.isAdministrator &&
+                                                            <div className='right'>
+                                                                <UpdateItemButton onClick={() => this.setItemAction(item, this.update, 'Modificar')} />
+                                                                <RemoveItemButton onClick={() => this.setItemAction(item, this.remove, 'Eliminar')} />
+                                                            </div>
+                                                        }
                                                         <div className='card-details'>
                                                             {item.title}
                                                             <p>{`Descripcion: ${item.description}`}</p>
@@ -157,6 +167,10 @@ export class ExpensesReceiptView extends React.Component {
         this.setState({ showExpenseCRUD: value })
     }
 
+    closeExpense() {
+
+    }
+
     render() {
         return (
             <div className='expenses-receipt'>
@@ -179,12 +193,27 @@ export class ExpensesReceiptView extends React.Component {
                                     <p>{' '}</p>
                                 </div>
                                 <div>
-                                    <Button className='add-local-button' onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
+                                    {
+                                        this.state.isAdministrator &&
+                                        <div>
+                                            <Button className='add-local-button' onClick={() => this.setItemAction(null, this.add, 'Agregar')}> Agregar gasto </Button>
+                                            <Button className='add-button' onClick={this.closeExpenses}> Generar Liquidación </Button>
+                                        </div>
+                                    }
                                     {this.state.showExpenseCRUD && <ExpenseItemView item={this.state.selectedItem}
                                         handleAction={(item) => this.runAction(item, this.state.selectedAction)}
                                         actionDescription={this.state.selectedDescription}
                                         show={this.state.showExpenseCRUD}
                                         showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />}
+                                </div>
+                                <div style={{marginTop: '3%'}}>
+                                    <ListGroup>
+                                        {this.state.expenses?.map(item => {
+                                            return (
+                                                <ListGroup.Item>{`${item.month} - ${item.year}`}</ListGroup.Item>
+                                            )
+                                        })}
+                                    </ListGroup>
                                 </div>
                             </div>
                         }

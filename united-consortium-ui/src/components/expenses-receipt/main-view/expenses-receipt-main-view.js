@@ -30,7 +30,7 @@ const ExpensesReceiptMainView = (props) => {
                         <Col sm={9}>{
                             consortium ?
                                 <div>
-                                    <ExpensesReceiptView consortium={consortium} />
+                                    <ExpensesReceiptView consortium={consortium} user={user}/>
                                 </div>
                                 :
                                 <div className='text-center'>

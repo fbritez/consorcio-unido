@@ -12,7 +12,7 @@ class ExpensesReceiptService {
         this.imageService = new ImageService();
     }
 
-    getExpensesFor = async (consortium) => {
+    getExpensesFor = async consortium => {
         const espensesData = await axios.get(`${SERVICE_URL}/expenses?consortium_identifier=${consortium.id}`);
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
@@ -26,13 +26,15 @@ class ExpensesReceiptService {
         }
     }
 
-    createItemModel = (data) => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket)
+    createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket)
 
 
-    createModel = (data) => {
+    createModel = data => {
         const items = data.expense_items.map(data => this.createItemModel(data));
         return new ExpensesReceipt(data.consortium_id, items, data.month, data.year)
     }
+
+    isAdministrator = user => this.consortiumService.isAdministrator(user);
 }
 
 export default ExpensesReceiptService;
