@@ -13,6 +13,10 @@ class Consortium{
         this.members = members;
     }
 
+    addAdministrator(administrator_email){
+        this.administrators.push(administrator_email);
+    }
+
 }
 
 export default Consortium

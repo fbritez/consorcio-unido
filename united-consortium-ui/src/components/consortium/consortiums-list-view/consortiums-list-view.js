@@ -13,7 +13,7 @@ const ConsortiumsListView = (props) => {
     useEffect(async () => {
         const consortiums = await service.getConsortiums(props.user);
         setConsortiums(consortiums)
-    }, []);
+    }, [props.updated]);
 
     return (
         <div className='consortiums'>

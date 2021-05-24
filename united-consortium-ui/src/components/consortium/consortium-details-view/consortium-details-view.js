@@ -5,12 +5,14 @@ import ConsortiumMembersTable from '../consortium-members-table/consortium-membe
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
+import { UserContext } from '../../user-provider/user-provider';
 
 const service = new ConsortiumService();
 
 const ConsortiumDetails = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
+    const { user } = useContext(UserContext);
     const [ updatedMembers, setUpdatedMembers ] = useState()
     const [valid, setValid] = useState(false)
 
@@ -19,7 +21,7 @@ const ConsortiumDetails = (props) => {
             ...consortium,
             ...values
         }
-        setConsortium(updatedItem)
+        setConsortium(service.createModel(updatedItem))
     }
 
     const _handleSubmit = (event) => {
@@ -35,11 +37,12 @@ const ConsortiumDetails = (props) => {
         }
     }
 
-    const handleSubmit = (event) => {
-        consortium.setMembers(updatedMembers)
-        service.update(consortium);
+    const handleSubmit = async (event) => {
+        consortium.addAdministrator(user.email);
+        await service.update(consortium);
         setConsortium(consortium);
         setValid(false)
+        props.setUpdated(true)
     }
 
     const name = () => consortium? consortium.name : ''

@@ -9,11 +9,9 @@ class ConsortiumService {
         return consortiumsData.data.consortiums.map( data => this.createModel(data))
     }
 
-    createModel = (data) => {
-        return new Consortium(data?.name, data?.address, data?.id, data?.members, data?.administrators);
-    }
+    createModel = (data) => new Consortium(data?.name, data?.address, data?.id, data?.members, data?.administrators);
 
-    createEmptyConsortium = () => this.createModel({});
+    createEmptyConsortium = () => this.createModel({name: '', address:'', id:'', members:[], administrators:[]});
 
     update = async (consortium) =>{
         try {

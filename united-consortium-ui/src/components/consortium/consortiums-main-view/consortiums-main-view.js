@@ -13,13 +13,13 @@ import { ConsortiumContextProvider } from '../consortium-provider/consortium-pro
 const ConsortiumsGeneralView = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
-    const [ currentCons, setCurrentCons ] = useState(consortium);
+    const [ updated, setUpdated ] = useState(false);
     const { user, setUser } = useContext(UserContext);
+
 
     const setConsortiums = (c) =>{
         setConsortium(undefined)
         setConsortium(c)
-        setCurrentCons(c)
     }
  
     return (
@@ -30,14 +30,14 @@ const ConsortiumsGeneralView = (props) => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} />
+                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated}/>
                             </div>
                         }
                         </Col>
                         <Col sm={7}>{
                             consortium ?
                                 <div>
-                                    <ConsortiumDetails/>
+                                    <ConsortiumDetails setUpdated={setUpdated}/>
                                 </div>
                                 :
                                 <div className='text-center'>
