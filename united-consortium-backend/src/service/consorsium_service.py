@@ -18,7 +18,7 @@ class ConsortiumService:
         return values
 
     def save_consortium(self, consortiums):
-        consortiums.set_id(uuid.uuid4())
+        consortiums.set_id(uuid.uuid4().hex)
 
         self.dao.insert(consortiums)
 

@@ -13,6 +13,7 @@ class User:
     def __eq__(self, obj):
         return isinstance(obj, User) and obj.name == self.name and obj.email == self.email
 
+
 class ConsortiumMember:
 
     def __init__(self, user_email, member_name):
