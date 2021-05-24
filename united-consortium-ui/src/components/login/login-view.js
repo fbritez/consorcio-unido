@@ -44,6 +44,7 @@ function Login() {
     }
 
     const redirectToMain = async (email) => {
+        debugger
         const loggedUser = await userService.getUser(email);
         setUser(loggedUser);
         history.push('/expenses');
@@ -51,11 +52,13 @@ function Login() {
 
     const authenticate = async () => {
         const result = await service.authenticate(email, password);
+        debugger
         setInvalidPassword(!result);
     }
 
     const processAuthentication = async () => {
         await authenticate()
+        debugger
         redirectToMain(email)
     }
 

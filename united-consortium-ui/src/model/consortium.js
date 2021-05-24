@@ -17,6 +17,12 @@ class Consortium{
         this.administrators.push(administrator_email);
     }
 
+    isAdministrator(user){
+        debugger
+        const p = this.administrators.includes(user.email);
+        return p
+    }
+
 }
 
 export default Consortium

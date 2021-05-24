@@ -6,9 +6,11 @@ class UserService:
 
     def __init__(self, dao=UserDAO()):
         self.dao = dao
-        u = User('test@example', 'Example user')
-
-        self.dao.insert(u)
 
     def get_user(self, email):
         return self.dao.get_all({'email': email})
+
+    def update_members(self, members):
+        for member in members:
+            if not self.get_user(member.get_email()):
+                self.dao.insert(User(member.get_email(), 'Usuario No identificado'))
