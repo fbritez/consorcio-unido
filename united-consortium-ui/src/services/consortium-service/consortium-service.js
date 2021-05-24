@@ -15,7 +15,6 @@ class ConsortiumService {
 
     update = async consortium => {
         try {
-            debugger
             return await axios.post(`${SERVICE_URL}/updateConsortium`, { updatedConsortium: consortium });
         } catch (error) {
             console.log(error)
@@ -25,9 +24,7 @@ class ConsortiumService {
 
     isAdministrator = async user => {
         const consortiums = await this.getConsortiums(user);
-        const p = consortiums.some(consortium => consortium.isAdministrator(user));
-        debugger
-        return p
+        return consortiums.some(consortium => consortium.isAdministrator(user));
     }
 }
 

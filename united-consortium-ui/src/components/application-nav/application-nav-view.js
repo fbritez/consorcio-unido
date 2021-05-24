@@ -26,7 +26,6 @@ const AppliactionNavView = (props) => {
         setIsAdministrator(result);
     });
 
-
     return (
         <Navbar className='navbar'>
             <Navbar.Collapse id="basic-navbar-nav">
@@ -42,7 +41,7 @@ const AppliactionNavView = (props) => {
                     <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
                     <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#sign-out">Sign out</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
                 </NavDropdown>
             </Navbar.Brand>
         </Navbar>

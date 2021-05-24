@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import logo from '../../images/medium-icon.png';
 import LoginService from '../../services/login-service/login-service';
 import Alert from 'react-bootstrap/Alert';
-import userService  from '../../services/user-service/user-service';
+import userService from '../../services/user-service/user-service';
 import { useHistory } from "react-router-dom";
 
 const service = new LoginService()
@@ -44,7 +44,6 @@ function Login() {
     }
 
     const redirectToMain = async (email) => {
-        debugger
         const loggedUser = await userService.getUser(email);
         setUser(loggedUser);
         history.push('/expenses');
@@ -52,14 +51,13 @@ function Login() {
 
     const authenticate = async () => {
         const result = await service.authenticate(email, password);
-        debugger
         setInvalidPassword(!result);
+        return result
     }
 
     const processAuthentication = async () => {
-        await authenticate()
-        debugger
-        redirectToMain(email)
+        const isAuthenticated = await authenticate();
+        isAuthenticated && redirectToMain(email);
     }
 
     const clean = () => {
@@ -76,7 +74,7 @@ function Login() {
         <div className='login-background'>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Card className='my-card' style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                    <Card.Img variant="top" src={logo} className='imagen-login'/>
+                    <Card.Img variant="top" src={logo} className='imagen-login' />
                     <div>
                         <Card.Body>
                             <Card.Title>
@@ -84,7 +82,7 @@ function Login() {
                         </Card.Title>
                             <Card.Text>
                                 <Form.Group controlId="">
-                                    <Form.Control type="text" placeholder="email" onChange={event => setEmail(event.target.value)} disabled={disableEmail}/>
+                                    <Form.Control type="text" placeholder="email" onChange={event => setEmail(event.target.value)} disabled={disableEmail} />
                                 </Form.Group>
                                 {
                                     !validEmail && loaded &&
@@ -96,7 +94,7 @@ function Login() {
                                 }
                                 {!validEmail &&
                                     <div>
-                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={() => validateEmail(email)}>
+                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={() => validateEmail(email)}>
                                             Siguiente
                                         </Button>
                                     </div>
@@ -119,7 +117,7 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={setCredentials}>
+                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={setCredentials}>
                                             Confirmar
                                         </Button>
                                     </div>
@@ -138,10 +136,10 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' style={{ marginBottom: '3%'}} onClick={() => processAuthentication()}>
+                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={() => processAuthentication()}>
                                             Login
                                         </Button>
-                                        <Button variant="secondary" className='cancel-button' style={{ marginBottom: '3%'}} onClick={() => clean()}>
+                                        <Button variant="secondary" className='cancel-button' style={{ marginBottom: '3%' }} onClick={() => clean()}>
                                             Otro mail
                                         </Button>
                                     </div>

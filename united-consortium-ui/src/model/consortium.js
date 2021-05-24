@@ -18,9 +18,7 @@ class Consortium{
     }
 
     isAdministrator(user){
-        debugger
-        const p = this.administrators.includes(user.email);
-        return p
+        return this.administrators.includes(user.email);
     }
 
 }
