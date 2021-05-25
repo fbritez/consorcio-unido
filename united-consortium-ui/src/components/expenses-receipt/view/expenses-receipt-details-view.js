@@ -38,7 +38,6 @@ export class ExpensesReceiptDetailView extends React.Component {
     }
 
     update = (item) => {
-        debugger
         const expensesItem = this.service.createItemModel(item.newItem.item);
         const updatedExpense = this.state.currentExpense;
         const idx = updatedExpense.expense_items.findIndex(i => i === item.oldItem)
@@ -54,7 +53,6 @@ export class ExpensesReceiptDetailView extends React.Component {
     }
 
     add = (item) => {
-        debugger
         const expensesItem = this.service.createItemModel(item.newItem.item);
         const updatedExpense = this.state.currentExpense;
         updatedExpense.expense_items.push(expensesItem);

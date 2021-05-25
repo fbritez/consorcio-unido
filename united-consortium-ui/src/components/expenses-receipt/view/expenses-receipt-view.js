@@ -5,6 +5,7 @@ import { UserContext } from '../../user-provider/user-provider';
 import AddExpensesReceipt from './add-expenses-receipt';
 
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
+import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
 
 const service = new ExpensesReceiptService();
 
@@ -12,28 +13,30 @@ const ExpensesReceiptView = props => {
 
     const { user } = useContext(UserContext);
     const { consortium } = useContext(ConsortiumContext);
-    const [currentExpense, setCurrentExpense] = useState();
+    const { expensesReceipt, setExpensesReceipt} = useContext(ExpensesReceiptContext);
     const [isAdministrator, setIsAdministrator] = useState();
 
     useEffect(async () => {
+        debugger
         const expenses = await service.getExpensesFor(consortium);
         const openExpenses = expenses.filter(expense => expense.isOpen());
         if (openExpenses.length > 0){
-            setCurrentExpense(openExpenses[0]);
-            const result = await service.isAdministrator(user);
-            setIsAdministrator(result)
+            setExpensesReceipt(openExpenses[0]);
         }else{
-            setCurrentExpense(undefined);
+            setExpensesReceipt(undefined);
         }
-    }, [consortium]);
-    
+        const result = await service.isAdministrator(user);
+        setIsAdministrator(result)
+    }, [consortium, expensesReceipt]);
+
+    debugger
     return (
         <div>{
-            currentExpense ?
-                <ExpensesReceiptDetailView expensesReceipt={currentExpense} isAdministrator={isAdministrator} /> :
+            expensesReceipt ?
+                <ExpensesReceiptDetailView expensesReceipt={expensesReceipt} isAdministrator={isAdministrator} /> :
                 <AddExpensesReceipt
                     consortium={consortium}
-                    setCurrentExpeses={(exp) => setCurrentExpense(exp)}
+                    setCurrentExpeses={(exp) => {debugger; setExpensesReceipt(exp)}}
                 />
             }
         </div>

@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import { UserContext } from '../../user-provider/user-provider';
 import authenticationHandler from '../../login/authentication-handler';
+import { ExpensesReceiptContextProvider } from '../expenses-receipt-provider/expenses-receipt-provider';
 
 const ExpensesReceiptGeneralView = props => {
 
@@ -41,7 +42,7 @@ const ExpensesReceiptGeneralView = props => {
                         }
                         </Col>
                         <Col>
-                            <ExpensesReceiptList consortium={consortium} />
+                            <ExpensesReceiptList consortium={consortium}  />
                         </Col>
                     </Row>
                 </div>
@@ -53,7 +54,9 @@ const ExpensesReceiptGeneralView = props => {
 const ExpensesReceiptMainView = (props) => {
     return (
         <ConsortiumContextProvider>
-            <ExpensesReceiptGeneralView />
+            <ExpensesReceiptContextProvider>
+                <ExpensesReceiptGeneralView />
+            </ExpensesReceiptContextProvider>
         </ConsortiumContextProvider>
     )
 }

@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
+import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
 
 const service = new ExpensesReceiptService();
 
 const ExpensesReceiptList = props => {
 
-    const [ expenses, setExpenses ] = useState()
+    const [ expenses, setExpenses ] = useState();
+    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+    const { consortium } = useContext(ConsortiumContext);
 
     useEffect(async () => {
-        if (props.consortium){
-            const exp = await service.getExpensesFor(props.consortium);
+        debugger
+        if (consortium){
+            const exp = await service.getExpensesFor(consortium);
             setExpenses(exp)
         }
-    }, [props.consortium]);
+    }, [consortium, expensesReceipt]);
 
     return (
         <div style={{ marginTop: '3%' }}>

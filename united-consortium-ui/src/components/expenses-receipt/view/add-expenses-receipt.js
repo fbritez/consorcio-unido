@@ -87,8 +87,8 @@ const AddExpensesReceipt = props => {
         if (validateData()) {
             await service.createExpenseReceipt(props.consortium, monthDescription, yearDescription)
                 .then(
-                    (exp) => { props.setCurrentExpeses(exp) },
-                    () => { setWrongTransaction(true) })
+                    (exp) => {debugger; props.setCurrentExpeses(exp) },
+                    () => {debugger; setWrongTransaction(true) })
         }
 
     }

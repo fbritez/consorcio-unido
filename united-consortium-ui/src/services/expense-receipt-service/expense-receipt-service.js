@@ -19,9 +19,9 @@ class ExpensesReceiptService {
 
     save = async (expensesReceipt, imageFile) => {
         try {
-            debugger
-            await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
+            const result = await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
             this.imageService.save(imageFile)
+            return expensesReceipt
         } catch (error) {
             console.log(error)
             return Promise.reject()
@@ -41,8 +41,6 @@ class ExpensesReceiptService {
     createExpenseReceipt = async (consortium, month, year) => {
         const exp = this.createModel({consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items:[] })
         return await this.save(exp)
-
-       
     }
 }
 
