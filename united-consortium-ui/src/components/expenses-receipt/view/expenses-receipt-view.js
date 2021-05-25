@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
-import { ExpensesReceiptDetailView } from './expenses-receipt-details-view';
+import ExpensesReceiptDetailView from './expenses-receipt-details-view';
 import { UserContext } from '../../user-provider/user-provider';
 import AddExpensesReceipt from './add-expenses-receipt';
 

@@ -1,135 +1,120 @@
-import React from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import './expenses-receipt-details-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import ExpenseItemView from '../expense-item/expense-item'
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExpenseDetails from '../expense-details/expense-details';
+import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
 
+const service = new ExpensesReceiptService();
 
+const ExpensesReceiptDetailView = (props) => {
 
-export class ExpensesReceiptDetailView extends React.Component {
+    const { consortium } = useContext(ConsortiumContext);
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+    const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
+    const [ crudData, setCrudData ] = useState({selectedItem: null, selectedAction:null, selectedDescription: {}})
+    const [isAdministrator, setIsAdministrator] = useState(props.isAdministrator);
 
-    constructor(props) {
-        super(props);
-        this.service = new ExpensesReceiptService();
-        this.consortium = null
-        this.state = {
-            currentExpense: props.expensesReceipt,
-            selectedItem: null,
-            selectedAction: null,
-            selectedDescription: {},
-            showExpenseCRUD: false,
-            isAdministrator: props.isAdministrator
-        }
-        this.user = props.user;
-    };
-    /*
-        async componentDidMount() {
-           
-        }
-    
-        async componentDidUpdate(prev) {
-            if (prev.consortium !== this.props.consortium) {
-                await this.getExpenses()
-                const isAdmin = await this.service.isAdministrator(this.user);
-                this.setState({ isAdministrator: isAdmin });
-            }
-        }
-        */
+    const user = props.user;
 
-    update = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem.item);
-        const updatedExpense = this.state.currentExpense;
+    const update = (item) => {
+        debugger
+        const expensesItem = service.createItemModel(item.newItem.item);
+        const updatedExpense = expensesReceipt;
         const idx = updatedExpense.expense_items.findIndex(i => i === item.oldItem)
         const element = updatedExpense.expense_items[idx] = expensesItem
         return { expense: updatedExpense, file: item.newItem.updatedFile }
     }
 
-    remove = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem.item);
-        const updatedExpense = this.state.currentExpense;
+    const remove = (item) => {
+        debugger
+        const expensesItem = service.createItemModel(item.newItem.item);
+        const updatedExpense = expensesReceipt;
         updatedExpense.expense_items.pop(expensesItem);
         return { expense: updatedExpense, file: item.newItem.updatedFile }
     }
 
-    add = (item) => {
-        const expensesItem = this.service.createItemModel(item.newItem.item);
-        const updatedExpense = this.state.currentExpense;
-        updatedExpense.expense_items.push(expensesItem);
-        return { expense: updatedExpense, file: item.newItem.updatedFile }
+    const add = useCallback(
+        (item) => {
+            const expensesItem = service.createItemModel(item.newItem.item);
+            const updatedExpense = expensesReceipt;
+            updatedExpense.expense_items.push(expensesItem);
+            return { expense: updatedExpense, file: item.newItem.updatedFile }
+        },
+        [],
+      );
+
+    const setItemAction = async (item, action, description) => {
+
+        const r = {
+                selectedItem: item, 
+                selectedAction: action, 
+                selectedDescription: description,
+                setShowExpensesCRUD: true
+            }
+        setCrudData(r)
+        setShowExpensesCRUD(true)
     }
 
-    setItemAction = async (item, action, description) => {
-        this.setState({
-            selectedItem: item,
-            selectedAction: action,
-            selectedDescription: description,
-            showExpenseCRUD: true
-        })
-    }
-
-    runAction = async (item, action) => {
+    const runAction = async (item, action) => {
         const { expense, file } = action(item)
-        const resutl = await this.service.save(expense, file)
-        this.setState({ currentExpense: expense })
+        const resutl = await service.save(expense, file)
+        setExpensesReceipt(expense)
     }
 
-    showExpensesCRUD(value) {
-        this.setState({ showExpenseCRUD: value })
+    const closeExpenses = () => {
+        expensesReceipt.close()
+        service.save(expensesReceipt)
     }
 
-    closeExpenses() {
-        this.state.currentExpense.close()
-        this.service.save(this.state.currentExpense)
-    }
-
-    setCurrentExpenses(expensesReceipt) {
-        this.setState({ currentExpense: expensesReceipt })
-    }
-
-    render() {
-        
-        return (
-            <div className='expenses-receipt'>
-                <div>
-                    <div className='text-center'>
-                        <p>{`Gastos correspondientes al mes de ${this.state.currentExpense.month} ${this.state.currentExpense.year}`}</p>
-                    </div>
-                    <hr />
-                    <div>
-                        {this.state.isAdministrator &&
-                            <div>
-                                <Button
-                                    className='add-local-button'
-                                    disabled={!this.state.currentExpense?.isOpen}
-                                    onClick={() => this.setItemAction(null, this.add, 'Agregar')}>
-                                    Agregar gasto
-                            </Button>
-                                <Button
-                                    className='generate-button'
-                                    disabled={!this.state.currentExpense?.isOpen}
-                                    onClick={() => this.closeExpenses()}>
-                                    Generar Liquidación
-                            </Button>
-                            </div>
-                        }
-                        {this.state.showExpenseCRUD && <ExpenseItemView item={this.state.selectedItem}
-                            handleAction={(item) => this.runAction(item, this.state.selectedAction)}
-                            actionDescription={this.state.selectedDescription}
-                            show={this.state.showExpenseCRUD}
-                            showExpensesCRUD={(bool) => this.showExpensesCRUD(bool)} />
-                        }
-                    </div>
-                    <hr />
-                    <ExpenseDetails
-                        expensesReceipt={this.state.currentExpense}
-                        userAdministrator={this.state.isAdministrator}
-                        updateAction={(item) => this.setItemAction(item, this.update, 'Modificar')}
-                        removeAction={(item) => this.setItemAction(item, this.remove, 'Eliminar')}
-                    />
+    return (
+        <div className='expenses-receipt'>
+            <div>
+                <div className='text-center'>
+                    <p>{`Gastos correspondientes al mes de ${expensesReceipt?.month} ${expensesReceipt?.year}`}</p>
                 </div>
+                <hr />
+                <div>
+                    {isAdministrator &&
+                        <div>
+                            <Button
+                                className='add-local-button'
+                                disabled={!expensesReceipt?.isOpen()}
+                                onClick={() => setItemAction(null, add, 'Agregar')}>
+                                Agregar gasto
+                            </Button>
+                            <Button
+                                className='generate-button'
+                                disabled={!expensesReceipt?.isOpen()}
+                                onClick={() => closeExpenses()}>
+                                Generar Liquidación
+                            </Button>
+                            <hr />
+                        </div>
+                    }
+                    {showExpensesCRUD && 
+                        <ExpenseItemView 
+                            crudData={crudData}
+                            item={crudData.selectedItem}
+                            handleAction={(item) => runAction(item, crudData.selectedAction)}
+                            actionDescription={crudData.selectedDescription}
+                            show={showExpensesCRUD}
+                            showExpensesCRUD={(bool) => setShowExpensesCRUD(bool)} />
+                    }
+                </div>
+                <ExpenseDetails
+                    expensesReceipt={expensesReceipt}
+                    userAdministrator={isAdministrator}
+                    updateAction={(item) => setItemAction(item, update, 'Modificar')}
+                    removeAction={(item) => setItemAction(item, remove, 'Eliminar')}
+                />
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+
+export default ExpensesReceiptDetailView

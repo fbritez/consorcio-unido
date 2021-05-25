@@ -4,3 +4,8 @@
     @extend .button;
     font-size: xx-small;
   }
+
+.option-button:disabled {
+  background-color:black;
+  border-color: #2C4068
+}
