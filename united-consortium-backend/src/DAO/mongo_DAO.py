@@ -70,7 +70,7 @@ class ExpensesReceiptDAO(GenericDAO):
                  element.get('expense_items')]
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
-                                  expense_items=items)
+                                  expense_items=items, is_open=element.get('is_open'))
         return receipt
 
 

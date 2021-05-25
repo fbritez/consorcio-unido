@@ -2,11 +2,12 @@
 
 class ExpensesReceipt:
 
-    def __init__(self, consortium_id, month, year, expense_items=[]):
+    def __init__(self, consortium_id, month, year, expense_items=[], is_open=True):
         self.consortium_id = consortium_id
         self.month = month
         self.year = year
         self.expense_items = expense_items
+        self.is_open = is_open
 
     def __eq__(self, obj):
         return isinstance(obj, ExpensesReceipt) and obj.consortium_id == self.consortium_id and obj.month == self.month and obj.year == self.year

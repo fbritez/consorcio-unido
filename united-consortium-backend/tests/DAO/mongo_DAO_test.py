@@ -88,9 +88,9 @@ class GenericDAOTest(unittest.TestCase):
 
 class ConsortiumDAOTest(unittest.TestCase):
 
-    def test_create_Model(self):
+    def test_create_model(self):
         service = ConsortiumDAO()
-        element = {'name': name, 'address': address, 'members': []}
+        element = {'name': name, 'address': address, 'members': [], 'administrators': []}
         model_obj = service.create_model(element)
 
         self.assertEqual(model_obj, Consortium(name, address))

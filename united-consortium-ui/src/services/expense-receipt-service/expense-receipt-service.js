@@ -23,6 +23,7 @@ class ExpensesReceiptService {
             this.imageService.save(imageFile)
         } catch (error) {
             console.log(error)
+            return Promise.reject()
         }
     }
 
@@ -31,10 +32,17 @@ class ExpensesReceiptService {
 
     createModel = data => {
         const items = data.expense_items.map(data => this.createItemModel(data));
-        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year)
+        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open)
     }
 
     isAdministrator = user => this.consortiumService.isAdministrator(user);
+
+    createExpenseReceipt = async (consortium, month, year) => {
+        const exp = this.createModel({consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items:[] })
+        return await this.save(exp)
+
+       
+    }
 }
 
 export default ExpensesReceiptService;

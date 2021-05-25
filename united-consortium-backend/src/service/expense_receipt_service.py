@@ -17,7 +17,13 @@ class ExpensesReceiptService():
         return exp
 
     def update_expense(self, new_expense):
-        return self.dao.update_all({'consortium_id': new_expense.consortium_identifier(),
-                                    'year': new_expense.get_year(),
-                                    'month': new_expense.get_month()},
-                                   new_expense)
+        query_obj = {'consortium_id': new_expense.consortium_identifier(),
+                     'year': new_expense.get_year(),
+                     'month': new_expense.get_month()}
+
+        if self.dao.get_all(query_obj):
+            result = self.dao.update_all(query_obj, new_expense)
+        else:
+            result = self.dao.insert(new_expense)
+
+        return result
