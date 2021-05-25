@@ -1,4 +1,5 @@
 @import '../../utils/basic-colours.scss';
+@import '../../expenses-receipt/expense-item/expense-item.scss';
 
 .content {
   width: 100%;
@@ -40,9 +41,15 @@
 
 .add-local-button {
   @extend .button;
+  font-size: small;
 }
 
 .my-dropdown {
   @extend .button;
+}
+
+.generate-button {
+  @extend .add-button;
+  font-size: small;
 }
 

@@ -27,7 +27,8 @@ def expenses():
 @cross_origin(support_credentials=True)
 def new_expenses():
     try:
-        expense_receipt = service.create_model(request.json.get('updatedExpensesReceipt'))
+        p = request.json.get('updatedExpensesReceipt')
+        expense_receipt = service.create_model(p)
 
         service.update_expense(expense_receipt)
     except Exception as ex:

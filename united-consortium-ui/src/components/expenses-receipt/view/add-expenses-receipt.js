@@ -3,11 +3,10 @@ import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list'
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { AddItemButton } from '../../common/buttons';
 import Dropdown from 'react-bootstrap/Dropdown';
-import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
-import './expenses-receipt-view.scss';
+import './expenses-receipt-details-view.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const service = new ExpensesReceiptService();
@@ -35,7 +34,6 @@ const range = (start, end) => {
 }
 
 const ErrorHandler = props => {
-    debugger
     return (
         <div>
             {props.errors.map(errorAndDescription => {
@@ -86,7 +84,6 @@ const AddExpensesReceipt = props => {
     }
 
     const generateExpensesRecepit = async () => {
-        debugger
         if (validateData()) {
             await service.createExpenseReceipt(props.consortium, monthDescription, yearDescription)
                 .then(
@@ -108,48 +105,42 @@ const AddExpensesReceipt = props => {
     }]
 
     return (
-        <Container>
-            <Row>
-                <Col sm={8}>
-                    <h3>
-                        Iniciar Expensas
+        <div>
+
+            <h3>
+                Iniciar Expensas
                     </h3>
-                    <hr />
-                    <div>
-                        Eliga mes y año para la nueva liquidación de expensas.
+            <hr />
+            <div>
+                Eliga mes y año para la nueva liquidación de expensas.
                     </div>
-                    <div style={{ marginTop: '3%' }}>
-                        <Row>
-                            <Col sm={6}>
-                                <LocalDropdown
-                                    elements={months}
-                                    description={monthDescription}
-                                    onClick={setMonthDescription}
-                                />
-                            </Col>
-                            <Col sm={6}>
-                                <LocalDropdown
-                                    elements={range(2021, 2030)}
-                                    description={yearDescription}
-                                    onClick={setYearDescription}
-                                />
-                            </Col>
-                        </Row>
-                    </div>
-                    <hr />
-                    <div style={{ fontSize: '10px' }}>
-                        Tenga en cuenta que una vez creada Liquidación de Expensas no podra eliminarla.
+            <div style={{ marginTop: '3%' }}>
+                <Row>
+                    <Col sm={6}>
+                        <LocalDropdown
+                            elements={months}
+                            description={monthDescription}
+                            onClick={setMonthDescription}
+                        />
+                    </Col>
+                    <Col sm={6}>
+                        <LocalDropdown
+                            elements={range(2021, 2030)}
+                            description={yearDescription}
+                            onClick={setYearDescription}
+                        />
+                    </Col>
+                </Row>
+            </div>
+            <hr />
+            <div style={{ fontSize: '10px' }}>
+                Tenga en cuenta que una vez creada Liquidación de Expensas no podra eliminarla.
                         </div>
-                    <ErrorHandler errors={errorDescriptions} />
-                    <div>
-                        <AddItemButton description={'Generar'} onClick={generateExpensesRecepit} />
-                    </div>
-                </Col>
-                <Col sm={4}>
-                    <ExpensesReceiptList consortium={props.consortium} />
-                </Col>
-            </Row>
-        </Container>
+            <ErrorHandler errors={errorDescriptions} />
+            <div>
+                <AddItemButton description={'Generar'} onClick={generateExpensesRecepit} />
+            </div>
+        </div>
     )
 }
 

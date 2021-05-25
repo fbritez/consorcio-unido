@@ -9,8 +9,10 @@ const ExpensesReceiptList = props => {
     const [ expenses, setExpenses ] = useState()
 
     useEffect(async () => {
-        const exp = await service.getExpensesFor(props.consortium);
-        setExpenses(exp)
+        if (props.consortium){
+            const exp = await service.getExpensesFor(props.consortium);
+            setExpenses(exp)
+        }
     }, [props.consortium]);
 
     return (

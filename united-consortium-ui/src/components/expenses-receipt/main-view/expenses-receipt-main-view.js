@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import ConsortiumsListView from '../../consortium/consortiums-list-view/consortiums-list-view';
-import { ExpensesReceiptView } from '../view/expenses-receipt-view';
+import { ConsortiumContextProvider, ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import ExpensesReceiptView from '../view/expenses-receipt-view';
+import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
 import AppliactionNavView from '../../application-nav/application-nav-view';
 import './expenses-receipt-main-view.scss';
 import Row from 'react-bootstrap/Row';
@@ -9,11 +11,11 @@ import Col from 'react-bootstrap/Col';
 import { UserContext } from '../../user-provider/user-provider';
 import authenticationHandler from '../../login/authentication-handler';
 
-const ExpensesReceiptMainView = (props) => {
+const ExpensesReceiptGeneralView = props => {
 
-    const [consortium, setConsortium] = useState(undefined);
+    const { consortium, setConsortium } = useContext(ConsortiumContext);
 
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     return (
         <div className='expenses-receipt'>
@@ -23,20 +25,23 @@ const ExpensesReceiptMainView = (props) => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsListView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user}/>
+                                <ConsortiumsListView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user} />
                             </div>
                         }
                         </Col>
-                        <Col sm={9}>{
+                        <Col sm={6}>{
                             consortium ?
                                 <div>
-                                    <ExpensesReceiptView consortium={consortium} user={user}/>
+                                    <ExpensesReceiptView/>
                                 </div>
                                 :
                                 <div className='text-center'>
                                     <lable > Por favor seleccione un consorcio</lable>
                                 </div>
-                            }
+                        }
+                        </Col>
+                        <Col>
+                            <ExpensesReceiptList consortium={consortium} />
                         </Col>
                     </Row>
                 </div>
@@ -44,5 +49,14 @@ const ExpensesReceiptMainView = (props) => {
         </div >
     )
 }
+
+const ExpensesReceiptMainView = (props) => {
+    return (
+        <ConsortiumContextProvider>
+            <ExpensesReceiptGeneralView />
+        </ConsortiumContextProvider>
+    )
+}
+
 
 export default authenticationHandler(ExpensesReceiptMainView)
