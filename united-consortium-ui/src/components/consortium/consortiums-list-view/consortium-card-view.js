@@ -5,19 +5,20 @@ import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 
 const ConsortiumCardView = (props) => {
 
-    const consortium = props.consortium;
+    const selectedConsortium = props.consortium;
+    const { setConsortium } = useContext(ConsortiumContext);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                 <Card.Img variant="top" src="" />
-                <div onClick={() => { props.setConsortium(consortium) }}>
+                <div onClick={() => setConsortium(selectedConsortium)}>
                     <Card.Body>
                         <Card.Title>
-                            {consortium.name}
+                            {selectedConsortium.name}
                         </Card.Title>
                         <Card.Text>
-                            {consortium.address}
+                            {selectedConsortium.address}
                         </Card.Text>
                     </Card.Body>
                 </div>
@@ -28,7 +29,7 @@ const ConsortiumCardView = (props) => {
 
 const AddConsortiumCardView = (props) => {
 
-    const { consortium, setConsortium } = useContext(ConsortiumContext);
+    const { setConsortium } = useContext(ConsortiumContext);
     const service = new ConsortiumService();
 
     return (

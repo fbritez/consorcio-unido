@@ -9,11 +9,10 @@ const service = new ExpensesReceiptService();
 const ExpensesReceiptList = props => {
 
     const [ expenses, setExpenses ] = useState();
-    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const { consortium } = useContext(ConsortiumContext);
 
     useEffect(async () => {
-        debugger
         if (consortium){
             const exp = await service.getExpensesFor(consortium);
             setExpenses(exp)
@@ -25,7 +24,11 @@ const ExpensesReceiptList = props => {
             <ListGroup>
                 {expenses?.map(item => {
                     return (
-                        <ListGroup.Item>{`${item.month} - ${item.year}`}</ListGroup.Item>
+                        <ListGroup.Item 
+                            action 
+                            onClick={() => {debugger; setExpensesReceipt(item)}}>
+                                {`${item.year} - ${item.month}`}
+                        </ListGroup.Item>
                     )
                 })}
             </ListGroup>

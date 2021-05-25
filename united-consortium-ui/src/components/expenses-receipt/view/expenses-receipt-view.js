@@ -17,7 +17,7 @@ const ExpensesReceiptView = props => {
     const [isAdministrator, setIsAdministrator] = useState();
 
     useEffect(async () => {
-        debugger
+        
         const expenses = await service.getExpensesFor(consortium);
         const openExpenses = expenses.filter(expense => expense.isOpen());
         if (openExpenses.length > 0){
@@ -27,8 +27,8 @@ const ExpensesReceiptView = props => {
         }
         const result = await service.isAdministrator(user);
         setIsAdministrator(result)
-    }, [consortium, expensesReceipt]);
-
+    }, [consortium]);
+    
     debugger
     return (
         <div>{
@@ -36,7 +36,7 @@ const ExpensesReceiptView = props => {
                 <ExpensesReceiptDetailView expensesReceipt={expensesReceipt} isAdministrator={isAdministrator} /> :
                 <AddExpensesReceipt
                     consortium={consortium}
-                    setCurrentExpeses={(exp) => {debugger; setExpensesReceipt(exp)}}
+                    setCurrentExpeses={(exp) => setExpensesReceipt(exp)}
                 />
             }
         </div>
