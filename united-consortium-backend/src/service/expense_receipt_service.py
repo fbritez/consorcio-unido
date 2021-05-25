@@ -13,8 +13,9 @@ class ExpensesReceiptService():
         return self.dao.create_model(expense_json)
 
     def get_expenses_for(self, consortium_id):
-        exp = self.dao.get_all({'consortium_id': consortium_id})
-        return exp
+        expenses = self.dao.get_all({'consortium_id': consortium_id})
+        expenses.sort(key=lambda exp: exp.get_sort_criteria(), reverse=True)
+        return expenses
 
     def update_expense(self, new_expense):
         query_obj = {'consortium_id': new_expense.consortium_identifier(),
@@ -27,3 +28,4 @@ class ExpensesReceiptService():
             result = self.dao.insert(new_expense)
 
         return result
+

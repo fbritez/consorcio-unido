@@ -7,15 +7,32 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ExpenseDetails from '../expense-details/expense-details';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
+import Alert from 'react-bootstrap/Alert';
 
 const service = new ExpensesReceiptService();
 
+const ExpensesReceiptStatus = () => {
+
+    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+
+    return (
+        <div>
+            {!expensesReceipt?.isOpen() &&
+                <Alert variant='primary'>
+                    <div style={{textAlign: 'center'}}>Liquidacion Cerrada.</div>
+                </Alert>
+            }
+        </div>
+
+    )
+}
 const ExpensesReceiptDetailView = (props) => {
 
     const { consortium } = useContext(ConsortiumContext);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+    const [transactionStatus, setTransaciontStatus] = useState(false);
     const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
-    const [ crudData, setCrudData ] = useState({selectedItem: null, selectedAction:null, selectedDescription: {}})
+    const [crudData, setCrudData] = useState({ selectedItem: null, selectedAction: null, selectedDescription: {} })
     const [isAdministrator, setIsAdministrator] = useState(props.isAdministrator);
 
     const user = props.user;
@@ -45,16 +62,16 @@ const ExpensesReceiptDetailView = (props) => {
             return { expense: updatedExpense, file: item.newItem.updatedFile }
         },
         [],
-      );
+    );
 
     const setItemAction = async (item, action, description) => {
 
         const r = {
-                selectedItem: item, 
-                selectedAction: action, 
-                selectedDescription: description,
-                setShowExpensesCRUD: true
-            }
+            selectedItem: item,
+            selectedAction: action,
+            selectedDescription: description,
+            setShowExpensesCRUD: true
+        }
         setCrudData(r)
         setShowExpensesCRUD(true)
     }
@@ -68,6 +85,7 @@ const ExpensesReceiptDetailView = (props) => {
     const closeExpenses = () => {
         expensesReceipt.close()
         service.save(expensesReceipt)
+        setExpensesReceipt(expensesReceipt)
     }
 
     return (
@@ -80,6 +98,7 @@ const ExpensesReceiptDetailView = (props) => {
                 <div>
                     {isAdministrator &&
                         <div>
+                             <ExpensesReceiptStatus/>
                             <Button
                                 className='add-local-button'
                                 disabled={!expensesReceipt?.isOpen()}
@@ -95,8 +114,8 @@ const ExpensesReceiptDetailView = (props) => {
                             <hr />
                         </div>
                     }
-                    {showExpensesCRUD && 
-                        <ExpenseItemView 
+                    {showExpensesCRUD &&
+                        <ExpenseItemView
                             crudData={crudData}
                             item={crudData.selectedItem}
                             handleAction={(item) => runAction(item, crudData.selectedAction)}

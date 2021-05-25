@@ -33,7 +33,7 @@ const AddItemButton = props => {
         <Button 
         className='add-button'
         onClick={() => props.onClick()}
-        disabled={!expensesReceipt?.isOpen()}
+        disabled={expensesReceipt && !expensesReceipt.isOpen() }
         > 
             {props.description? props.description : 'Agregar'}
         </Button>

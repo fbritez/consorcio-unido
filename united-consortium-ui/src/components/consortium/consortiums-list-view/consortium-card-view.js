@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import ConsortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
@@ -6,13 +6,25 @@ import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 const ConsortiumCardView = (props) => {
 
     const selectedConsortium = props.consortium;
-    const { setConsortium } = useContext(ConsortiumContext);
+    const { consortium, setConsortium } = useContext(ConsortiumContext);
+    const [ selected, setSelected ] = useState(false);
+
+    useEffect(() => {
+        setSelected(false)
+    }, [consortium]);
+
+    const detectBorder = () => selected ? 'primary' : '';
+
+    const setSelectedItem = (consortium) =>{
+        setSelected(true)
+        setConsortium(consortium)
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+            <Card border={detectBorder()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                 <Card.Img variant="top" src="" />
-                <div onClick={() => setConsortium(selectedConsortium)}>
+                <div onClick={() => setSelectedItem(selectedConsortium)}>
                     <Card.Body>
                         <Card.Title>
                             {selectedConsortium.name}
