@@ -28,7 +28,7 @@ class ExpensesReceiptService {
         }
     }
 
-    createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket)
+    createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket, data.members)
 
 
     createModel = data => {

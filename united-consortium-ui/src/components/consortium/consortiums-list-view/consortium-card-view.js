@@ -10,19 +10,21 @@ const ConsortiumCardView = (props) => {
     const [ selected, setSelected ] = useState(false);
 
     useEffect(() => {
-        setSelected(false)
+        if (selectedConsortium != consortium){
+            setSelected(false)
+        }
     }, [consortium]);
 
-    const detectBorder = () => selected ? 'primary' : '';
+    const detectBorderColor = () => selected ? 'dark' : '';
 
     const setSelectedItem = (consortium) =>{
         setSelected(true)
         setConsortium(consortium)
     }
-
+    
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card border={detectBorder()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+            <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
                 <Card.Img variant="top" src="" />
                 <div onClick={() => setSelectedItem(selectedConsortium)}>
                     <Card.Body>

@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
-import { RemoveItemButton } from '../../common/buttons'
+import { BasicRemoveItemButton } from '../../common/buttons'
 import AddMemberView from './add-member-view';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
 const ConsortiumMembersTable = (props) => {
 
-    const { consortium, setConsortium } = useContext(ConsortiumContext);
+    const { consortium } = useContext(ConsortiumContext);
     const [members, setMembers] = useState();
-    const [gridApi, setGridApi] = useState(null);
+    const [gridApi, setGridApi] = useState();
 
     useEffect(() => {
         setMembers(consortium?.members);
@@ -18,7 +18,6 @@ const ConsortiumMembersTable = (props) => {
 
     const onGridReady = params => {
         setGridApi(params.api);
-        //setGridColumnApi(params.columnApi);
     };
 
     const memberChage = (change) => {
@@ -51,7 +50,7 @@ const ConsortiumMembersTable = (props) => {
 
         return (
             <div>
-                <RemoveItemButton onClick={() => props.removeItem(props)} />
+                <BasicRemoveItemButton onClick={() => props.removeItem(props)} />
             </div>
         );
     }

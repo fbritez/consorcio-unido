@@ -19,7 +19,7 @@ const ExpensesReceiptStatus = () => {
         <div>
             {!expensesReceipt?.isOpen() &&
                 <Alert variant='primary'>
-                    <div style={{textAlign: 'center'}}>Liquidacion Cerrada.</div>
+                    <div style={{ textAlign: 'center' }}>Liquidacion Cerrada.</div>
                 </Alert>
             }
         </div>
@@ -37,8 +37,7 @@ const ExpensesReceiptDetailView = (props) => {
 
     const user = props.user;
 
-    const update = (item) => {
-        debugger
+    const update = item => {
         const expensesItem = service.createItemModel(item.newItem.item);
         const updatedExpense = expensesReceipt;
         const idx = updatedExpense.expense_items.findIndex(i => i === item.oldItem)
@@ -46,23 +45,19 @@ const ExpensesReceiptDetailView = (props) => {
         return { expense: updatedExpense, file: item.newItem.updatedFile }
     }
 
-    const remove = (item) => {
-        debugger
+    const remove = item => {
         const expensesItem = service.createItemModel(item.newItem.item);
         const updatedExpense = expensesReceipt;
         updatedExpense.expense_items.pop(expensesItem);
         return { expense: updatedExpense, file: item.newItem.updatedFile }
     }
 
-    const add = useCallback(
-        (item) => {
-            const expensesItem = service.createItemModel(item.newItem.item);
-            const updatedExpense = expensesReceipt;
-            updatedExpense.expense_items.push(expensesItem);
-            return { expense: updatedExpense, file: item.newItem.updatedFile }
-        },
-        [],
-    );
+    const add = item => {
+        const expensesItem = service.createItemModel(item.newItem.item);
+        const updatedExpense = expensesReceipt;
+        updatedExpense.expense_items.push(expensesItem);
+        return { expense: updatedExpense, file: item.newItem.updatedFile }
+    }
 
     const setItemAction = async (item, action, description) => {
 
@@ -98,7 +93,7 @@ const ExpensesReceiptDetailView = (props) => {
                 <div>
                     {isAdministrator &&
                         <div>
-                             <ExpensesReceiptStatus/>
+                            <ExpensesReceiptStatus />
                             <Button
                                 className='add-local-button'
                                 disabled={!expensesReceipt?.isOpen()}

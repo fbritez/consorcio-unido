@@ -29,7 +29,6 @@ const ExpensesReceiptView = props => {
         setIsAdministrator(result)
     }, [consortium]);
     
-    debugger
     return (
         <div>{
             expensesReceipt ?

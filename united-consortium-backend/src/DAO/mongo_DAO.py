@@ -65,7 +65,7 @@ class ExpensesReceiptDAO(GenericDAO):
         return self.db.espenses_receipts
 
     def create_model(self, element):
-        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount'), item.get('ticket')) for
+        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount'), item.get('ticket'), item.get('members')) for
                  item in
                  element.get('expense_items')]
 

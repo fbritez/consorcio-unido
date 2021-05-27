@@ -45,5 +45,4 @@ class ExpensesReceipt:
         return MONTH_VALUES.index(self.get_month())
 
     def get_sort_criteria(self):
-        pija = '{} - {}'.format(self.get_year(), self._month_sort_value())
-        return pija
+        return '{} - {}'.format(self.get_year(), self._month_sort_value())

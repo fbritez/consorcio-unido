@@ -26,7 +26,7 @@ const ExpensesReceiptList = props => {
                     return (
                         <ListGroup.Item 
                             action 
-                            onClick={() => {debugger; setExpensesReceipt(item)}}>
+                            onClick={() => setExpensesReceipt(item)}>
                                 {`${item.year} - ${item.month}`}
                         </ListGroup.Item>
                     )

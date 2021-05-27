@@ -7,13 +7,11 @@ import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-pro
 const UpdateItemButton = props => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext)
-    debugger
-    const e = !expensesReceipt?.isOpen()
     return (
         <Button 
             className='option-button' 
             onClick={() => props.onClick()}
-            disabled={e}
+            disabled={!expensesReceipt?.isOpen()}
             >
                 <BsPencil />
         </Button>
@@ -21,9 +19,18 @@ const UpdateItemButton = props => {
 }
 
 const RemoveItemButton = props => {
-    const { expensesReceipt } = useContext(ExpensesReceiptContext)
+
+    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+
     return(
         <Button className='option-button' disabled={!expensesReceipt?.isOpen()} onClick={() => props.onClick()}><BsFillTrashFill /></Button>
+    )
+}
+
+const BasicRemoveItemButton = props => {
+    
+    return(
+        <Button className='option-button'onClick={() => props.onClick()}><BsFillTrashFill /></Button>
     )
 }
 
@@ -43,5 +50,6 @@ const AddItemButton = props => {
 export {
     AddItemButton,
     UpdateItemButton,
-    RemoveItemButton
+    RemoveItemButton,
+    BasicRemoveItemButton
 }
