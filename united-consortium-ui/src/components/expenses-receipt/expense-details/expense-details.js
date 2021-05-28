@@ -21,7 +21,7 @@ const renderOneLineDescription = (description, value) => {
 const MemberDetailsView = (props) => {
     return (
         <div>
-            {props.item.members.map(member => {
+            {props.item.members?.map(member => {
                 return (<Badge variant="dark">{member.member_name}</Badge>)
             })}
         </div>
@@ -64,7 +64,7 @@ const ExpenseDetails = props => {
                                                                 <RemoveItemButton onClick={() => props.removeAction(item)} />
                                                             </div>
                                                         } {item.ticket &&
-                                                            <div>
+                                                            <div className='right'>
                                                                 <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
                                                                     <AiFillCaretDown />
                                                                 </Button>

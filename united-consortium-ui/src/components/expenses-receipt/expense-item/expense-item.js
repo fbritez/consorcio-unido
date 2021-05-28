@@ -35,7 +35,6 @@ const ExpensesItemView = (props) => {
     };
 
     const checkNode = (node) => {
-        debugger
         const data = node.data;
         const value = currentItem.members.some(member => member.member_name == data.member_name);
         node.setSelected(value);

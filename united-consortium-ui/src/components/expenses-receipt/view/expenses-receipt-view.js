@@ -17,16 +17,17 @@ const ExpensesReceiptView = props => {
     const [isAdministrator, setIsAdministrator] = useState();
 
     useEffect(async () => {
-        
-        const expenses = await service.getExpensesFor(consortium);
-        const openExpenses = expenses.filter(expense => expense.isOpen());
-        if (openExpenses.length > 0){
-            setExpensesReceipt(openExpenses[0]);
+        const isAdmin = consortium.isAdministrator(user);
+        setIsAdministrator(isAdmin)
+        var expenses = await service.getExpensesAccordingUser(consortium, user);
+        if(isAdmin){
+            expenses = expenses.filter(expense => expense.isOpen());
+        }
+        if (expenses.length > 0){
+            setExpensesReceipt(expenses[0]);
         }else{
             setExpensesReceipt(undefined);
         }
-        const result = await service.isAdministrator(user);
-        setIsAdministrator(result)
     }, [consortium]);
     
     return (

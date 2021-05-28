@@ -17,6 +17,19 @@ class ExpensesReceiptService {
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
 
+    getClosedExpensesFor = async consortium => {
+        var expenses = await this.getExpensesFor(consortium);
+        return expenses?.filter(expensesReceipt => !expensesReceipt.isOpen());
+    }
+
+    getExpensesAccordingUser = (consortium, user) => {
+        if (consortium) {
+            return consortium?.isAdministrator(user) ? this.getExpensesFor(consortium) : this.getClosedExpensesFor(consortium);
+        } else {
+            return []
+        }
+    }
+
     save = async (expensesReceipt, imageFile) => {
         try {
             const result = await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
@@ -39,7 +52,7 @@ class ExpensesReceiptService {
     isAdministrator = user => this.consortiumService.isAdministrator(user);
 
     createExpenseReceipt = async (consortium, month, year) => {
-        const exp = this.createModel({consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items:[] })
+        const exp = this.createModel({ consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items: [] })
         return await this.save(exp)
     }
 }
