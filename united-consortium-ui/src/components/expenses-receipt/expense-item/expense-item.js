@@ -31,14 +31,14 @@ const ExpensesItemView = (props) => {
     const onGridReady = params => {
         setGridApi(params.api);
         params.api.setRowData(consortium.members);
-        params.api.forEachNode(node => check(node, consortium.members));
+        params.api.forEachNode(node => checkNode(node));
     };
 
-    const check = (node, members) =>{
+    const checkNode = (node) => {
         debugger
-        const data = node.data
-        const value = currentItem.members.includes(data)
-        node.setSelected(value)
+        const data = node.data;
+        const value = currentItem.members.some(member => member.member_name == data.member_name);
+        node.setSelected(value);
     }
 
     const handleExpenseItem = () => {
@@ -95,7 +95,7 @@ const ExpensesItemView = (props) => {
             <Modal.Body>
                 <div>
                     <Form noValidate validated={valid} onSubmit={(event) => handleSubmit(event)}>
-                        <Tabs defaultActiveKey="particular" id="uncontrolled-tab-example">
+                        <Tabs defaultActiveKey="general" id="uncontrolled-tab-example">
                             <Tab eventKey="general" title="General">
                                 <div>
                                     <Form.Group controlId="validateTitle">
@@ -166,6 +166,7 @@ const ExpensesItemView = (props) => {
                                         rowSelection={'multiple'}
                                         pagination={true}
                                         paginationPageSize={5}
+                                        suppressColumnsToolPanel={true}
                                         onGridReady={onGridReady}>
                                         <AgGridColumn
                                             checkboxSelection={true}

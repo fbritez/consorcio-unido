@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { Card, Accordion, Button } from 'react-bootstrap';
+import { Card, Accordion, Button, Row, Col, Badge } from 'react-bootstrap';
 import { UpdateItemButton, RemoveItemButton } from '../../common/buttons';
 import ImageService from '../../../services/image-service/image-service'
+import { AiFillCaretDown } from 'react-icons/ai';
+import './expense-details.scss';
 
 const downloadTicket = file_id => {
     const service = new ImageService();
@@ -13,6 +15,15 @@ const renderOneLineDescription = (description, value) => {
         <div className='content'>
             <div className='left'>{description}</div>
             <div className='right'>{value}</div>
+        </div>
+    )
+}
+const MemberDetailsView = (props) => {
+    return (
+        <div>
+            {props.item.members.map(member => {
+                return (<Badge variant="dark">{member.member_name}</Badge>)
+            })}
         </div>
     )
 }
@@ -36,26 +47,35 @@ const ExpenseDetails = props => {
                                     </Card.Header>
                                     <Accordion.Collapse eventKey={eventKey}>
                                         <Card.Body >
-                                            {
-                                                props.userAdministrator &&
-                                                <div className='right'>
-                                                    <UpdateItemButton onClick={() => props.updateAction(item)} />
-                                                    <RemoveItemButton onClick={() => props.removeAction(item)} />
-                                                </div>
-                                            }
-                                            <div className='card-details'>
-                                                {item.title}
-                                                <p>{`Descripcion: ${item.description}`}</p>
-                                                {item.ticket &&
+                                            <Row>
+                                                <Col sm={9}>
+                                                    <div className='card-details'>
+                                                        {item.title}
+                                                        <hr />
+                                                        <p>{`Descripcion: ${item.description}`}</p>
+                                                    </div>
+                                                </Col>
+                                                <Col sm={3}>
                                                     <div>
-                                                        <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
-                                                            Descargar Comprobante
-                                                        </Button>
-                                                    </div>}
-                                                <hr />
-                                                <div className='amount-detail'>
-                                                    {renderOneLineDescription('Costo', item.getCurrencyAmount())}
-                                                </div>
+                                                        {
+                                                            props.userAdministrator &&
+                                                            <div className='right'>
+                                                                <UpdateItemButton onClick={() => props.updateAction(item)} />
+                                                                <RemoveItemButton onClick={() => props.removeAction(item)} />
+                                                            </div>
+                                                        } {item.ticket &&
+                                                            <div>
+                                                                <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
+                                                                    <AiFillCaretDown />
+                                                                </Button>
+                                                            </div>}
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                            <MemberDetailsView item={item} />
+                                            <hr />
+                                            <div className='amount-detail'>
+                                                {renderOneLineDescription('Costo', item.getCurrencyAmount())}
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
