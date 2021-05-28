@@ -6,6 +6,7 @@ import AddExpensesReceipt from './add-expenses-receipt';
 
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
+import NoneExpensesReceipt from './none-expenses-receipt-view';
 
 const service = new ExpensesReceiptService();
 
@@ -34,10 +35,12 @@ const ExpensesReceiptView = props => {
         <div>{
             expensesReceipt ?
                 <ExpensesReceiptDetailView expensesReceipt={expensesReceipt} isAdministrator={isAdministrator} /> :
+                isAdministrator ? 
                 <AddExpensesReceipt
                     consortium={consortium}
                     setCurrentExpeses={(exp) => setExpensesReceipt(exp)}
-                />
+                /> : 
+                <NoneExpensesReceipt/>
             }
         </div>
     )

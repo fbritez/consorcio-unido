@@ -28,22 +28,22 @@ const AppliactionNavView = (props) => {
 
     return (
         <Navbar className='navbar'>
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '7%', marginRight: '7%' }}>
                 <Nav className="mr-auto">
                     <img src={logo} alt="drawing" width="50" classNAme="icon" />
                     <div className="vl" />
                     <Nav.Link onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
                     {isAdministrator ? <Nav.Link onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
                 </Nav>
+                <Navbar.Brand href="#home" className='right'>
+                    <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
+                        <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
+                        <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
+                    </NavDropdown>
+                </Navbar.Brand>
             </Navbar.Collapse>
-            <Navbar.Brand href="#home" className='right'>
-                <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
-                    <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
-                    <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
-                </NavDropdown>
-            </Navbar.Brand>
         </Navbar>
     )
 

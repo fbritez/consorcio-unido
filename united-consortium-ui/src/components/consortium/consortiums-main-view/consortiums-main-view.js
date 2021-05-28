@@ -26,7 +26,7 @@ const ConsortiumsGeneralView = (props) => {
         <div className='background'>
             <AppliactionNavView />
             <Container>
-                <div>
+                <div style={{ marginLeft: '7%', marginRight: '7%' }}>
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
