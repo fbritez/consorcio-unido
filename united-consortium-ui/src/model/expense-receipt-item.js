@@ -1,4 +1,4 @@
-
+import { roundNumber } from './utils';
 
 class ExpenseReceiptitem{
 
@@ -11,7 +11,8 @@ class ExpenseReceiptitem{
     }
 
     getCurrencyAmount(){
-        return `$${this.amount}` 
+        debugger
+        return `$${roundNumber(this.amount)}` 
     }
 
     set_members(members){

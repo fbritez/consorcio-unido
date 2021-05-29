@@ -1,3 +1,5 @@
+import { roundNumber } from './utils';
+
 class ExpensesReceipt{
 
     constructor(consortium_id, items, month, year, isOpen){
@@ -9,7 +11,7 @@ class ExpensesReceipt{
     }
 
     getTotalAmount(){
-        return this.expense_items.reduce((a, b) => a + b.amount, 0);
+        return roundNumber(this.expense_items.reduce((a, b) => a + b.amount, 0));
     }
 
     getCurrencyAndTotalAmount(){

@@ -13,15 +13,11 @@ const service = new ExpensesReceiptService();
 
 const ExpensesReceiptStatus = () => {
 
-    const { expensesReceipt } = useContext(ExpensesReceiptContext);
-    debugger
     return (
         <div>
-            {!expensesReceipt?.isOpen() &&
-                <Alert variant='primary'>
-                    <div style={{ textAlign: 'center' }}>Liquidacion Cerrada.</div>
-                </Alert>
-            }
+            <Alert variant='primary'>
+                <div style={{ textAlign: 'center' }}>Liquidacion Cerrada.</div>
+            </Alert>
         </div>
 
     )
@@ -31,7 +27,7 @@ const ExpensesReceiptDetailView = (props) => {
     const { consortium } = useContext(ConsortiumContext);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const { localExp, setLocalExp } = useState(expensesReceipt);
-    const [ transactionStatus, setTransacionStatus ] = useState(false);
+    const [transactionStatus, setTransacionStatus] = useState(false);
     const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
     const [crudData, setCrudData] = useState({ selectedItem: null, selectedAction: null, selectedDescription: {} })
     const [isAdministrator, setIsAdministrator] = useState(props.isAdministrator);
@@ -79,13 +75,11 @@ const ExpensesReceiptDetailView = (props) => {
     }
 
     const closeExpenses = () => {
-        debugger
         expensesReceipt.close()
         service.save(expensesReceipt)
-        setExpensesReceipt(expensesReceipt)
+        setExpensesReceipt(undefined)
         setTransacionStatus(true)
     }
-    debugger
     return (
         <div className='expenses-receipt'>
             <div>
@@ -96,19 +90,23 @@ const ExpensesReceiptDetailView = (props) => {
                 <div>
                     {isAdministrator &&
                         <div>
-                            <ExpensesReceiptStatus />
-                            <Button
-                                className='add-local-button'
-                                disabled={!expensesReceipt?.isOpen()}
-                                onClick={() => setItemAction(null, add, 'Agregar')}>
-                                Agregar gasto
-                            </Button>
-                            <Button
-                                className='generate-button'
-                                disabled={!expensesReceipt?.isOpen()}
-                                onClick={() => closeExpenses()}>
-                                Generar Liquidación
-                            </Button>
+                            {!expensesReceipt?.isOpen() ?
+                                <ExpensesReceiptStatus /> :
+                                <div>
+                                    <Button
+                                        className='add-local-button'
+                                        disabled={!expensesReceipt?.isOpen()}
+                                        onClick={() => setItemAction(null, add, 'Agregar')}>
+                                        Agregar gasto
+                                    </Button>
+                                    <Button
+                                        className='generate-button'
+                                        disabled={!expensesReceipt?.isOpen()}
+                                        onClick={() => closeExpenses()}>
+                                        Generar Liquidación
+                                    </Button>
+                                </div>
+                            }
                             <hr />
                         </div>
                     }

@@ -27,6 +27,7 @@ const MemberDetailsView = (props) => {
         </div>
     )
 }
+
 const ExpenseDetails = props => {
 
 
