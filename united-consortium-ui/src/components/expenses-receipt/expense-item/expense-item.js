@@ -104,7 +104,7 @@ const ExpensesItemView = (props) => {
                                             aria-describedby="basic-addon3"
                                             required
                                             onChange={event => handleChange({ 'title': event.target.value })}
-                                            value={props.item?.title}
+                                            defaultValue={props.item?.title}
                                             disabled={shouldBeDisable} />
                                         <Form.Control.Feedback type="invalid">
                                             Por favor defina un titulo
@@ -117,7 +117,7 @@ const ExpensesItemView = (props) => {
                                             type="number"
                                             required
                                             onChange={event => handleChange({ 'amount': parseFloat(event.target.value) })}
-                                            value={props.item?.amount}
+                                            defaultValue={props.item?.amount}
                                             disabled={shouldBeDisable}
                                         />
                                         <Form.Control.Feedback type="invalid">
