@@ -12,11 +12,14 @@ CORS(expenses_receipt_api, suppport_credentials=True)
 
 service = ExpensesReceiptService()
 
+
 @expenses_receipt_api.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():
     consortium_id = request.args.get('consortium_identifier')
-    selectedExpenses = service.get_expenses_for(consortium_id)
+    user_id = request.args.get('user_identifier')
+
+    selectedExpenses = service.get_expenses_for(consortium_id, user_id)
     return {
         'expenses': [json_dumps(expense_receipt) for expense_receipt in
                      selectedExpenses]

@@ -78,7 +78,7 @@ function Login() {
                     <div>
                         <Card.Body>
                             <Card.Title>
-                                Bienvendio, por favor ingresa tu direccion de correo
+                                Bienvenido, por favor ingresa tu direccion de correo
                         </Card.Title>
                             <Card.Text>
                                 <Form.Group controlId="">

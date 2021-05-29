@@ -8,7 +8,7 @@ const NoneExpensesReceipt = () => {
 
     return(
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
+        <Card >
             <Card.Img variant="top" src="" />
             <div >
                 <Card.Body>

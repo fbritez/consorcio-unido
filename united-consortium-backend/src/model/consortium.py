@@ -29,6 +29,12 @@ class Consortium(object):
     def get_members(self):
         return self.members
 
+    def get_members_count(self):
+        return len(self.get_members())
+
     def get_administrators(self):
         return self.administrators
+
+    def is_administrator(self, user_email):
+        return user_email in self.get_administrators()
 

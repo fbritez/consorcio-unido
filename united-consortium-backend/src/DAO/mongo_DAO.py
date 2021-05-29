@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt
-from src.model.user import User
+from src.model.user import User, ConsortiumMember
 import gridfs
 
 
@@ -65,7 +65,11 @@ class ExpensesReceiptDAO(GenericDAO):
         return self.db.espenses_receipts
 
     def create_model(self, element):
-        items = [ExpenseItem(item.get('title'), item.get('description'), item.get('amount'), item.get('ticket'), item.get('members')) for
+        items = [ExpenseItem(item.get('title'),
+                             item.get('description'),
+                             item.get('amount'),
+                             item.get('ticket'),
+                             self._generate_members(item)) for
                  item in
                  element.get('expense_items')]
 
@@ -73,6 +77,8 @@ class ExpensesReceiptDAO(GenericDAO):
                                   expense_items=items, is_open=element.get('is_open'))
         return receipt
 
+    def _generate_members(self, item):
+        return [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in item.get('members', [])]
 
 class LoginDAO(GenericDAO):
 
@@ -103,4 +109,3 @@ class ImageDAO(GenericDAO):
         file = fs.find_one({'filename': file_id})
 
         return file.read()
-

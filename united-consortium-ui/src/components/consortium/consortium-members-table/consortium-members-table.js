@@ -81,7 +81,7 @@ const ConsortiumMembersTable = (props) => {
                     paginationPageSize={5}
                     onGridReady={onGridReady}>
                     <AgGridColumn
-                        headerName="Identificador"
+                        headerName="Unidad Funcional"
                         field="member_name"
                         editable={true}
                         onCellValueChanged={memberChage}

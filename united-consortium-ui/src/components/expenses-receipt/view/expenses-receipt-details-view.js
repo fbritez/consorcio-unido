@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import './expenses-receipt-details-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import ExpenseItemView from '../expense-item/expense-item'
@@ -14,7 +14,7 @@ const service = new ExpensesReceiptService();
 const ExpensesReceiptStatus = () => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
-
+    debugger
     return (
         <div>
             {!expensesReceipt?.isOpen() &&
@@ -30,7 +30,8 @@ const ExpensesReceiptDetailView = (props) => {
 
     const { consortium } = useContext(ConsortiumContext);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
-    const [transactionStatus, setTransaciontStatus] = useState(false);
+    const { localExp, setLocalExp } = useState(expensesReceipt);
+    const [ transactionStatus, setTransacionStatus ] = useState(false);
     const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
     const [crudData, setCrudData] = useState({ selectedItem: null, selectedAction: null, selectedDescription: {} })
     const [isAdministrator, setIsAdministrator] = useState(props.isAdministrator);
@@ -78,11 +79,13 @@ const ExpensesReceiptDetailView = (props) => {
     }
 
     const closeExpenses = () => {
+        debugger
         expensesReceipt.close()
         service.save(expensesReceipt)
         setExpensesReceipt(expensesReceipt)
+        setTransacionStatus(true)
     }
-
+    debugger
     return (
         <div className='expenses-receipt'>
             <div>

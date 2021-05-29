@@ -9,10 +9,13 @@ class ConsortiumService:
         self.dao = ConsortiumDAO()
         self.user_service = user_service
 
+    def get_consortium(self, consortium_id):
+        return self.dao.get_all({'id': consortium_id})[0]
+
     def get_consortium_for(self, user_identifier=None):
         values = []
         if user_identifier:
-            query_obj = {'$or': [{'members.user_email' : user_identifier}, {'administrators' : user_identifier}]}
+            query_obj = {'$or': [{'members.user_email': user_identifier}, {'administrators': user_identifier}]}
             values = self.dao.get_all(query_obj)
         else:
             values = self.dao.get_all()
@@ -36,4 +39,3 @@ class ConsortiumService:
 
     def create_model(self, expense_json):
         return self.dao.create_model(expense_json)
-

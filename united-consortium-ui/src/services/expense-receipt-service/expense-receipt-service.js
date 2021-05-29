@@ -12,22 +12,15 @@ class ExpensesReceiptService {
         this.imageService = new ImageService();
     }
 
-    getExpensesFor = async consortium => {
-        const espensesData = await axios.get(`${SERVICE_URL}/expenses?consortium_identifier=${consortium.id}`);
+    getExpensesAccordingUser = async (consortium, user) => {
+        const params = `consortium_identifier=${consortium.id}&user_identifier=${user.email}`
+        const espensesData = await axios.get(`${SERVICE_URL}/expenses?${params}`);
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
 
     getClosedExpensesFor = async consortium => {
         var expenses = await this.getExpensesFor(consortium);
         return expenses?.filter(expensesReceipt => !expensesReceipt.isOpen());
-    }
-
-    getExpensesAccordingUser = (consortium, user) => {
-        if (consortium) {
-            return consortium?.isAdministrator(user) ? this.getExpensesFor(consortium) : this.getClosedExpensesFor(consortium);
-        } else {
-            return []
-        }
     }
 
     save = async (expensesReceipt, imageFile) => {

@@ -30,7 +30,7 @@ const AddMemberView = (props) => {
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Identificador"
+                            placeholder="Identificador de la unidad"
                             value={member?.member_name}
                             onChange={event => handleChange({ 'member_name': event.target.value })}
                         />

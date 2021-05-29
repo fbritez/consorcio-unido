@@ -91,7 +91,7 @@ const ConsortiumDetails = (props) => {
                 />
                 <hr />
                 <div style={{marginBottom: '2%'}}>
-                    Miembros
+                    Unidades Funcionales
                 </div>
                 <ConsortiumMembersTable setMembers={setUpdatedMembers} />
                 <hr />

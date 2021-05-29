@@ -148,7 +148,7 @@ const ExpensesItemView = (props) => {
                                     </Form.Row>
                                 </div>
                             </Tab>
-                            <Tab eventKey="particular" title="Particulares">
+                            <Tab eventKey="particular" title="Unidades Funcionales">
                                 <div className="ag-theme-material" style={{ height: 310, }}>
                                     <AgGridReact
                                         defaultColDef={{
@@ -169,7 +169,7 @@ const ExpensesItemView = (props) => {
                                         onGridReady={onGridReady}>
                                         <AgGridColumn
                                             checkboxSelection={true}
-                                            headerName="Identificador"
+                                            headerName="Unidad Funcional"
                                             field="member_name"
                                         >
                                         </AgGridColumn>

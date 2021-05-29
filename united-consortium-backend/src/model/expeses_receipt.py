@@ -35,7 +35,10 @@ class ExpensesReceipt:
     def get_year(self):
         return self.year
 
-    def get_expeses_items(self):
+    def set_expenses_items(self, items):
+        self.expense_items = items
+
+    def get_expenses_items(self):
         return self.expense_items
 
     def get_total_amount(self):

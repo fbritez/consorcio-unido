@@ -15,8 +15,11 @@ const ExpensesReceiptList = props => {
     const { consortium } = useContext(ConsortiumContext);
 
     useEffect(async () => {
-        const exp = await service.getExpensesAccordingUser(consortium, user)
-        setExpenses(exp)
+        if(consortium){
+            const exp = await service.getExpensesAccordingUser(consortium, user)
+            setExpenses(exp)
+        }
+      
     }, [consortium, expensesReceipt]);
 
     return (
