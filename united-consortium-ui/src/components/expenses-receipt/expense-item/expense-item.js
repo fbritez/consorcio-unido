@@ -95,8 +95,8 @@ const ExpensesItemView = (props) => {
                 <div>
                     <Form noValidate validated={valid} onSubmit={(event) => handleSubmit(event)}>
                         <Tabs defaultActiveKey="general" id="uncontrolled-tab-example">
-                            <Tab eventKey="general" title="General">
-                                <div>
+                            <Tab className='mytab' eventKey="general" title="General">
+                                <div style={{marginLeft: '10px', marginRight:'10px'}}>
                                     <Form.Group controlId="validateTitle">
                                         <Form.Label>Titulo</Form.Label>
                                         <Form.Control
@@ -132,9 +132,7 @@ const ExpensesItemView = (props) => {
                                             defaultValue={props.item?.description}
                                             disabled={shouldBeDisable} />
                                     </Form.Group>
-                                    <hr />
-                                    <Form.Row>
-                                        <Form.Group controlId="validateTicket">
+                                    <Form.Group controlId="validateTicket" style={{marginButton: '10px'}}>
                                             <Form.Label>Comprobante</Form.Label>
                                             <div>
                                                 <p>
@@ -145,7 +143,6 @@ const ExpensesItemView = (props) => {
                                                 <input type='file' onChange={onFileChange} disabled={shouldBeDisable} />
                                             </div>
                                         </Form.Group>
-                                    </Form.Row>
                                 </div>
                             </Tab>
                             <Tab eventKey="particular" title="Unidades Funcionales">

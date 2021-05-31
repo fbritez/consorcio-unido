@@ -1,11 +1,109 @@
 @import '../utils/basic-colours.scss';
 
+.button {
+  background-color: $soft-color;
+  border-color: $soft-color;
+  color: $hard-color;
+  border-radius: $border-radius;
+}
+
+.button:hover{
+  background-color: $soft-color-hover;
+  color: $hard-color;
+  border-color: $soft-color-hover;
+}
+
+.button:focus {     
+  background-color:$soft-color-hover;
+  border-color: $soft-color-hover; 
+}
+
+.button:disabled{
+  background-color: black;
+  border-color: #2C4068
+}
+
 .option-button {
-    @extend .button;
     font-size: xx-small;
   }
 
 .option-button:disabled {
   background-color:black;
   border-color: #2C4068
+}
+
+.add-button {
+  @extend .button;
+  background-color: #50ca60;
+  border-color: #50ca60 ;
+  margin-left: 3%;
+  float: right
+}
+.add-button:hover{
+  background-color:  #1e7e2a;
+  border-color: #1e7e2a;
+  border-color: #1e7e2a ;
+}
+
+.add-button:active{
+  background-color:  #1e7e2a;
+  border-color: #1e7e2a;
+  border-color: #1e7e2a;
+} 
+
+.add-button:disabled{
+  background-color:  #0e3f14;
+  border-color: #1e7e2a  
+}
+
+.add-button:focus {     
+  background-color: #1e7e2a;
+  border-color: #1e7e2a;
+  border-color: #1e7e2a  
+}
+
+.remove-button {
+  @extend .button;
+  background-color: #fd624d;
+  border-color: #fd624d ; 
+  margin-left: 3%;
+  float: right;
+}
+
+.remove-button:hover{
+  background-color:  #fa513b;
+  border-color: #fa513b  
+}
+
+.remove-button:focus {     
+  background-color: #fa513b;
+  border-color: #fa513b  
+}
+
+
+.update-button {
+  @extend .button;
+  margin-left: 3%;
+  float: right
+}
+
+
+.cancel-button{
+  @extend .button;
+  background-color: rgb(170, 170, 170);
+  border-color:  rgb(170, 170, 170);
+  color: $hard-color;
+  float: right
+}
+
+.cancel-button:hover{
+  background-color: rgb(133, 128, 128);
+  border-color:rgb(133, 128, 128);
+  color: $hard-color;
+}
+
+.cancel-button:focus{
+  background-color: rgb(133, 128, 128);
+  border-color:rgb(133, 128, 128);
+  color: $hard-color;
 }

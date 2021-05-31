@@ -24,7 +24,7 @@ const ConsortiumCardView = (props) => {
     
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
+            <Card className='consortium-card'border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
                 <Card.Img variant="top" src="" />
                 <div onClick={() => setSelectedItem(selectedConsortium)}>
                     <Card.Body>
@@ -48,7 +48,7 @@ const AddConsortiumCardView = (props) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
+            <Card className='consortium-card' style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
                 <Card.Img variant="top" src="" />
                 <div onClick={() => setConsortium(service.createEmptyConsortium())}>
                     <Card.Body>
