@@ -1,5 +1,5 @@
 @import '../../utils/basic-colours.scss';
-@import '../../common/buttons.scss';
+@import '../../expenses-receipt/expense-item/expense-item.scss';
 
 .content {
   width: 100%;
@@ -25,7 +25,8 @@
 }
   
 .total{
-  margin-top: 5%;
+  margin-top: 1%;
+  background-color: #64d37e;
 }
 
 .card-details {

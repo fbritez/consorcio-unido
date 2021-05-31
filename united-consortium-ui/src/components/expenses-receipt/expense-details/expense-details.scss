@@ -1,15 +1,6 @@
-@import '../../utils/basic-colours.scss';
 
-.prueba{
-    .card-header{
-        background-color: $soft-color;  
-        border-radius: $border-radius;
-        .btn-link{
-            :focus{
-                border-color: $deep-hard-color;
-            }
-            background-color: $soft-color; 
-            color: $hard-color;
-        } 
-    }
+
+.badge.badge-dark{
+    background-color:#2C4068;
+    color: white
 }

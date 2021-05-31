@@ -39,8 +39,8 @@ const ExpenseDetails = props => {
                     {props.expensesReceipt.expense_items?.map(item => {
                         let eventKey = props.expensesReceipt.expense_items.indexOf(item) + 1;
                         return (
-                            <div>
-                                <Card className='prueba'>
+                            <div className='contenedore-item'>
+                                <Card>
                                     <Card.Header>
                                         <Accordion.Toggle as={Button} variant="link" eventKey={eventKey}>
                                             {renderOneLineDescription(item.title, item.getCurrencyAmount())}
@@ -50,7 +50,7 @@ const ExpenseDetails = props => {
                                         <Card.Body >
                                             <Row>
                                                 <Col sm={9}>
-                                                    <div>
+                                                    <div className='card-details'>
                                                         {item.title}
                                                         <hr />
                                                         <p>{`Descripcion: ${item.description}`}</p>
@@ -86,7 +86,7 @@ const ExpenseDetails = props => {
                 </Accordion>}
             </div>
             <div>
-                <Card className='total' body>
+                <Card className='total' border="success" body>
                     {renderOneLineDescription('Total a pagar', props.expensesReceipt.getCurrencyAndTotalAmount())}
                 </Card>
             </div>
