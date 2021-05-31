@@ -14,7 +14,9 @@ class Consortium{
     }
 
     addAdministrator(administrator_email){
-        this.administrators.push(administrator_email);
+        if(!this.isAdministrator({user : administrator_email})){
+            this.administrators.push(administrator_email);
+        }
     }
 
     isAdministrator(user){

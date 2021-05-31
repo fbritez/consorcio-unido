@@ -11,7 +11,6 @@ class ExpenseReceiptitem{
     }
 
     getCurrencyAmount(){
-        debugger
         return `$${roundNumber(this.amount)}` 
     }
 

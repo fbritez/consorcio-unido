@@ -45,6 +45,7 @@ const ConsortiumDetails = (props) => {
 
     const handleSubmit = async (event) => {
         consortium.addAdministrator(user.email);
+        consortium.setMembers(updatedMembers);
         await service.update(consortium).then(
             () => {
                 setConsortium(consortium);
@@ -61,7 +62,6 @@ const ConsortiumDetails = (props) => {
     const address = () => consortium ? consortium.address : ''
 
     return (
-        //<Form noValidate validated={valid} onSubmit={handleSubmit}>
         <div>
             <div>
                 {
