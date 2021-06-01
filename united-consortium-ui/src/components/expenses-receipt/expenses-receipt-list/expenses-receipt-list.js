@@ -10,31 +10,46 @@ const service = new ExpensesReceiptService();
 const ExpensesReceiptList = () => {
 
     const { user } = useContext(UserContext);
-    const [ expenses, setExpenses ] = useState();
+    const [expenses, setExpenses] = useState();
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const { consortium } = useContext(ConsortiumContext);
+    const [ isAdministrator, setIsAdministrator ] = useState(false);
 
     useEffect(async () => {
-        if(consortium){
-            const exp = await service.getExpensesAccordingUser(consortium, user)
-            setExpenses(exp)
+        if (consortium) {
+            const exp = await service.getExpensesAccordingUser(consortium, user);
+            setExpenses(exp);
+            setIsAdministrator(consortium.isAdministrator(user));
         }
-      
+
     }, [consortium, expensesReceipt]);
 
     return (
-        <div style={{ marginTop: '3%' }}>
-            <ListGroup>
-                {expenses?.map(item => {
-                    return (
-                        <ListGroup.Item 
-                            action 
-                            onClick={() => setExpensesReceipt(item)}>
-                                {`${item.year} - ${item.month}`}
+        <div>
+            {
+                isAdministrator ?
+                    <ListGroup>
+                        <ListGroup.Item
+                            action
+                            onClick={() => setExpensesReceipt(undefined)}>
+                            Nueva Expensa
                         </ListGroup.Item>
-                    )
-                })}
-            </ListGroup>
+                    </ListGroup>
+                    : <div />
+            }
+            <div style={{ marginTop: '3%' }}>
+                <ListGroup>
+                    {expenses?.map(item => {
+                        return (
+                            <ListGroup.Item
+                                action
+                                onClick={() => setExpensesReceipt(item)}>
+                                {`${item.year} - ${item.month}`}
+                            </ListGroup.Item>
+                        )
+                    })}
+                </ListGroup>
+            </div>
         </div>
     )
 }
