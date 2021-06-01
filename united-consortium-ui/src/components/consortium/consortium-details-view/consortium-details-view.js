@@ -2,13 +2,90 @@ import React, { useState, useContext, useEffect } from 'react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 import ConsortiumService from '../../../services/consortium-service/consortium-service';
 import ConsortiumMembersTable from '../consortium-members-table/consortium-members-table';
+import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
-import FormControl from 'react-bootstrap/FormControl';
-import Form from 'react-bootstrap/Form';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab'
 import Alert from 'react-bootstrap/Alert';
 import { UserContext } from '../../user-provider/user-provider';
+import './consortium-details.scss';
 
 const service = new ConsortiumService();
+
+const BasicConsortiumDetails = props => {
+
+    const { consortium } = useContext(ConsortiumContext);
+
+    const name = () => consortium ? consortium.name : ''
+
+    const address = () => consortium ? consortium.address : ''
+
+    return (
+        <div>
+            <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Nombre / Identificardor del consorcio</label>
+            <input
+                type="text"
+                className="form-control"
+                id="formGroupExampleInput"
+                value={name()}
+                onChange={event => props.handleChange({ 'name': event.target.value })}
+            />
+
+            <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Dirección</label>
+            <input
+                type="text"
+                className="form-control"
+                id="formGroupExampleInput"
+                value={address()}
+                onChange={event => props.handleChange({ 'address': event.target.value })}
+            />
+            <hr />
+            <div style={{ marginBottom: '2%' }}>
+                Unidades Funcionales
+            </div>
+            <ConsortiumMembersTable setMembers={props.setUpdatedMembers} />
+            <hr />
+        </div>
+    )
+}
+
+const AdvancedConsortiumDetails = props => {
+    const { consortium, setConsortium } = useContext(ConsortiumContext);
+
+    const disableConsortium = () => {
+        consortium.setAsDisabled();
+        service.update(consortium);
+        props.setUpdated(true);
+        setConsortium(undefined);
+    }
+
+    return (
+        <div>
+            <hr />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Card className='delete-consortium-card' 
+                        style={{ width: '60rem', marginTop: '10px', textAlign: 'center' }}>
+                    <div>
+                        <Card.Body>
+                            <Card.Text>
+                                <p><strong>{`Eliminar ${consortium.name}`}</strong></p>
+                                <p>Tenga que cuenta que una vez eliminado no podra revertir esta acción.</p>
+                                <div style={{marginTop: '1%', marginBotton: '2%'}}>
+                                    <Button
+                                        className='remove-button'
+                                        onClick={() => disableConsortium()}>
+                                            Eliminar
+                                    </Button>
+                                </div>
+                            </Card.Text>
+                        </Card.Body>
+                    </div>
+                </Card>
+            </div>
+            <hr />
+        </div>
+    )
+}
 
 const ConsortiumDetails = (props) => {
 
@@ -51,50 +128,31 @@ const ConsortiumDetails = (props) => {
                 setConsortium(consortium);
                 setValid(false)
                 props.setUpdated(true)
-                setActionDescription({action: 'success', description: 'Los datos an sido guardados con exito'})
+                setActionDescription({ action: 'success', description: 'Los datos an sido guardados con exito' })
             },
-            () => { setActionDescription({action: 'danger', description: 'Los datos no se han guardado correctamente'}) });
+            () => { setActionDescription({ action: 'danger', description: 'Los datos no se han guardado correctamente' }) });
 
     }
-
-    const name = () => consortium ? consortium.name : ''
-
-    const address = () => consortium ? consortium.address : ''
 
     return (
         <div>
             <div>
                 {
-                    actionDescription ? 
+                    actionDescription ?
                         <Alert variant={actionDescription.action}>
                             {actionDescription.description}
-                        </Alert>: ''
+                        </Alert> : ''
                 }
             </div>
             <div>
-                <label htmlFor="formGroupExampleInput">Nombre / Identificardor del consorcio</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="formGroupExampleInput"
-                    value={name()}
-                    onChange={event => handleChange({ 'name': event.target.value })}
-                />
-
-                <label htmlFor="formGroupExampleInput">Dirección</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    id="formGroupExampleInput"
-                    value={address()}
-                    onChange={event => handleChange({ 'address': event.target.value })}
-                />
-                <hr />
-                <div style={{marginBottom: '2%'}}>
-                    Unidades Funcionales
-                </div>
-                <ConsortiumMembersTable setMembers={setUpdatedMembers} />
-                <hr />
+                <Tabs defaultActiveKey="basics">
+                    <Tab eventKey="basics" title="Basicos">
+                        <BasicConsortiumDetails handleChange={handleChange} setUpdatedMembers={setUpdatedMembers} />
+                    </Tab>
+                    <Tab eventKey="advanced" title="Avanzados">
+                        <AdvancedConsortiumDetails setUpdated={props.setUpdated} />
+                    </Tab>
+                </Tabs>
                 <Button className="add-button" onClick={handleSubmit}>
                     Guardar
                 </Button>

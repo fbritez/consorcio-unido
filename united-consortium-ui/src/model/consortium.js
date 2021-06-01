@@ -7,6 +7,7 @@ class Consortium{
         this.id = identifier;
         this.members = members;
         this.administrators = administrators;
+        this.disabled = false;
     }
 
     setMembers(members){
@@ -21,6 +22,10 @@ class Consortium{
 
     isAdministrator(user){
         return this.administrators.includes(user.email);
+    }
+
+    setAsDisabled(){
+        this.disabled = true;
     }
 
 }

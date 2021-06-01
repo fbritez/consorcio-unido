@@ -7,7 +7,7 @@ import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-re
 
 const service = new ExpensesReceiptService();
 
-const ExpensesReceiptList = props => {
+const ExpensesReceiptList = () => {
 
     const { user } = useContext(UserContext);
     const [ expenses, setExpenses ] = useState();

@@ -54,9 +54,13 @@ class ConsortiumDAO(GenericDAO):
         members = [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
                    element.get('members')]
 
+        name = element.get('name')
+        address = element.get('address')
         administrators = [adm for adm in element.get('administrators')]
+        disabled = element.get('disabled')
+        c_id = element.get('id')
 
-        return Consortium(element.get('name'), element.get('address'), members, administrators, element.get('id'))
+        return Consortium(name, address, members, administrators, disabled, c_id)
 
 
 class ExpensesReceiptDAO(GenericDAO):
@@ -78,7 +82,9 @@ class ExpensesReceiptDAO(GenericDAO):
         return receipt
 
     def _generate_members(self, item):
-        return [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in item.get('members', [])]
+        return [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
+                item.get('members', [])]
+
 
 class LoginDAO(GenericDAO):
 

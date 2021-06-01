@@ -1,12 +1,13 @@
 
 class Consortium(object):
 
-    def __init__(self, name, address, members=[], administrators=[], identifier=None):
+    def __init__(self, name, address, members=[], administrators=[], disabled=False, identifier=None):
         self.name = name
         self.address = address
         self.members = members
         self.administrators = administrators
         self.id = identifier
+        self.disabled = disabled
 
     def __eq__(self, obj):
         return isinstance(obj, Consortium) and obj.name == self.name
