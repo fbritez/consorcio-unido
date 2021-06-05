@@ -50,6 +50,7 @@ const ExpensesReceiptClosedStatus = () => {
                     {showExpensesCRUD &&
                         <Modal show={showExpensesCRUD} onHide={handleClose}>
                             <Modal.Header closeButton onClick={() => setShowExpensesCRUD(false)}>
+                                <Modal.Title>{`Copiar Expensa de ${expensesReceipt.month} de ${expensesReceipt.year}`}</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <div>
@@ -57,6 +58,7 @@ const ExpensesReceiptClosedStatus = () => {
                                         consortium={consortium}
                                         setCurrentExpeses={(exp) => handleReceipt(exp)}
                                         items={expensesReceipt.expense_items}
+                                        headers={'  '}
                                         validate={false}
                                     />
                                 </div>

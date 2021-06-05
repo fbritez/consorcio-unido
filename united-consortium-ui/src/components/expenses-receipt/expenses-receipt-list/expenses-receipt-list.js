@@ -4,6 +4,7 @@ import ExpensesReceiptService from '../../../services/expense-receipt-service/ex
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
+import Badge from 'react-bootstrap/Badge'
 
 const service = new ExpensesReceiptService();
 
@@ -13,7 +14,7 @@ const ExpensesReceiptList = () => {
     const [expenses, setExpenses] = useState();
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const { consortium } = useContext(ConsortiumContext);
-    const [ isAdministrator, setIsAdministrator ] = useState(false);
+    const [isAdministrator, setIsAdministrator] = useState(false);
 
     useEffect(async () => {
         if (consortium) {
@@ -23,6 +24,8 @@ const ExpensesReceiptList = () => {
         }
 
     }, [consortium, expensesReceipt]);
+
+    const getStatusDescription = item => item.isOpen()? ' - Abierta' : ''
 
     return (
         <div>
@@ -43,7 +46,7 @@ const ExpensesReceiptList = () => {
                             <ListGroup.Item
                                 action
                                 onClick={() => setExpensesReceipt(item)}>
-                                {`${item.year} - ${item.month}`}
+                                    {`${item.year} - ${item.month} ${getStatusDescription(item)}`}    
                             </ListGroup.Item>
                         )
                     })}

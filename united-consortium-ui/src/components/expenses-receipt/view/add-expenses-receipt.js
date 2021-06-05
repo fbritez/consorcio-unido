@@ -107,10 +107,14 @@ const AddExpensesReceipt = props => {
 
     return (
         <div>
-            <h3>
-                Iniciar Expensas
-            </h3>
-            <hr />
+            {props.headers ? props.headers :
+                <div>
+                    <h3>
+                        Iniciar Expensas
+                    </h3>
+                    <hr />
+                </div>
+            }
             <div>
                 Eliga mes y año para la nueva liquidación de expensas.
                     </div>
@@ -138,10 +142,10 @@ const AddExpensesReceipt = props => {
                         </div>
             <ErrorHandler errors={errorDescriptions} />
             <div>
-                <AddItemButton 
+                <AddItemButton
                     description={'Generar'}
-                    onClick={generateExpensesRecepit} 
-                    disabled={props.validate}/>
+                    onClick={generateExpensesRecepit}
+                    disabled={props.validate} />
             </div>
         </div>
     )
