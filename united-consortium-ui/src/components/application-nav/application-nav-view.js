@@ -30,7 +30,7 @@ const AppliactionNavView = (props) => {
         <Navbar className='navbar'>
             <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '7%', marginRight: '7%' }}>
                 <Nav className="mr-auto">
-                    <img src={logo} alt="drawing" width="50" classNAme="icon" />
+                    <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')}/>
                     <div className="vl" />
                     <Nav.Link onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
                     {isAdministrator ? <Nav.Link onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}

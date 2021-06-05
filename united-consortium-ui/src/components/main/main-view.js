@@ -4,13 +4,14 @@ import { UserContextProvider } from '../user-provider/user-provider';
 import ExpensesReceiptMainView from '../expenses-receipt/main-view/expenses-receipt-main-view';
 import ConsortiumsMainView from '../consortium/consortiums-main-view/consortiums-main-view';
 import { ConsortiumContextProvider } from '../consortium/consortium-provider/consortium-provider'
-
+import NotificationMainView from '../notifications/notification-main-view';
 import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
+
 
 
 
@@ -21,6 +22,9 @@ const Main = () => {
         <UserContextProvider>
             <Router>
                 <Switch>
+                    <Route path="/notifications">
+                        <NotificationMainView />
+                    </Route>
                     <Route path="/consortiums">
                         <ConsortiumsMainView />
                     </Route>

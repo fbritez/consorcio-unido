@@ -29,7 +29,7 @@ def update_settings():
     try:
         selectedSettings = request.json.get('applicationSettings')
 
-        service.saveOrUpdate(selectedSettings)
+        service.save_or_update(selectedSettings)
     except Exception as ex:
         logging.error(ex)
 

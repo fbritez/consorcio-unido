@@ -1,7 +1,6 @@
 import json
 
 from pymongo import MongoClient
-
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt
@@ -118,10 +117,7 @@ class ImageDAO(GenericDAO):
         return file.read()
 
 
-class SettingsDAO(GenericDAO):
-
-    def collection(self):
-        return self.db.settings
+class BasicDataTypeDAO(GenericDAO):
 
     def get(self, query_obj):
         response = self.collection().find(query_obj)
@@ -132,3 +128,20 @@ class SettingsDAO(GenericDAO):
 
     def update(self, query_obj, settings):
         self.collection().update_one(query_obj, {"$set": settings})
+
+    def insert_all(self, elements):
+        for element in elements:
+            self.collection().insert_one(element)
+
+
+class SettingsDAO(BasicDataTypeDAO):
+
+    def collection(self):
+        return self.db.settings
+
+
+class NotificationDAO(BasicDataTypeDAO):
+
+    def collection(self):
+        return self.db.notifications
+
