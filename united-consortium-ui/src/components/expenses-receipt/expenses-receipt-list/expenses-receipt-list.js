@@ -26,16 +26,15 @@ const ExpensesReceiptList = () => {
 
     return (
         <div>
-            {
-                isAdministrator ?
-                    <ListGroup>
-                        <ListGroup.Item
-                            action
-                            onClick={() => setExpensesReceipt(undefined)}>
-                            Nueva Expensa
-                        </ListGroup.Item>
-                    </ListGroup>
-                    : <div />
+            {isAdministrator ?
+                <ListGroup>
+                    <ListGroup.Item
+                        action
+                        onClick={() => setExpensesReceipt(undefined)}>
+                        Nueva Expensa
+                    </ListGroup.Item>
+                </ListGroup>
+                : <div />
             }
             <div style={{ marginTop: '3%' }}>
                 <ListGroup>

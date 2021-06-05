@@ -18,10 +18,10 @@ class ExpensesReceiptService {
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
 
-    getClosedExpensesFor = async consortium => {
-        var expenses = await this.getExpensesFor(consortium);
-        return expenses?.filter(expensesReceipt => !expensesReceipt.isOpen());
-    }
+    getExpensesReceipt = async expensesReceipt => {
+        const espensesData = await axios.get(`${SERVICE_URL}/expensesID?expensesID=${expensesReceipt.identifier}`);
+        return this.createModel(espensesData.data);
+     }
 
     save = async (expensesReceipt, imageFile) => {
         try {
@@ -39,7 +39,7 @@ class ExpensesReceiptService {
 
     createModel = data => {
         const items = data.expense_items.map(data => this.createItemModel(data));
-        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open)
+        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open, data.identifier)
     }
 
     isAdministrator = user => this.consortiumService.isAdministrator(user);

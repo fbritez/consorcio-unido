@@ -5,7 +5,8 @@ import ExpenseItemView from '../expense-item/expense-item'
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ExpenseDetails from '../expense-details/expense-details';
-import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab'
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
 import Alert from 'react-bootstrap/Alert';
 
@@ -22,11 +23,22 @@ const ExpensesReceiptStatus = () => {
 
     )
 }
+
+const ExpensesReceiptDetailHeader = () => {
+
+    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+    return (
+        <div>
+            <div className='text-center'>
+                <p>{`Gastos correspondientes al mes de ${expensesReceipt?.month} ${expensesReceipt?.year}`}</p>
+            </div>
+            <hr />
+        </div>
+    )
+}
 const ExpensesReceiptDetailView = (props) => {
 
-    const { consortium } = useContext(ConsortiumContext);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
-    const { localExp, setLocalExp } = useState(expensesReceipt);
     const [transactionStatus, setTransacionStatus] = useState(false);
     const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
     const [crudData, setCrudData] = useState({ selectedItem: null, selectedAction: null, selectedDescription: {} })
@@ -83,10 +95,7 @@ const ExpensesReceiptDetailView = (props) => {
     return (
         <div className='expenses-receipt'>
             <div>
-                <div className='text-center'>
-                    <p>{`Gastos correspondientes al mes de ${expensesReceipt?.month} ${expensesReceipt?.year}`}</p>
-                </div>
-                <hr />
+                <ExpensesReceiptDetailHeader />
                 <div>
                     {isAdministrator &&
                         <div>
@@ -132,4 +141,45 @@ const ExpensesReceiptDetailView = (props) => {
 }
 
 
-export default ExpensesReceiptDetailView
+const MemberExpensesReceiptDetailView = props => {
+
+    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+    const [ generalReceipt, setGeneralReceipt ] = useState();
+
+    useEffect(async () => {
+        debugger
+        const result = await service.getExpensesReceipt(expensesReceipt)
+        setGeneralReceipt(result);
+    }, [expensesReceipt]);
+
+    return (
+        <div>
+            <ExpensesReceiptDetailHeader />
+            <Tabs defaultActiveKey="myReceipt" id="uncontrolled-tab-example">
+                <Tab eventKey="myReceipt" title="Mi resumen">
+                    <div style={{ marginTop: '3%' }}>
+                        <p>Gastos particulares pertenecientes a usted</p>
+                        <ExpenseDetails
+                            expensesReceipt={expensesReceipt}
+                            userAdministrator={false}
+                        />
+                    </div>
+                </Tab>
+                <Tab eventKey="generalReceipt" title="General">
+                    <div style={{ marginTop: '3%' }}>
+                        <p>Gastos generales de todo el consorcio</p>
+                        <ExpenseDetails
+                            expensesReceipt={generalReceipt}
+                            userAdministrator={false}
+                        />
+                    </div>
+                </Tab>
+            </Tabs>
+        </div>
+    )
+}
+
+export {
+    ExpensesReceiptDetailView,
+    MemberExpensesReceiptDetailView
+}

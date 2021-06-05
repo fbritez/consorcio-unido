@@ -29,67 +29,68 @@ const MemberDetailsView = (props) => {
 }
 
 const ExpenseDetails = props => {
-
-
+    
     return (
-        props.expensesReceipt &&
         <div>
-            <div>
-                {<Accordion defaultActiveKey="0">
-                    {props.expensesReceipt.expense_items?.map(item => {
-                        let eventKey = props.expensesReceipt.expense_items.indexOf(item) + 1;
-                        return (
-                            <div className='contenedore-item'>
-                                <Card>
-                                    <Card.Header>
-                                        <Accordion.Toggle as={Button} variant="link" eventKey={eventKey}>
-                                            {renderOneLineDescription(item.title, item.getCurrencyAmount())}
-                                        </Accordion.Toggle>
-                                    </Card.Header>
-                                    <Accordion.Collapse eventKey={eventKey}>
-                                        <Card.Body >
-                                            <Row>
-                                                <Col sm={9}>
-                                                    <div className='card-details'>
-                                                        {item.title}
-                                                        <hr />
-                                                        <p>{`Descripcion: ${item.description}`}</p>
-                                                    </div>
-                                                </Col>
-                                                <Col sm={3}>
-                                                    <div>
-                                                        {
-                                                            props.userAdministrator &&
-                                                            <div className='right'>
-                                                                <UpdateItemButton onClick={() => props.updateAction(item)} />
-                                                                <RemoveItemButton onClick={() => props.removeAction(item)} />
+            {props.expensesReceipt &&
+                <div>
+                    <div>
+                        {<Accordion defaultActiveKey="0">
+                            {props.expensesReceipt.expense_items?.map(item => {
+                                let eventKey = props.expensesReceipt.expense_items.indexOf(item) + 1;
+                                return (
+                                    <div className='contenedore-item'>
+                                        <Card>
+                                            <Card.Header>
+                                                <Accordion.Toggle as={Button} variant="link" eventKey={eventKey}>
+                                                    {renderOneLineDescription(item.title, item.getCurrencyAmount())}
+                                                </Accordion.Toggle>
+                                            </Card.Header>
+                                            <Accordion.Collapse eventKey={eventKey}>
+                                                <Card.Body >
+                                                    <Row>
+                                                        <Col sm={9}>
+                                                            <div className='card-details'>
+                                                                {item.title}
+                                                                <hr />
+                                                                <p>{`Descripcion: ${item.description}`}</p>
                                                             </div>
-                                                        } {item.ticket &&
-                                                            <div className='right'>
-                                                                <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
-                                                                    <AiFillCaretDown />
-                                                                </Button>
-                                                            </div>}
+                                                        </Col>
+                                                        <Col sm={3}>
+                                                            <div>
+                                                                {
+                                                                    props.userAdministrator &&
+                                                                    <div className='right'>
+                                                                        <UpdateItemButton onClick={() => props.updateAction(item)} />
+                                                                        <RemoveItemButton onClick={() => props.removeAction(item)} />
+                                                                    </div>
+                                                                } {item.ticket &&
+                                                                    <div className='right'>
+                                                                        <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
+                                                                            <AiFillCaretDown />
+                                                                        </Button>
+                                                                    </div>}
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                    <MemberDetailsView item={item} />
+                                                    <hr />
+                                                    <div className='amount-detail'>
+                                                        {renderOneLineDescription('Costo', item.getCurrencyAmount())}
                                                     </div>
-                                                </Col>
-                                            </Row>
-                                            <MemberDetailsView item={item} />
-                                            <hr />
-                                            <div className='amount-detail'>
-                                                {renderOneLineDescription('Costo', item.getCurrencyAmount())}
-                                            </div>
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                            </div>)
-                    })}
-                </Accordion>}
-            </div>
-            <div>
-                <Card className='total' border="success" body>
-                    {renderOneLineDescription('Total a pagar', props.expensesReceipt.getCurrencyAndTotalAmount())}
-                </Card>
-            </div>
+                                                </Card.Body>
+                                            </Accordion.Collapse>
+                                        </Card>
+                                    </div>)
+                            })}
+                        </Accordion>}
+                    </div>
+                    <div>
+                        <Card className='total' border="success" body>
+                            {renderOneLineDescription('Total a pagar', props.expensesReceipt.getCurrencyAndTotalAmount())}
+                        </Card>
+                    </div>
+                </div>}
         </div>)
 }
 

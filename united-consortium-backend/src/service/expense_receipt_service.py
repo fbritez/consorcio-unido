@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from src.DAO.mongo_DAO import ExpensesReceiptDAO
 from src.service.consorsium_service import ConsortiumService
 
@@ -38,6 +40,7 @@ class ExpensesReceiptService:
         return result
 
     def generate_expenses_for(self, consortium, user_email):
+
         query_obj = {'consortium_id': consortium.get_id(),
                      'is_open': False
                      }
@@ -50,3 +53,7 @@ class ExpensesReceiptService:
             expense.set_expenses_items(items)
 
         return expenses
+
+    def get_expenses_receipt(self, expenses_id):
+        return self.dao.get_all({'_id': ObjectId(expenses_id)})[0]
+

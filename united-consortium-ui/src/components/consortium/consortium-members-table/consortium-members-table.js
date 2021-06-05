@@ -29,7 +29,6 @@ const ConsortiumMembersTable = (props) => {
     }
 
     const raiseMembersChanges = async (members) => {
-        debugger
         await props.setMembers(members);
         await setMembers(members);
         gridApi.setRowData(members);

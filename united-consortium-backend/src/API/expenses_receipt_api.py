@@ -38,3 +38,9 @@ def new_expenses():
         logging.error(ex)
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+@expenses_receipt_api.route('/expensesID', methods=['GET'])
+@cross_origin(support_credentials=True)
+def expenses_id():
+
+    return json_dumps(service.get_expenses_receipt(request.args.get('expensesID')))

@@ -69,6 +69,7 @@ class ExpensesReceiptDAO(GenericDAO):
         return self.db.espenses_receipts
 
     def create_model(self, element):
+        object_id = element.get('_id')
         items = [ExpenseItem(item.get('title'),
                              item.get('description'),
                              item.get('amount'),
@@ -78,7 +79,7 @@ class ExpensesReceiptDAO(GenericDAO):
                  element.get('expense_items')]
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
-                                  expense_items=items, is_open=element.get('is_open'))
+                                  expense_items=items, is_open=element.get('is_open'), identifier=str(object_id))
         return receipt
 
     def _generate_members(self, item):
