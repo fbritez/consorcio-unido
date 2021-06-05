@@ -116,3 +116,19 @@ class ImageDAO(GenericDAO):
         file = fs.find_one({'filename': file_id})
 
         return file.read()
+
+
+class SettingsDAO(GenericDAO):
+
+    def collection(self):
+        return self.db.settings
+
+    def get(self, query_obj):
+        response = self.collection().find(query_obj)
+        values = [value for value in response]
+        for value in values:
+            value.pop('_id', None)
+        return values
+
+    def update(self, query_obj, settings):
+        self.collection().update_one(query_obj, {"$set": settings})

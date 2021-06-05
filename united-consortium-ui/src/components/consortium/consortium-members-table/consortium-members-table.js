@@ -5,16 +5,22 @@ import { BasicRemoveItemButton } from '../../common/buttons'
 import AddMemberView from './add-member-view';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import SettingService from '../../../services/setting-service/setting-service';
+
+const settingService =  new SettingService();
 
 const ConsortiumMembersTable = (props) => {
 
     const { consortium } = useContext(ConsortiumContext);
     const [members, setMembers] = useState();
     const [gridApi, setGridApi] = useState();
+    const [ consortiumSettings , setConsortiumSettings] = useState();
 
-    useEffect(() => {
+    useEffect(async () => {
         setMembers(consortium?.members);
-    }, [consortium]);
+        const settings = await settingService.getConsortiumSettings(consortium)
+        setConsortiumSettings(settings)
+    }, [consortium, props.shouldRefresh]);
 
     const onGridReady = params => {
         setGridApi(params.api);
@@ -44,6 +50,8 @@ const ConsortiumMembersTable = (props) => {
         const updatedMembers = members.filter(item => item !== props.data)
         raiseMembersChanges(updatedMembers);
     }
+
+    const memberValue = () => consortiumSettings ? consortiumSettings.memberValues : 5
 
     const RemoveCellRenderer = (props) => {
 
@@ -77,7 +85,7 @@ const ConsortiumMembersTable = (props) => {
                     }}
                     rowData={members}
                     pagination={true}
-                    paginationPageSize={5}
+                    paginationPageSize={memberValue()}
                     onGridReady={onGridReady}>
                     <AgGridColumn
                         headerName="Unidad Funcional"

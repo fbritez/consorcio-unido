@@ -9,8 +9,10 @@ import Tab from 'react-bootstrap/Tab'
 import Alert from 'react-bootstrap/Alert';
 import { UserContext } from '../../user-provider/user-provider';
 import './consortium-details.scss';
+import SettingService from '../../../services/setting-service/setting-service';
 
 const service = new ConsortiumService();
+const settingService =  new SettingService();
 
 const BasicConsortiumDetails = props => {
 
@@ -43,7 +45,7 @@ const BasicConsortiumDetails = props => {
             <div style={{ marginBottom: '2%' }}>
                 Unidades Funcionales
             </div>
-            <ConsortiumMembersTable setMembers={props.setUpdatedMembers} />
+            <ConsortiumMembersTable setMembers={props.setUpdatedMembers} shouldRefresh={props.shouldRefresh}/>
             <hr />
         </div>
     )
@@ -59,8 +61,20 @@ const AdvancedConsortiumDetails = props => {
         setConsortium(undefined);
     }
 
+    const memberValue = () => props.settings?.memberValues ? props.settings.memberValues : ' ';
+
     return (
         <div>
+            <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%', fontSize: 'small' }}>
+                Set cantidad de miembros por tabla
+            </label>
+            <input
+                type="number"
+                className="form-control"
+                id="formGroupExampleInput"
+                value={memberValue()}
+                onChange={event => props.handleSettingChange({ 'memberValues': event.target.value })}
+            />
             <hr />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Card className='delete-consortium-card' 
@@ -91,12 +105,16 @@ const ConsortiumDetails = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const { user } = useContext(UserContext);
-    const [updatedMembers, setUpdatedMembers] = useState()
-    const [valid, setValid] = useState(false)
-    const [actionDescription, setActionDescription] = useState();
+    const [ updatedMembers, setUpdatedMembers ] = useState()
+    const [ valid, setValid ] = useState(false)
+    const [ actionDescription, setActionDescription ] = useState();
+    const [ consortiumSettings , setConsortiumSettings ] = useState();
+    const [ shouldRefresh, setShouldRefresh ] = useState();
 
-    useEffect(() => {
+    useEffect(async () => {
         setActionDescription(undefined);
+        const result = await settingService.getConsortiumSettings(consortium);
+        setConsortiumSettings(result);
     }, [consortium]);
 
     const handleChange = (values) => {
@@ -107,20 +125,15 @@ const ConsortiumDetails = (props) => {
         setConsortium(service.createModel(updatedItem))
     }
 
-    const _handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (!form.checkValidity()) {
-            setValid(true)
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
-            service.update(consortium);
-            setConsortium(consortium);
-            setValid(false)
+    const handleSettingChange = (values) => {
+        const updatedItem = {
+            ...consortiumSettings,
+            ...values
         }
+        setConsortiumSettings(updatedItem)
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async () => {
         consortium.addAdministrator(user.email);
         consortium.setMembers(updatedMembers);
         await service.update(consortium).then(
@@ -128,6 +141,13 @@ const ConsortiumDetails = (props) => {
                 setConsortium(consortium);
                 setValid(false)
                 props.setUpdated(true)
+                setActionDescription({ action: 'success', description: 'Los datos an sido guardados con exito' })
+            },
+            () => { setActionDescription({ action: 'danger', description: 'Los datos no se han guardado correctamente' }) });
+        await settingService.update(consortiumSettings).then(
+            () => {
+                setValid(false)
+                setShouldRefresh(!shouldRefresh)
                 setActionDescription({ action: 'success', description: 'Los datos an sido guardados con exito' })
             },
             () => { setActionDescription({ action: 'danger', description: 'Los datos no se han guardado correctamente' }) });
@@ -147,10 +167,16 @@ const ConsortiumDetails = (props) => {
             <div>
                 <Tabs defaultActiveKey="basics">
                     <Tab eventKey="basics" title="Basicos">
-                        <BasicConsortiumDetails handleChange={handleChange} setUpdatedMembers={setUpdatedMembers} />
+                        <BasicConsortiumDetails 
+                            handleChange={handleChange} 
+                            setUpdatedMembers={setUpdatedMembers} 
+                            shouldRefresh={shouldRefresh}/>
                     </Tab>
                     <Tab eventKey="advanced" title="Avanzados">
-                        <AdvancedConsortiumDetails setUpdated={props.setUpdated} />
+                        <AdvancedConsortiumDetails 
+                            settings={consortiumSettings} 
+                            setUpdated={props.setUpdated}
+                            handleSettingChange={handleSettingChange}/>
                     </Tab>
                 </Tabs>
                 <Button className="add-button" onClick={handleSubmit}>

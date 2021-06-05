@@ -82,6 +82,8 @@ const ExpensesItemView = (props) => {
         handleChange({ ticket: name });
     }
 
+    
+
     const generateName = (filename) => {
         return `${new Date().getTime()}/${filename}`
     }
