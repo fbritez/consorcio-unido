@@ -9,16 +9,62 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab'
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
 import Alert from 'react-bootstrap/Alert';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Modal from 'react-bootstrap/Modal';
+import AddExpensesReceipt from './add-expenses-receipt';
+import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 
 const service = new ExpensesReceiptService();
 
-const ExpensesReceiptStatus = () => {
+const ExpensesReceiptClosedStatus = () => {
+
+    const [showExpensesCRUD, setShowExpensesCRUD] = useState(false);
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+    const { consortium } = useContext(ConsortiumContext);
+
+    const handleClose = () => { }
+
+    const handleReceipt = expensesReceipt => {
+        setExpensesReceipt(expensesReceipt)
+        setShowExpensesCRUD(false)
+    }
 
     return (
         <div>
-            <Alert variant='primary'>
-                <div style={{ textAlign: 'center' }}>Liquidacion Cerrada.</div>
-            </Alert>
+            <Row>
+                <Col sm={2}>
+                </Col>
+                <Col sm={8}>
+                    <Alert variant='primary'>
+                        <div style={{ textAlign: 'center' }}>Liquidacion Cerrada.</div>
+                    </Alert>
+                </Col>
+                <Col sm={2}>
+                    <Button
+                        style={{ fontSize: 'x-small', marginTop: '4%' }}
+                        className='add-local-button'
+                        onClick={() => setShowExpensesCRUD(true)}>
+                        Copiar Expensa
+                    </Button>
+                    {showExpensesCRUD &&
+                        <Modal show={showExpensesCRUD} onHide={handleClose}>
+                            <Modal.Header closeButton onClick={() => setShowExpensesCRUD(false)}>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div>
+                                    <AddExpensesReceipt
+                                        consortium={consortium}
+                                        setCurrentExpeses={(exp) => handleReceipt(exp)}
+                                        items={expensesReceipt.expense_items}
+                                        validate={false}
+                                    />
+                                </div>
+                            </Modal.Body>
+                        </Modal>
+                    }
+                </Col>
+            </Row>
         </div>
 
     )
@@ -100,7 +146,7 @@ const ExpensesReceiptDetailView = (props) => {
                     {isAdministrator &&
                         <div>
                             {!expensesReceipt?.isOpen() ?
-                                <ExpensesReceiptStatus /> :
+                                <ExpensesReceiptClosedStatus /> :
                                 <div>
                                     <Button
                                         className='add-local-button'
@@ -144,10 +190,9 @@ const ExpensesReceiptDetailView = (props) => {
 const MemberExpensesReceiptDetailView = props => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
-    const [ generalReceipt, setGeneralReceipt ] = useState();
+    const [generalReceipt, setGeneralReceipt] = useState();
 
     useEffect(async () => {
-        debugger
         const result = await service.getExpensesReceipt(expensesReceipt)
         setGeneralReceipt(result);
     }, [expensesReceipt]);

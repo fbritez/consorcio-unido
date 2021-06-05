@@ -43,6 +43,7 @@ const ExpensesReceiptView = props => {
                     <AddExpensesReceipt
                         consortium={consortium}
                         setCurrentExpeses={(exp) => setExpensesReceipt(exp)}
+                        validate={true}
                         /> : 
                     <NoneExpensesReceipt/>
             }

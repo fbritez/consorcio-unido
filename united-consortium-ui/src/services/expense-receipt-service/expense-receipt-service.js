@@ -44,8 +44,8 @@ class ExpensesReceiptService {
 
     isAdministrator = user => this.consortiumService.isAdministrator(user);
 
-    createExpenseReceipt = async (consortium, month, year) => {
-        const exp = this.createModel({ consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items: [] })
+    createExpenseReceipt = async (consortium, month, year, items) => {
+        const exp = this.createModel({ consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items: items })
         return await this.save(exp)
     }
 }

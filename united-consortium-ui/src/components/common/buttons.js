@@ -36,11 +36,13 @@ const BasicRemoveItemButton = props => {
 
 const AddItemButton = props => {
     const { expensesReceipt } = useContext(ExpensesReceiptContext)
+    const disabled = props.disabled ? (expensesReceipt && !expensesReceipt.isOpen()) : false;
+    debugger
     return(
         <Button 
         className='add-button'
         onClick={() => props.onClick()}
-        disabled={expensesReceipt && !expensesReceipt.isOpen() }
+        disabled={disabled}
         > 
             {props.description? props.description : 'Agregar'}
         </Button>

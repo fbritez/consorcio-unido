@@ -85,7 +85,8 @@ const AddExpensesReceipt = props => {
 
     const generateExpensesRecepit = async () => {
         if (validateData()) {
-            await service.createExpenseReceipt(props.consortium, monthDescription, yearDescription)
+            const items = props.items ? props.items : [];
+            await service.createExpenseReceipt(props.consortium, monthDescription, yearDescription, items)
                 .then(
                     (exp) => props.setCurrentExpeses(exp),
                     () => setWrongTransaction(true))
@@ -106,10 +107,9 @@ const AddExpensesReceipt = props => {
 
     return (
         <div>
-
             <h3>
                 Iniciar Expensas
-                    </h3>
+            </h3>
             <hr />
             <div>
                 Eliga mes y año para la nueva liquidación de expensas.
@@ -138,7 +138,10 @@ const AddExpensesReceipt = props => {
                         </div>
             <ErrorHandler errors={errorDescriptions} />
             <div>
-                <AddItemButton description={'Generar'} onClick={generateExpensesRecepit} />
+                <AddItemButton 
+                    description={'Generar'}
+                    onClick={generateExpensesRecepit} 
+                    disabled={props.validate}/>
             </div>
         </div>
     )
