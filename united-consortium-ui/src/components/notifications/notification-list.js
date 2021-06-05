@@ -11,12 +11,13 @@ const NotificationListView = props => {
     const [ notifications, setNotifications ] = useState([])
 
     useEffect(async () => {
+        debugger
         const result = await service.notificationFor(consortium);
         setNotifications(result);
     }, [consortium, props.shouldRefresh]);
 
     return(
-        <div style={{ marginTop:'3%'}}>
+        <div style={{ marginTop:'10%'}}>
         {   notifications?.map(notification => {
                         return (<NotificatioDetailsView notification={notification}/>)
                     })
