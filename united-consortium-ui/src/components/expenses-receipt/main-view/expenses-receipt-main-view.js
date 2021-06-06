@@ -3,7 +3,6 @@ import ConsortiumsListView from '../../consortium/consortiums-list-view/consorti
 import { ConsortiumContextProvider, ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import ExpensesReceiptView from '../view/expenses-receipt-view';
 import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
-import AppliactionNavView from '../../application-nav/application-nav-view';
 import './expenses-receipt-main-view.scss';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
@@ -20,7 +19,6 @@ const ExpensesReceiptGeneralView = props => {
 
     return (
         <div className='expenses-receipt'>
-            <AppliactionNavView />
             <Container>
                 <div style={{ marginLeft: '7%', marginRight: '7%'}}>
                     <Row style={{ marginTop: '1%' }}>

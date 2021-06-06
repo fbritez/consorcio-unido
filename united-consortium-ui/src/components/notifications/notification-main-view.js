@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col';
 import { UserContext } from '../user-provider/user-provider';
 import authenticationHandler from '../login/authentication-handler';
 import ConsortiumsListView from '../consortium/consortiums-list-view/consortiums-list-view';
-import AppliactionNavView from '../application-nav/application-nav-view';
 import { ConsortiumContext, ConsortiumContextProvider } from '../consortium/consortium-provider/consortium-provider';
 import NotificationView from './notification-view';
 
@@ -22,7 +21,6 @@ const NotificationGeneralView = props => {
  
     return (
         <div className='background'>
-            <AppliactionNavView />
             <Container>
                 <div style={{ marginLeft: '7%', marginRight: '7%' }}>
                     <Row style={{ marginTop: '1%' }}>

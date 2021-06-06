@@ -11,7 +11,7 @@ import ConsortiumService from '../../services/consortium-service/consortium-serv
 
 const service = new ConsortiumService();
 
-const AppliactionNavView = (props) => {
+const AppliactionNavView = () => {
 
     const history = useHistory();
     const { user } = useContext(UserContext);
@@ -22,29 +22,35 @@ const AppliactionNavView = (props) => {
     }
 
     useEffect(async () => {
-        const result = await service.isAdministrator(user);
-        setIsAdministrator(result);
+        if (user) {
+            const result = await service.isAdministrator(user);
+            setIsAdministrator(result);
+        }
     });
 
     return (
-        <Navbar className='navbar'>
-            <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '7%', marginRight: '7%' }}>
-                <Nav className="mr-auto">
-                    <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')}/>
-                    <div className="vl" />
-                    <Nav.Link onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
-                    {isAdministrator ? <Nav.Link onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
-                </Nav>
-                <Navbar.Brand href="#home" className='right'>
-                    <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
-                        <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
-                        <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
-                    </NavDropdown>
-                </Navbar.Brand>
-            </Navbar.Collapse>
-        </Navbar>
+        <div>{
+            user &&
+            <Navbar className='navbar'>
+                <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '7%', marginRight: '7%' }}>
+                    <Nav className="mr-auto">
+                        <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')} />
+                        <div className="vl" />
+                        <Nav.Link onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
+                        {isAdministrator ? <Nav.Link onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
+                    </Nav>
+                    <Navbar.Brand href="#home" className='right'>
+                        <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
+                            <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
+                            <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
+                        </NavDropdown>
+                    </Navbar.Brand>
+                </Navbar.Collapse>
+            </Navbar>
+        }
+        </div>
     )
 
 

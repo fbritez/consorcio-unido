@@ -73,6 +73,7 @@ const NotificationView = props => {
                             <Form.Control
                                 as="textarea"
                                 rows={3}
+                                placeholder="Cuales son las novedades de hoy?"
                                 onChange={event => setMessage(event.target.value)}
                                 value={message} />
                         </Form.Group>

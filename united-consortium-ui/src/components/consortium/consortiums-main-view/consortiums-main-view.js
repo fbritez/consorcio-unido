@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import ConsortiumsListView from '../consortiums-list-view/consortiums-list-view';
-import AppliactionNavView from '../../application-nav/application-nav-view';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -24,7 +23,6 @@ const ConsortiumsGeneralView = (props) => {
  
     return (
         <div className='background'>
-            <AppliactionNavView />
             <Container>
                 <div style={{ marginLeft: '7%', marginRight: '7%' }}>
                     <Row style={{ marginTop: '1%' }}>

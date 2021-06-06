@@ -11,9 +11,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-
-
-
+import AppliactionNavView from '../application-nav/application-nav-view';
 
 const Main = () => {
 
@@ -21,6 +19,7 @@ const Main = () => {
         <ConsortiumContextProvider>
         <UserContextProvider>
             <Router>
+                <AppliactionNavView/>
                 <Switch>
                     <Route path="/notifications">
                         <NotificationMainView />
