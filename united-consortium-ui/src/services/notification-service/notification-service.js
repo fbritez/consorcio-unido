@@ -8,8 +8,8 @@ class NotificationService {
         return notificationsData.data.notifications
     }
 
-    save = async (consortium, message) => {
-        const notification = { consortium_id: consortium.id, message: message }
+    save = async (consortium, message, filename) => {
+        const notification = { consortium_id: consortium.id, message: message, filename: filename}
         try {
             const response = await axios.post(`${SERVICE_URL}/notification/update`, { notification: notification});
             return response

@@ -9,7 +9,8 @@ class NotificationService:
         self.dao = dao
 
     def get_notifications(self, consortium_id):
-        return self.dao.get({'consortium_id': consortium_id})
+        notifications = self.dao.get({'consortium_id': consortium_id})
+        return sorted(notifications, key=lambda notification: notification['publishDate'], reverse=True)
 
     def save_or_update(self, element):
 

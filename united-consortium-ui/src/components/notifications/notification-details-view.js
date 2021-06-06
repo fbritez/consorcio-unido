@@ -1,6 +1,14 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import ImageService from '../../services/image-service/image-service';
+import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
+
+const service = new ImageService();
+
+const downloadTicket = file_id => {
+    service.downloadImage(file_id)
+}
 
 const NotificatioDetailsView = props => {
 
@@ -12,17 +20,20 @@ const NotificatioDetailsView = props => {
     }
 
     return (
-        <div style={{ marginTop: '1%'}}>
+        <div style={{ marginTop: '1%' }}>
             <Card>
                 <Card.Body>
-                    <Card.Subtitle style={{fontSize: 'small'}} className="mb-2 text-muted">
+                    <Card.Subtitle style={{ fontSize: 'small' }} className="mb-2 text-muted">
                         {formatDate()}
                     </Card.Subtitle>
                     <Card.Text>
                         <div>
-                            <hr/>
+                            <hr />
                             {notification.message}
                         </div>
+                        <div className='right'>
+                            { notification.filename && <DownloadButton onClick={() => downloadTicket(notification.filename)}/>}
+                         </div>
                     </Card.Text>
                 </Card.Body>
             </Card>

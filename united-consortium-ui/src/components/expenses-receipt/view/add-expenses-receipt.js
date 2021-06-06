@@ -5,9 +5,9 @@ import { AddItemButton } from '../../common/buttons';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Alert from 'react-bootstrap/Alert';
 import './expenses-receipt-details-view.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ErrorHandler from '../../common/handlers/error-handler';
 
 const service = new ExpensesReceiptService();
 
@@ -31,21 +31,6 @@ const range = (start, end) => {
         ans.push(i);
     }
     return ans;
-}
-
-const ErrorHandler = props => {
-    return (
-        <div>
-            {props.errors.map(errorAndDescription => {
-                return (
-                    <div>
-                        {errorAndDescription.value &&
-                            <Alert variant='danger'>
-                                {errorAndDescription.description}
-                            </Alert>}
-                    </div>)
-            })}
-        </div>)
 }
 
 const LocalDropdown = props => {

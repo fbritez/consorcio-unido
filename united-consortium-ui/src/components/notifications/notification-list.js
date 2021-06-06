@@ -17,7 +17,7 @@ const NotificationListView = props => {
     }, [consortium, props.shouldRefresh]);
 
     return(
-        <div style={{ marginTop:'10%'}}>
+        <div>
         {   notifications?.map(notification => {
                         return (<NotificatioDetailsView notification={notification}/>)
                     })

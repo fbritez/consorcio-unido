@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { Card, Accordion, Button, Row, Col, Badge } from 'react-bootstrap';
-import { UpdateItemButton, RemoveItemButton } from '../../common/buttons';
+import { UpdateItemButton, RemoveItemButton, DownloadButton } from '../../common/buttons';
 import ImageService from '../../../services/image-service/image-service'
-import { AiFillCaretDown } from 'react-icons/ai';
 import './expense-details.scss';
 
 const downloadTicket = file_id => {
@@ -29,7 +28,7 @@ const MemberDetailsView = (props) => {
 }
 
 const ExpenseDetails = props => {
-    
+
     return (
         <div>
             {props.expensesReceipt &&
@@ -66,9 +65,7 @@ const ExpenseDetails = props => {
                                                                     </div>
                                                                 } {item.ticket &&
                                                                     <div className='right'>
-                                                                        <Button className='option-button' onClick={() => downloadTicket(item.ticket)}>
-                                                                            <AiFillCaretDown />
-                                                                        </Button>
+                                                                        <DownloadButton onClick={() => downloadTicket(item.ticket)} />
                                                                     </div>}
                                                             </div>
                                                         </Col>
