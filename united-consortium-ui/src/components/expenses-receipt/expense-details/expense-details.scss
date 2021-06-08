@@ -1,10 +1,43 @@
 
+@import '../../utils/basic-colours.scss';
 
 .badge.badge-dark{
-    background-color:#2C4068;
-    color: white
+    background-color:$hard-color;
+    color: white;
 }
 
-.card-header-button{
-    font-size: inherit;
+
+.item-detail{
+    .card{
+        background-color: $hard-hard-color;
+        border-color: $hard-hard-color;
+        border-radius: $border-radius;
+        color: $soft-color;
+        .card-body{
+            background-color: $hard-hard-color;
+            border-color: $soft-color;
+            border-radius: $border-radius;
+            
+        }
+    }
+    .card-header{
+        background-color: $soft-color;
+        border-radius: $border-radius;
+    }
+    .card-header-button{
+        font-size: inherit;
+        color: $hard-hard-color;
+        background-color: $soft-color;
+    }
+    .option-button{
+        background-color: $hard-color;
+        border-color: $hard-color;
+        color: $soft-color;
+        font-size: x-small;
+    }
+    .option-button:disabled {
+        background-color: $disabled-hard-color;
+        border-color: #2C4068
+      }
+   
 }

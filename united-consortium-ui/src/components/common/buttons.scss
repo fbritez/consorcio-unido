@@ -1,11 +1,21 @@
 @import '../utils/basic-colours.scss';
 
-.option-button {
-    @extend .button;
-    font-size: xx-small;
-  }
+.button {
+  background-color: $hard-hard-color;
+  border-color: $hard-hard-color;
+  color: $soft-color;
+}
 
-.option-button:disabled {
-  background-color:black;
+.button:hover{
+  background-color: #4465a7;
+}
+
+.button:focus {     
+  background-color: #2C4068;
+  border-color: #2C4068  
+}
+
+.button:disabled{
+  background-color: black;
   border-color: #2C4068
 }

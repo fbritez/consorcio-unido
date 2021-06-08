@@ -1,40 +1,44 @@
-
+$hard-color:            #49426c;
+$hard-hard-color:       #343355;
+$disabled-hard-color:   #424253;
+$soft-color:            #eec08c;
+$soft-soft-color:       #d3ab7d;
+$border-radius:         25px;
 
 .background {
-    background-color: #FCF8F0;
+    background-color: $hard-color;
+    color: $soft-color;
 }
 
 .contrast-background {
     background-color: #2C4068;
 }
 
-.button:hover{
-    background-color: #4465a7;
+.navbar{
+    background-color: $hard-hard-color;
 }
-
-.button:focus {     
-    background-color: #2C4068;
-    border-color: #2C4068  
-}
-.button {
-    background-color: #2C4068;
-    border-color: #2C4068
-}
-
-.button:disabled{
-    background-color: black;
-    border-color: #2C4068
-}
-
 .navbar-color{
-    background-color: #E3DECA;
+    background-color:$hard-hard-color;
 }
 
 .nav-bar-text{
-    color: #2C4068 
+    color: $soft-color
 }
 
 .nav-bar-text{
-    color: #2C4068 
+    color: $soft-color
 }
 
+.card {
+    background-color: $soft-color;
+    border-color: $soft-color;
+    border-radius: $border-radius;
+    color: $hard-hard-color;
+    .card-body{
+        background-color: $soft-color;
+        border-color: $soft-color;
+        border-radius: $border-radius;
+        
+    }
+
+}

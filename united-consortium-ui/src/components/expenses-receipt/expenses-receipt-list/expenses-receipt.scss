@@ -1,0 +1,16 @@
+@import '../../utils/basic-colours.scss';
+
+.list-group-item{
+    background-color: $soft-color;
+    color: $hard-color;
+} 
+
+.list-group-item:hover{
+    background-color: $soft-soft-color;
+    color: $hard-color;
+} 
+
+.list-group-item:focus{
+    background-color: $soft-soft-color;
+    color: $hard-color;
+} 

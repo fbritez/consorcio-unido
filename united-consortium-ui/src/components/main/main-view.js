@@ -17,28 +17,30 @@ const Main = () => {
 
     return (
         <ConsortiumContextProvider>
-        <UserContextProvider>
-            <Router>
-                <AppliactionNavView/>
-                <Switch>
-                    <Route path="/notifications">
-                        <NotificationMainView />
-                    </Route>
-                    <Route path="/consortiums">
-                        <ConsortiumsMainView />
-                    </Route>
-                    <Route path="/expenses">
-                        <ExpensesReceiptMainView />
-                    </Route>
-                    <Route exact path="/login">
-                        <Login />
-                    </Route>
-                    <Route >
-                        <PageNotFoundView />
-                    </Route>
-                </Switch>
-            </Router>
-        </UserContextProvider>
+            <UserContextProvider>
+                <div className='background'>
+                    <Router>
+                        <AppliactionNavView />
+                        <Switch>
+                            <Route path="/notifications">
+                                <NotificationMainView />
+                            </Route>
+                            <Route path="/consortiums">
+                                <ConsortiumsMainView />
+                            </Route>
+                            <Route path="/expenses">
+                                <ExpensesReceiptMainView />
+                            </Route>
+                            <Route exact path="/login">
+                                <Login />
+                            </Route>
+                            <Route >
+                                <PageNotFoundView />
+                            </Route>
+                        </Switch>
+                    </Router>
+                </div>
+            </UserContextProvider>
         </ConsortiumContextProvider>
 
     )

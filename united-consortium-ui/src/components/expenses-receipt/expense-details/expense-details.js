@@ -38,7 +38,7 @@ const ExpenseDetails = props => {
                             {props.expensesReceipt.expense_items?.map(item => {
                                 let eventKey = props.expensesReceipt.expense_items.indexOf(item) + 1;
                                 return (
-                                    <div className='contenedore-item' sytle={{fontSize: 'small' }}>
+                                    <div className='item-detail' sytle={{fontSize: 'small' }}>
                                         <Card>
                                             <Card.Header>
                                                 <Accordion.Toggle as={Button} className='card-header-button' variant="link" eventKey={eventKey}>

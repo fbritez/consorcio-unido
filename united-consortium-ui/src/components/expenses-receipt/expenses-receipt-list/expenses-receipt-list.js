@@ -4,7 +4,7 @@ import ExpensesReceiptService from '../../../services/expense-receipt-service/ex
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
-import Badge from 'react-bootstrap/Badge'
+import './expenses-receipt.scss';
 
 const service = new ExpensesReceiptService();
 

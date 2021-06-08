@@ -1,4 +1,5 @@
 @import '../../utils/basic-colours.scss';
+@import '../../common/buttons.scss';
 @import '../../expenses-receipt/expense-item/expense-item.scss';
 
 .content {
@@ -6,7 +7,6 @@
 }
 
 .left {
-
   float: left;
   position: relative;
   height: auto;
