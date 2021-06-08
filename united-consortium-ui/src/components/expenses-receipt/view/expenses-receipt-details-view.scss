@@ -48,8 +48,24 @@
   @extend .button;
 }
 
+.dropdown-item {
+  background-color: $soft-color;
+  color: $hard-color
+}
+
+.dropdown-item:hover {
+  background-color: $soft-soft-color;
+  color: $hard-color
+}
+
+.dropdown-menu.show {
+  background-color: $soft-color;
+}
+
 .generate-button {
   @extend .add-button;
   font-size: small;
 }
+
+
 

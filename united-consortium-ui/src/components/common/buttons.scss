@@ -7,15 +7,85 @@
 }
 
 .button:hover{
-  background-color: #4465a7;
+  background-color: $focus-hard-color;
+  border-color: $focus-hard-color;
+  color: $soft-color;
 }
 
 .button:focus {     
-  background-color: #2C4068;
-  border-color: #2C4068  
+  background-color: $hard-hard-color;
+  border-color: $hard-hard-color;
+  color: $soft-color;
+  box-shadow: $disabled-hard-color
 }
 
 .button:disabled{
-  background-color: black;
-  border-color: #2C4068
+  background-color: $hard-hard-color;
+  border-color: $hard-hard-color
+}
+
+.button:active{
+  background-color: yellow;
+}
+
+.remove-button {
+  background-color: #fd624d;
+  border-color: #fd624d ; 
+  margin-left: 3%;
+  float: right;
+}
+
+.update-button {
+  @extend .button;
+  margin-left: 3%;
+  float: right
+}
+
+.remove-button:hover{
+  background-color:  #fa513b;
+  border-color: #fa513b  
+}
+
+.remove-button:focus {     
+  background-color: #fa513b;
+  border-color: #fa513b  
+}
+
+.add-button {
+  background-color: #29a039;
+  border-color: #29a039 ;
+  margin-left: 3%;
+  float: right
+}
+
+.add-button:hover{
+  background-color:  #1e7e2a;
+  border-color: #1e7e2a  
+}
+
+.add-button:disabled{
+  background-color:  #0e3f14;
+  border-color: #1e7e2a  
+}
+
+.add-button:focus {     
+  background-color: #1e7e2a;
+  border-color: #1e7e2a  
+}
+
+
+.cancel-button{
+  float: right
+}
+
+.dropdown-toggle.btn.btn-primary {
+  background-color: $focus-hard-color;
+  color: $soft-color;
+  border-color: $hard-hard-color;
+}
+
+.dropdown-toggle.btn.btn-primary :active{
+  background-color: $focus-hard-color;
+  color: $soft-color;
+  border-color: $hard-hard-color;
 }
