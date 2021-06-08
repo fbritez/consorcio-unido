@@ -58,4 +58,4 @@ const ConsortiumsMainView = (props) => {
     )
 }
 
-export default authenticationHandler(ConsortiumsMainView)
+export default authenticationHandler(ConsortiumsGeneralView)

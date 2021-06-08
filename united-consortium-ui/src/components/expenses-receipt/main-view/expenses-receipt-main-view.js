@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import ConsortiumsListView from '../../consortium/consortiums-list-view/consortiums-list-view';
-import { ConsortiumContextProvider, ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import ExpensesReceiptView from '../view/expenses-receipt-view';
 import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
 import './expenses-receipt-main-view.scss';
@@ -51,11 +51,9 @@ const ExpensesReceiptGeneralView = props => {
 
 const ExpensesReceiptMainView = (props) => {
     return (
-        <ConsortiumContextProvider>
             <ExpensesReceiptContextProvider>
                 <ExpensesReceiptGeneralView />
             </ExpensesReceiptContextProvider>
-        </ConsortiumContextProvider>
     )
 }
 

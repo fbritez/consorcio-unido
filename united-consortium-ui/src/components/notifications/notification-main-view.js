@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { UserContext } from '../user-provider/user-provider';
 import authenticationHandler from '../login/authentication-handler';
 import ConsortiumsListView from '../consortium/consortiums-list-view/consortiums-list-view';
-import { ConsortiumContext, ConsortiumContextProvider } from '../consortium/consortium-provider/consortium-provider';
+import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import NotificationView from './notification-view';
 
 const NotificationGeneralView = props => {
@@ -48,12 +48,5 @@ const NotificationGeneralView = props => {
     )
 }
 
-const NotificationMainView = () => {
-    return (
-        <ConsortiumContextProvider>
-            <NotificationGeneralView />
-        </ConsortiumContextProvider>
-    )
-}
 
-export default authenticationHandler(NotificationMainView)
+export default authenticationHandler(NotificationGeneralView)
