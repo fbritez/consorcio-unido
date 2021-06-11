@@ -8,7 +8,7 @@ import ConsortiumsListView from '../consortium/consortiums-list-view/consortiums
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import NotificationView from './notification-view';
 
-const NotificationGeneralView = props => {
+const NotificationGeneralView = () => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const [ updated, setUpdated ] = useState(false);
@@ -26,7 +26,7 @@ const NotificationGeneralView = props => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated}/>
+                                <ConsortiumsListView setConsortium={setConsortiums} user={user} updated={updated}/>
                             </div>
                         }
                         </Col>

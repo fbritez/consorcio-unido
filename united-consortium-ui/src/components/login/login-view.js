@@ -46,7 +46,7 @@ function Login() {
     const redirectToMain = async (email) => {
         const loggedUser = await userService.getUser(email);
         setUser(loggedUser);
-        history.push('/expenses');
+        history.push('/notifications');
     }
 
     const authenticate = async () => {

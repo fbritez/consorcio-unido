@@ -11,7 +11,7 @@ const NotificationListView = props => {
     const [ notifications, setNotifications ] = useState([])
 
     useEffect(async () => {
-        debugger
+        setNotifications([]);
         const result = await service.notificationFor(consortium);
         setNotifications(result);
     }, [consortium, props.shouldRefresh]);

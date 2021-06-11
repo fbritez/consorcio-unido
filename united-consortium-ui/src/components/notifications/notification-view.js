@@ -36,6 +36,7 @@ const NotificationView = props => {
                 fileService.save(selectedFile).then(
                     () => {
                         setMessage('')
+                        setSelectedFile(undefined)
                         setShouldRefresh(!shouldRefresh)
                     },
                     () => {
