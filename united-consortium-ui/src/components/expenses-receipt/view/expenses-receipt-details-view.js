@@ -136,7 +136,7 @@ const ExpensesReceiptDetailView = (props) => {
 
     const closeExpenses = () => {
         expensesReceipt.close()
-        service.save(expensesReceipt)
+        service.generateReceipt(expensesReceipt)
         setExpensesReceipt(undefined)
         setTransacionStatus(true)
     }

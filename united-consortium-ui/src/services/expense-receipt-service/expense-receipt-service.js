@@ -34,6 +34,16 @@ class ExpensesReceiptService {
         }
     }
 
+    generateReceipt = async expensesReceipt => {
+        try {
+            await axios.post(`${SERVICE_URL}/generateReceipt`, { updatedExpensesReceipt: expensesReceipt });
+            return expensesReceipt
+        } catch (error) {
+            console.log(error)
+            return Promise.reject()
+        }
+    }
+
     createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket, data.members)
 
 

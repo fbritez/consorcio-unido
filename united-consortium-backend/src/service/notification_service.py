@@ -19,3 +19,7 @@ class NotificationService:
         else:
             element['publishDate'] = datetime.datetime.now()
             self.dao.insert(element)
+
+    def notify(self, notification):
+        new_notification = notification.text_for_notifications()
+        self.save_or_update(new_notification)

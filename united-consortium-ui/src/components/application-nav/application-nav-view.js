@@ -14,7 +14,7 @@ const service = new ConsortiumService();
 const AppliactionNavView = () => {
 
     const history = useHistory();
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [isAdministrator, setIsAdministrator] = useState();
 
     const push = (path) => {
@@ -27,6 +27,11 @@ const AppliactionNavView = () => {
             setIsAdministrator(result);
         }
     });
+
+    const logout = () => {
+        setUser(undefined)
+        push('login')
+    }
 
     return (
         <div>{
@@ -44,7 +49,7 @@ const AppliactionNavView = () => {
                             <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
                             <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={() => push('login')}>Sign out</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => logout()}>Sign out</NavDropdown.Item>
                         </NavDropdown>
                     </Navbar.Brand>
                 </Navbar.Collapse>
