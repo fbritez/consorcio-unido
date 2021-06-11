@@ -15,12 +15,14 @@ const ExpensesReceiptList = () => {
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const { consortium } = useContext(ConsortiumContext);
     const [isAdministrator, setIsAdministrator] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(async () => {
         if (consortium) {
             const exp = await service.getExpensesAccordingUser(consortium, user);
             setExpenses(exp);
             setIsAdministrator(consortium.isAdministrator(user));
+            setRefresh(!refresh);
         }
 
     }, [consortium, expensesReceipt]);

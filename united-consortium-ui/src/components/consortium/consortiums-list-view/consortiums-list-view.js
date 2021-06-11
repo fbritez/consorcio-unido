@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumCardView } from './consortium-card-view';
@@ -11,8 +11,7 @@ const ConsortiumsListView = (props) => {
     const [consortiums, setConsortiums] = useState();
 
     useEffect(async () => {
-        const consortiums = await service.getConsortiums(props.user);
-        setConsortiums(consortiums)
+        service.getConsortiums(props.user).then((c) => { setConsortiums(c) });
     }, [props.updated]);
 
     return (
@@ -24,7 +23,7 @@ const ConsortiumsListView = (props) => {
             {consortiums?.map(consortium => {
                 return <ConsortiumCardView consortium={consortium} setConsortium={props.setConsortium} />
             })}
-            {props.add && <AddConsortiumCardView/>}
+            {props.add && <AddConsortiumCardView />}
         </div>
     )
 }

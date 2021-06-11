@@ -35,7 +35,7 @@ const ConsortiumsGeneralView = (props) => {
                         <Col sm={7}>{
                             consortium ?
                                 <div>
-                                    <ConsortiumDetails setUpdated={setUpdated}/>
+                                    <ConsortiumDetails setUpdated={setUpdated} updated={updated}/>
                                 </div>
                                 :
                                 <div className='text-center'>

@@ -31,7 +31,7 @@ const AppliactionNavView = () => {
     return (
         <div>{
             user &&
-            <Navbar className='navbar'>
+            <Navbar>
                 <Navbar.Collapse id="basic-navbar-nav" style={{ marginLeft: '7%', marginRight: '7%' }}>
                     <Nav className="mr-auto">
                         <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')} />

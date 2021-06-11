@@ -23,7 +23,6 @@ const NotificatioDetailsView = props => {
     const detectCharacterCounter = () => (useSmallText && shoudlUseSmallText()) ? defaultValue : notification.message.length;
 
     useEffect(async () => {
-        debugger
         const characterCount = detectCharacterCounter()
         const newString = notification.message.substring(0,characterCount);
         setText(newString)

@@ -26,7 +26,7 @@ const NotificationGeneralView = () => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsListView setConsortium={setConsortiums} user={user} updated={updated}/>
+                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated}/>
                             </div>
                         }
                         </Col>

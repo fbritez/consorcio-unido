@@ -51,11 +51,11 @@ class ConsortiumDAO(GenericDAO):
         from src.model.user import ConsortiumMember
 
         members = [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
-                   element.get('members')]
+                   element.get('members', [])]
 
         name = element.get('name')
         address = element.get('address')
-        administrators = [adm for adm in element.get('administrators')]
+        administrators = [adm for adm in element.get('administrators',[])]
         disabled = element.get('disabled')
         c_id = element.get('id')
 

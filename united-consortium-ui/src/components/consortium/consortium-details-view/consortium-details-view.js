@@ -12,7 +12,7 @@ import './consortium-details.scss';
 import SettingService from '../../../services/setting-service/setting-service';
 
 const service = new ConsortiumService();
-const settingService =  new SettingService();
+const settingService = new SettingService();
 
 const BasicConsortiumDetails = props => {
 
@@ -45,7 +45,7 @@ const BasicConsortiumDetails = props => {
             <div style={{ marginBottom: '2%' }}>
                 Unidades Funcionales
             </div>
-            <ConsortiumMembersTable setMembers={props.setUpdatedMembers} shouldRefresh={props.shouldRefresh}/>
+            <ConsortiumMembersTable setMembers={props.setUpdatedMembers} shouldRefresh={props.shouldRefresh} />
             <hr />
         </div>
     )
@@ -56,9 +56,12 @@ const AdvancedConsortiumDetails = props => {
 
     const disableConsortium = () => {
         consortium.setAsDisabled();
-        service.update(consortium);
-        props.setUpdated(true);
-        setConsortium(undefined);
+        service.update(consortium).then(() => {
+            props.setUpdated(!props.updated);
+            setConsortium(undefined);
+        }, () => {
+            props.setAction({ action: 'danger', description: 'Los datos no se han guardado correctamente' })
+        })
     }
 
     const memberValue = () => props.settings?.memberValues ? props.settings.memberValues : ' ';
@@ -75,27 +78,31 @@ const AdvancedConsortiumDetails = props => {
                 value={memberValue()}
                 onChange={event => props.handleSettingChange({ 'memberValues': event.target.value })}
             />
-            <hr />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Card className='delete-consortium-card' 
+
+            {
+                consortium.id && 
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <hr />
+                    <Card className='delete-consortium-card'
                         style={{ width: '60rem', marginTop: '10px', textAlign: 'center' }}>
-                    <div>
-                        <Card.Body>
-                            <Card.Text>
-                                <p><strong>{`Eliminar ${consortium.name}`}</strong></p>
-                                <p>Tenga que cuenta que una vez eliminado no podra revertir esta acción.</p>
-                                <div style={{marginTop: '1%', marginBotton: '2%'}}>
-                                    <Button
-                                        className='remove-button'
-                                        onClick={() => disableConsortium()}>
+                        <div>
+                            <Card.Body>
+                                <Card.Text>
+                                    <p><strong>{`Eliminar ${consortium.name}`}</strong></p>
+                                    <p>Tenga que cuenta que una vez eliminado no podra revertir esta acción.</p>
+                                    <div style={{ marginTop: '1%', marginBotton: '2%' }}>
+                                        <Button
+                                            className='remove-button'
+                                            onClick={() => disableConsortium()}>
                                             Eliminar
                                     </Button>
-                                </div>
-                            </Card.Text>
-                        </Card.Body>
-                    </div>
-                </Card>
-            </div>
+                                    </div>
+                                </Card.Text>
+                            </Card.Body>
+                        </div>
+                    </Card>
+                </div>
+            }
             <hr />
         </div>
     )
@@ -105,11 +112,11 @@ const ConsortiumDetails = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const { user } = useContext(UserContext);
-    const [ updatedMembers, setUpdatedMembers ] = useState()
-    const [ valid, setValid ] = useState(false)
-    const [ actionDescription, setActionDescription ] = useState();
-    const [ consortiumSettings , setConsortiumSettings ] = useState();
-    const [ shouldRefresh, setShouldRefresh ] = useState();
+    const [updatedMembers, setUpdatedMembers] = useState()
+    const [valid, setValid] = useState(false)
+    const [actionDescription, setActionDescription] = useState();
+    const [consortiumSettings, setConsortiumSettings] = useState();
+    const [shouldRefresh, setShouldRefresh] = useState();
 
     useEffect(async () => {
         setActionDescription(undefined);
@@ -140,7 +147,7 @@ const ConsortiumDetails = (props) => {
             () => {
                 setConsortium(consortium);
                 setValid(false)
-                props.setUpdated(true)
+                props.setUpdated(!props.updated)
                 setActionDescription({ action: 'success', description: 'Los datos an sido guardados con exito' })
             },
             () => { setActionDescription({ action: 'danger', description: 'Los datos no se han guardado correctamente' }) });
@@ -167,16 +174,18 @@ const ConsortiumDetails = (props) => {
             <div>
                 <Tabs defaultActiveKey="basics">
                     <Tab eventKey="basics" title="Basicos">
-                        <BasicConsortiumDetails 
-                            handleChange={handleChange} 
-                            setUpdatedMembers={setUpdatedMembers} 
-                            shouldRefresh={shouldRefresh}/>
+                        <BasicConsortiumDetails
+                            handleChange={handleChange}
+                            setUpdatedMembers={setUpdatedMembers}
+                            shouldRefresh={shouldRefresh} />
                     </Tab>
                     <Tab eventKey="advanced" title="Avanzados">
-                        <AdvancedConsortiumDetails 
-                            settings={consortiumSettings} 
+                        <AdvancedConsortiumDetails
+                            settings={consortiumSettings}
                             setUpdated={props.setUpdated}
-                            handleSettingChange={handleSettingChange}/>
+                            updated={props.updated}
+                            setAction={setActionDescription}
+                            handleSettingChange={handleSettingChange} />
                     </Tab>
                 </Tabs>
                 <Button className="add-button" onClick={handleSubmit}>
