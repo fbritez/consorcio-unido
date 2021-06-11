@@ -30,7 +30,7 @@ const ExpensesReceiptGeneralView = props => {
                         </Col>
                         <Col sm={6}>{
                             consortium ?
-                                <div>
+                                <div className='scrollbar-dinamically'>
                                     <ExpensesReceiptView/>
                                 </div>
                                 :

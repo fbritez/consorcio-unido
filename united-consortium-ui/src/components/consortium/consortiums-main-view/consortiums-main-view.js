@@ -34,7 +34,7 @@ const ConsortiumsGeneralView = (props) => {
                         </Col>
                         <Col sm={7}>{
                             consortium ?
-                                <div>
+                                <div className='scrollbar-dinamically'>
                                     <ConsortiumDetails setUpdated={setUpdated} updated={updated}/>
                                 </div>
                                 :
