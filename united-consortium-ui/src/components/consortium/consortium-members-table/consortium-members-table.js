@@ -7,6 +7,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import SettingService from '../../../services/setting-service/setting-service';
 import MemberDetailsView from './member-details-view';
+import { BiAlignJustify } from "react-icons/bi";
 
 const settingService = new SettingService();
 
@@ -28,7 +29,7 @@ const ConsortiumMembersTable = (props) => {
         setGridApi(params.api);
     };
 
-    const sortMembers = (m) =>  m.sort((a, b) => a.member_name.localeCompare(b.member_name));
+    const sortMembers = (m) => m.sort((a, b) => a.member_name.localeCompare(b.member_name));
 
     const memberChage = () => {
         const sortedMembers = sortMembers(members)
@@ -63,7 +64,7 @@ const ConsortiumMembersTable = (props) => {
 
     const memberValue = () => consortiumSettings ? consortiumSettings.memberValues : 5
 
-    const RemoveCellRenderer = (props) => {
+    const RemoveCellRenderer = props => {
 
         return (
             <div>
@@ -71,6 +72,14 @@ const ConsortiumMembersTable = (props) => {
                 <BasicUpdateItemButton onClick={() => props.setSelectedMember(props.data)} />
             </div>
         );
+    }
+
+    const DetailsCellRenderer = props => {
+        return (
+            <div>
+                {(props.data.secondary_email || props.notes) && <BiAlignJustify />}
+            </div>
+        )
     }
 
     return (
@@ -94,6 +103,7 @@ const ConsortiumMembersTable = (props) => {
                     }}
                     frameworkComponents={{
                         removeCellRenderer: RemoveCellRenderer,
+                        detailsCellRenderer: DetailsCellRenderer
                     }}
                     rowData={members}
                     pagination={true}
@@ -111,6 +121,13 @@ const ConsortiumMembersTable = (props) => {
                         headerName="Correo de contacto"
                         editable={true}
                         onCellValueChanged={memberChage}
+                    >
+                    </AgGridColumn>
+                    <AgGridColumn
+                        field=""
+                        headerName=""
+                        editable={false}
+                        cellRenderer="detailsCellRenderer"
                     >
                     </AgGridColumn>
                     <AgGridColumn
