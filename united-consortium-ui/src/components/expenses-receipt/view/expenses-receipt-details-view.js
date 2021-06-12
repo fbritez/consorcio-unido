@@ -195,6 +195,7 @@ const MemberExpensesReceiptDetailView = props => {
     const [generalReceipt, setGeneralReceipt] = useState();
 
     useEffect(async () => {
+        debugger
         const result = await service.getExpensesReceipt(expensesReceipt)
         setGeneralReceipt(result);
     }, [expensesReceipt]);

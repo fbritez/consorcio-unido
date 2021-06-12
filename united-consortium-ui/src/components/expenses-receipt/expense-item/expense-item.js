@@ -180,6 +180,11 @@ const ExpensesItemView = (props) => {
                                             headerName="Correo de contacto"
                                         >
                                         </AgGridColumn>
+                                        <AgGridColumn
+                                            field="secondary_email"
+                                            headerName="Mail secundario"
+                                        >
+                                        </AgGridColumn>
                                     </AgGridReact>
                                 </div>
                             </Tab>

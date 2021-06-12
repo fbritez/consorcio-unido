@@ -12,7 +12,7 @@ class LoginService:
         consortiums = self.consortium_service.get_consortium_for(email)
 
         if consortiums:
-            result = self.dao.get_all(query_obj={'user_email': email})
+            result = self.dao.get_all(query_obj={'$or': [{'user_email': email}, {'secondary_email': email}]})
         else:
             raise Exception('Invalid User')
 

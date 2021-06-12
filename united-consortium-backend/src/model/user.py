@@ -25,5 +25,8 @@ class ConsortiumMember:
     def get_email(self):
         return self.user_email
 
+    def get_secondary_email(self):
+        return self.secondary_email
+
     def get_name(self):
         return self.member_name

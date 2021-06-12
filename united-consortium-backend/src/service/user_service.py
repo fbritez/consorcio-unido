@@ -12,5 +12,9 @@ class UserService:
 
     def update_members(self, members):
         for member in members:
-            if not self.get_user(member.get_email()):
-                self.dao.insert(User(member.get_email(), 'Usuario No identificado'))
+            self.store_new_user(member.get_email())
+            self.store_new_user(member.get_secondary_email())
+
+    def store_new_user(self, email):
+        if not self.get_user(email):
+            self.dao.insert(User(email, 'Usuario No identificado'))

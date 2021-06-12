@@ -31,6 +31,8 @@ class LoginService {
         const encryptedPassword = encrypt(password)
         
         const result = await axios.post(`${SERVICE_URL}/setCredentials`, {user_email: email, password: encryptedPassword});
+        
+        return result
     }
 
     async authenticate(email, password){

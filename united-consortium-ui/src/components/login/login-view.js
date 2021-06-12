@@ -36,8 +36,7 @@ function Login() {
 
     const setCredentials = () => {
         if (password === confirmPassword) {
-            service.setCredentials(email, password);
-            redirectToMain(email)
+            service.setCredentials(email, password).then(() => {redirectToMain(email)});
         } else {
             setInvalidPassword(true);
         }

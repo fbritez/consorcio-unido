@@ -16,7 +16,9 @@ class ConsortiumService:
         values = []
         if user_identifier:
             query_obj = {'disabled': False,
-                         '$or': [{'members.user_email': user_identifier}, {'administrators': user_identifier}]}
+                         '$or': [
+                             {'$or': [{'members.user_email': user_identifier}, {'members.secondary_email': user_identifier}]}
+                             , {'administrators': user_identifier}]}
 
             values = self.dao.get_all(query_obj)
         else:
