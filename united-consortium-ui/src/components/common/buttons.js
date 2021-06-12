@@ -35,6 +35,13 @@ const BasicRemoveItemButton = props => {
     )
 }
 
+const BasicUpdateItemButton = props => {
+
+    return (
+        <Button className='option-button' onClick={() => props.onClick()}> <BsPencil /></Button>
+    )
+}
+
 const AddItemButton = props => {
     const { expensesReceipt } = useContext(ExpensesReceiptContext)
     const disabled = props.disabled ? (expensesReceipt && !expensesReceipt.isOpen()) : false;
@@ -43,6 +50,19 @@ const AddItemButton = props => {
             className='add-button'
             onClick={() => props.onClick()}
             disabled={disabled}
+        >
+            {props.description ? props.description : 'Agregar'}
+        </Button>
+    )
+}
+
+const BasicAddItemButton = props => {
+
+    return (
+        <Button
+            className='add-button'
+            onClick={() => props.onClick()}
+            disabled={props.disabled}
         >
             {props.description ? props.description : 'Agregar'}
         </Button>
@@ -88,7 +108,9 @@ export {
     AddItemButton,
     UpdateItemButton,
     RemoveItemButton,
+    BasicAddItemButton,
     BasicRemoveItemButton,
+    BasicUpdateItemButton,
     FileUploaderButton,
     DownloadButton
 }

@@ -1,20 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
-import { BasicRemoveItemButton } from '../../common/buttons'
+import { BasicRemoveItemButton, BasicUpdateItemButton } from '../../common/buttons'
 import AddMemberView from './add-member-view';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import SettingService from '../../../services/setting-service/setting-service';
+import MemberDetailsView from './member-details-view';
 
-const settingService =  new SettingService();
+const settingService = new SettingService();
 
 const ConsortiumMembersTable = (props) => {
 
     const { consortium } = useContext(ConsortiumContext);
     const [members, setMembers] = useState();
     const [gridApi, setGridApi] = useState();
-    const [ consortiumSettings , setConsortiumSettings] = useState();
+    const [consortiumSettings, setConsortiumSettings] = useState();
+    const [selectedMember, setSelectedMember] = useState();
 
     useEffect(async () => {
         setMembers(consortium?.members);
@@ -26,19 +28,20 @@ const ConsortiumMembersTable = (props) => {
         setGridApi(params.api);
     };
 
-    const memberChage = (change) => {
-        const idx = members.findIndex(i => i === change.data);
+    const sortMembers = (m) =>  m.sort((a, b) => a.member_name.localeCompare(b.member_name));
 
-        const sortedMembers = members.sort((a, b) => a.member_name.localeCompare(b.member_name));
+    const memberChage = () => {
+        const sortedMembers = sortMembers(members)
         setMembers(sortedMembers);
         props.setMembers(sortedMembers);
     }
 
-    const raiseMembersChanges = async (members) => {
-        await props.setMembers(members);
-        await setMembers(members);
-        gridApi.setRowData(members);
-        await gridApi.refreshCells()
+    const raiseMembersChanges = async (updatedMembers) => {
+        const sortedMembers = sortMembers(updatedMembers)
+        await props.setMembers(sortedMembers);
+        await setMembers(sortedMembers);
+        gridApi?.setRowData(sortedMembers);
+        await gridApi?.refreshCells()
     }
 
     const setNewMember = (newMember) => {
@@ -51,6 +54,13 @@ const ConsortiumMembersTable = (props) => {
         raiseMembersChanges(updatedMembers);
     }
 
+    const handleMemberChange = (member) => {
+        const updatedMembers = members.filter(
+            item => item.member_name !== member.member_name && item.user_email !== member.user_email)
+        updatedMembers.push(member)
+        raiseMembersChanges(updatedMembers);
+    }
+
     const memberValue = () => consortiumSettings ? consortiumSettings.memberValues : 5
 
     const RemoveCellRenderer = (props) => {
@@ -58,6 +68,7 @@ const ConsortiumMembersTable = (props) => {
         return (
             <div>
                 <BasicRemoveItemButton onClick={() => props.removeItem(props)} />
+                <BasicUpdateItemButton onClick={() => props.setSelectedMember(props.data)} />
             </div>
         );
     }
@@ -67,7 +78,8 @@ const ConsortiumMembersTable = (props) => {
             <div>
                 <AddMemberView setMember={setNewMember} />
             </div>
-            <div className="ag-theme-material" style={{ height: 310, }}>
+            <MemberDetailsView member={selectedMember} handleMemberChange={handleMemberChange} />
+            <div className="ag-theme-material" style={{ height: 310 }}>
                 <AgGridReact
                     defaultColDef={{
                         editable: true,
@@ -105,7 +117,7 @@ const ConsortiumMembersTable = (props) => {
                         field="options"
                         headerName="Opciones"
                         cellRenderer="removeCellRenderer"
-                        cellRendererParams={{ removeItem: removeItem }}
+                        cellRendererParams={{ removeItem: removeItem, setSelectedMember: setSelectedMember }}
                     >
                     </AgGridColumn>
                 </AgGridReact>

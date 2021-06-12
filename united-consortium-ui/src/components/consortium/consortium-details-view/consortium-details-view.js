@@ -23,7 +23,7 @@ const BasicConsortiumDetails = props => {
     const address = () => consortium ? consortium.address : ''
 
     return (
-        <div>
+        <div style={{fontSize: 'smaller'}}>
             <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Nombre / Identificardor del consorcio</label>
             <input
                 type="text"

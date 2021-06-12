@@ -50,12 +50,12 @@ class ConsortiumDAO(GenericDAO):
     def create_model(self, element):
         from src.model.user import ConsortiumMember
 
-        members = [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
+        members = [ConsortiumMember(member.get('user_email'), member.get('member_name'),member.get('secondary_email'), member.get('notes')) for member in
                    element.get('members', [])]
 
         name = element.get('name')
         address = element.get('address')
-        administrators = [adm for adm in element.get('administrators',[])]
+        administrators = [adm for adm in element.get('administrators', [])]
         disabled = element.get('disabled')
         c_id = element.get('id')
 

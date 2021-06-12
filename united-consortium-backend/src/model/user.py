@@ -16,9 +16,11 @@ class User:
 
 class ConsortiumMember:
 
-    def __init__(self, user_email, member_name):
+    def __init__(self, user_email, member_name, secondary_email='', notes=''):
         self.user_email = user_email
         self.member_name = member_name
+        self.secondary_email = secondary_email
+        self.notes = notes
 
     def get_email(self):
         return self.user_email

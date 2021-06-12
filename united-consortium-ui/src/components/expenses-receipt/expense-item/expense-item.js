@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import Tabs from 'react-bootstrap/Tabs';
