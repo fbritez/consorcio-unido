@@ -29,10 +29,10 @@ const ConsortiumCardView = (props) => {
                 <div onClick={() => setSelectedItem(selectedConsortium)}>
                     <Card.Body>
                         <Card.Title>
-                            {selectedConsortium.name}
+                            <div data-testid='name'>{selectedConsortium.name}</div>
                         </Card.Title>
                         <Card.Text>
-                            {selectedConsortium.address}
+                            <div data-testid='address'>{selectedConsortium.address}</div>
                         </Card.Text>
                     </Card.Body>
                 </div>
