@@ -1,9 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import NotificationService from '../../services/notification-service/notification-service';
+import notificationService from '../../services/notification-service/notification-service';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import NotificatioDetailsView from './notification-details-view';
-
-const service = new NotificationService();
 
 const NotificationListView = props => {
 
@@ -12,7 +10,7 @@ const NotificationListView = props => {
 
     useEffect(async () => {
         setNotifications([]);
-        const result = await service.notificationFor(consortium);
+        const result = await notificationService.notificationFor(consortium);
         setNotifications(result);
     }, [consortium, props.shouldRefresh]);
 

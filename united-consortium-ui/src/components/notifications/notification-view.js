@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import NotificationService from '../../services/notification-service/notification-service';
+import notificationService from '../../services/notification-service/notification-service';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import NotificationListView from './notification-list';
 import Form from 'react-bootstrap/Form';
@@ -11,10 +11,9 @@ import { FileUploaderButton } from '../common/buttons';
 import ImageService from '../../services/image-service/image-service';
 import ErrorHandler from '../common/handlers/error-handler';
 
-const notificationService = new NotificationService();
 const fileService = new ImageService();
 
-const NotificationView = props => {
+const NotificationView = () => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const [message, setMessage] = useState('');

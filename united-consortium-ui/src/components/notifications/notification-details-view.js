@@ -46,7 +46,7 @@ const NotificatioDetailsView = props => {
                             <text>{text}</text>
                             {
                                shoudlUseSmallText() ?
-                                <Button className='expand' onClick={() => setUseSmallText(!useSmallText)}>
+                                <Button data-testid='button' className='expand' onClick={() => setUseSmallText(!useSmallText)}>
                                     ...
                                 </Button>
                                 :
