@@ -22,7 +22,7 @@ describe('expenses receipt service tests', () => {
 
     it('expenses service get all expenses receipts', async () => {
         axios.get.mockReturnValueOnce(expensesData)
-        const result = await service.getExpensesFor({ id: mockConsortiumID });
+        const result = await service.getExpensesAccordingUser({ id: mockConsortiumID }, {email: 'mymail.com'});
         expect(result).toEqual([new ExpensesReceipt(mockConsortiumID, [], mockMonthDescription, mockYear)])
     });
 

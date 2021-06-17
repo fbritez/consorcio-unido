@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ConsortiumService from '../../../services/consortium-service/consortium-service';
+import consortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumCardView } from './consortium-card-view';
 import { AddConsortiumCardView } from './consortium-card-view';
 
-const service = new ConsortiumService();
+const service = consortiumService;
 
 const ConsortiumsListView = (props) => {
 

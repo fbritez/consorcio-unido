@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
-import ConsortiumService from '../../../services/consortium-service/consortium-service';
+import consortiumService from '../../../services/consortium-service/consortium-service';
 import ConsortiumMembersTable from '../consortium-members-table/consortium-members-table';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
@@ -11,7 +11,7 @@ import { UserContext } from '../../user-provider/user-provider';
 import './consortium-details.scss';
 import SettingService from '../../../services/setting-service/setting-service';
 
-const service = new ConsortiumService();
+const service = consortiumService;
 const settingService = new SettingService();
 
 const BasicConsortiumDetails = props => {
@@ -26,6 +26,7 @@ const BasicConsortiumDetails = props => {
         <div style={{fontSize: 'smaller'}}>
             <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Nombre / Identificardor del consorcio</label>
             <input
+                data-testid='consortium-name'
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"
@@ -35,6 +36,7 @@ const BasicConsortiumDetails = props => {
 
             <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Dirección</label>
             <input
+                data-testid='consortium-address'
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"

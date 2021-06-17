@@ -22,19 +22,21 @@ const MemberDetailsView = props => {
         props.handleMemberChange(updatedMember)
         setUpdatedMembers(undefined)
     }
+
     return (
         <div>
             {
                 updatedMember &&
                 <Modal show={updatedMember} onHide={() => {}}>
                     <Modal.Header closeButton onClick={() => setUpdatedMembers(undefined)}>
-                        <Modal.Title>{`${updatedMember.member_name} - ${updatedMember.user_email}`}</Modal.Title>
+                        <Modal.Title data-testid='title'>{`${updatedMember.member_name} - ${updatedMember.user_email}`}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>
                             <div style={{marginBottom: '3%'}}>
                             <text style={{ fontSize: 'smaller' }}> Este email tambien tendra acceso al sistema.</text>
                             <input
+                                data-testid='secondary_email'
                                 style={{ fontSize: 'smaller' }}
                                 type="text"
                                 className="form-control"
@@ -45,6 +47,7 @@ const MemberDetailsView = props => {
                             />
                             </div>
                             <textarea
+                                data-testid='notes'
                                 style={{ fontSize: 'smaller' }}
                                 type="text"
                                 className="form-control"

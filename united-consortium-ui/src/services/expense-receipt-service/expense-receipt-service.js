@@ -1,14 +1,13 @@
 import axios from 'axios';
 import ExpensesReceipt from '../../model/expenses-receipt';
 import ExpenseReceiptitem from '../../model/expense-receipt-item';
-import ConsortiumService from '../consortium-service/consortium-service';
+import consortiumService from '../consortium-service/consortium-service';
 import ImageService from '../image-service/image-service';
 import SERVICE_URL from '../utils/constants';
 
 class ExpensesReceiptService {
 
     constructor() {
-        this.consortiumService = new ConsortiumService();
         this.imageService = new ImageService();
     }
 

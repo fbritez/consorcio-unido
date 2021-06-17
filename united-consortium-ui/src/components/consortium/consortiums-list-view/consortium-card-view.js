@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import ConsortiumService from '../../../services/consortium-service/consortium-service';
+import consortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 
 const ConsortiumCardView = (props) => {
@@ -44,7 +44,7 @@ const ConsortiumCardView = (props) => {
 const AddConsortiumCardView = (props) => {
 
     const { setConsortium } = useContext(ConsortiumContext);
-    const service = new ConsortiumService();
+    const service = consortiumService;
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>

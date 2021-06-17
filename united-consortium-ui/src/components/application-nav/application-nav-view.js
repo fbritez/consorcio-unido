@@ -7,9 +7,9 @@ import logo from '../../images/medium-icon.png';
 import { BsPeopleCircle } from 'react-icons/bs';
 import { useHistory } from "react-router-dom";
 import { UserContext } from '../user-provider/user-provider';
-import ConsortiumService from '../../services/consortium-service/consortium-service';
+import consortiumService from '../../services/consortium-service/consortium-service';
 
-const service = new ConsortiumService();
+const service = consortiumService;
 
 const AppliactionNavView = () => {
 
@@ -41,13 +41,12 @@ const AppliactionNavView = () => {
                     <Nav className="mr-auto">
                         <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')} />
                         <div className="vl" />
-                        <Nav.Link onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
-                        {isAdministrator ? <Nav.Link onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
+                        <Nav.Link data-testid='expenses' onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
+                        {isAdministrator ? 
+                            <Nav.Link data-testid='consortiums' onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
                     </Nav>
                     <Navbar.Brand href="#home" className='right'>
                         <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
-                            <NavDropdown.Item href="#profile">Perfil</NavDropdown.Item>
-                            <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={() => logout()}>Sign out</NavDropdown.Item>
                         </NavDropdown>

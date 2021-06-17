@@ -6,13 +6,12 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import './notification-view.scss';
 import { UserContext } from '../user-provider/user-provider';
-import ConsortiumService from '../../services/consortium-service/consortium-service';
+import consortiumService from '../../services/consortium-service/consortium-service';
 import { FileUploaderButton } from '../common/buttons';
 import ImageService from '../../services/image-service/image-service';
 import ErrorHandler from '../common/handlers/error-handler';
 
 const notificationService = new NotificationService();
-const consortiumService = new ConsortiumService();
 const fileService = new ImageService();
 
 const NotificationView = props => {

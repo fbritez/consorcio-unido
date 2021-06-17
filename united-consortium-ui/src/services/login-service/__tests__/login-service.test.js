@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import LoginService from "../login-service";
+import loginService from "../login-service";
 import SERVICE_URL from "../../utils/constants";
 import CryptoJS from 'crypto-js';
 
@@ -28,7 +28,7 @@ jest.mock('crypto-js', () => ({
 
 describe('login tests', () => {
 
-    const service = new LoginService();
+    const service = loginService;
 
     it('call validateEmail to the backend', async () => {
         axios.get.mockReturnValueOnce(validEmailResponse)

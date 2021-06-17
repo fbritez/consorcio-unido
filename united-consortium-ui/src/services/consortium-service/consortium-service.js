@@ -28,4 +28,4 @@ class ConsortiumService {
     }
 }
 
-export default ConsortiumService;
+export default new ConsortiumService();

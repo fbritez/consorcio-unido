@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 const emptyMember = () => ({ member_name: '', user_email: '' })
+
 const AddMemberView = (props) => {
 
     const [member, setMember] = useState(emptyMember());
@@ -28,6 +29,7 @@ const AddMemberView = (props) => {
                 <Row>
                     <Col sm={5}>
                         <input
+                            data-testid='member_name_input'
                             type="text"
                             className="form-control"
                             placeholder="Identificador de la unidad"
@@ -37,6 +39,7 @@ const AddMemberView = (props) => {
                     </Col>
                     <Col sm={5}>
                         <input
+                            data-testid='user_email_input'
                             type="text"
                             className="form-control"
                             placeholder="Correo de contacto"
@@ -45,7 +48,7 @@ const AddMemberView = (props) => {
                         />
                     </Col>
                     <Col sm>
-                        <Button className='add-button' onClick={addMember}>+</Button>
+                        <Button data-testid='button' className='add-button' onClick={addMember}>+</Button>
                     </Col>
                 </Row>
             </Form>

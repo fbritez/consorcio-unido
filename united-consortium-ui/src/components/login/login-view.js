@@ -5,12 +5,12 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import logo from '../../images/medium-icon.png';
-import LoginService from '../../services/login-service/login-service';
+import loginService from '../../services/login-service/login-service';
 import Alert from 'react-bootstrap/Alert';
 import userService from '../../services/user-service/user-service';
 import { useHistory } from "react-router-dom";
 
-const service = new LoginService()
+const service = loginService;
 
 function Login() {
 
@@ -27,7 +27,6 @@ function Login() {
 
     const validateEmail = async (email) => {
         let response = await service.validateEmail(email);
-
         setValidEmail(response.validEmail);
         setFirstLogin(response.firstLogin);
         setLoaded(true);
@@ -81,7 +80,7 @@ function Login() {
                         </Card.Title>
                             <Card.Text>
                                 <Form.Group controlId="">
-                                    <Form.Control type="text" placeholder="email" onChange={event => setEmail(event.target.value)} disabled={disableEmail} />
+                                    <Form.Control data-testid='email' type="text" placeholder="email" onChange={event => setEmail(event.target.value)} disabled={disableEmail} />
                                 </Form.Group>
                                 {
                                     !validEmail && loaded &&
@@ -93,7 +92,7 @@ function Login() {
                                 }
                                 {!validEmail &&
                                     <div>
-                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={() => validateEmail(email)}>
+                                        <Button data-testid='siguiente' className='update-button' style={{ marginBottom: '3%' }} onClick={() => validateEmail(email)}>
                                             Siguiente
                                         </Button>
                                     </div>
@@ -125,7 +124,7 @@ function Login() {
                                     <div>
                                         <Form.Group controlId="formBasicPassword">
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" placeholder="Password" onChange={event => { setPassword(event.target.value) }} />
+                                            <Form.Control data-testid='password' type="password" placeholder="Password" onChange={event => { setPassword(event.target.value) }} />
                                         </Form.Group>
                                         {
                                             invalidPassword &&
@@ -135,7 +134,7 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={() => processAuthentication()}>
+                                        <Button  data-testid='login' className='update-button' style={{ marginBottom: '3%' }} onClick={() => processAuthentication()}>
                                             Login
                                         </Button>
                                         <Button variant="secondary" className='cancel-button' style={{ marginBottom: '3%' }} onClick={() => clean()}>
