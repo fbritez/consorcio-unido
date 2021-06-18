@@ -12,15 +12,15 @@ import { ConsortiumContextProvider } from '../consortium-provider/consortium-pro
 const ConsortiumsGeneralView = (props) => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
-    const [ updated, setUpdated ] = useState(false);
+    const [updated, setUpdated] = useState(false);
     const { user, setUser } = useContext(UserContext);
 
 
-    const setConsortiums = (c) =>{
+    const setConsortiums = (c) => {
         setConsortium(undefined)
         setConsortium(c)
     }
- 
+
     return (
         <div className='background'>
             <Container>
@@ -28,18 +28,22 @@ const ConsortiumsGeneralView = (props) => {
                     <Row style={{ marginTop: '1%' }}>
                         <Col sm={3}>{
                             <div>
-                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated}/>
+                                <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated} />
                             </div>
                         }
                         </Col>
                         <Col sm={7}>{
                             consortium ?
                                 <div className='scrollbar-dinamically'>
-                                    <ConsortiumDetails setUpdated={setUpdated} updated={updated}/>
+                                    <ConsortiumDetails setUpdated={setUpdated} updated={updated} />
                                 </div>
                                 :
-                                <div className='text-center'>
-                                    <lable > Por favor seleccione un consorcio</lable>
+                                <div>
+                                    <h5>Consorcios</h5>
+                                    <hr />
+                                    <div className='text-center'>
+                                        <lable > Por favor seleccione un consorcio</lable>
+                                    </div>
                                 </div>
                         }
                         </Col>

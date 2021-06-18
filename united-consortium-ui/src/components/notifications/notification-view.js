@@ -59,8 +59,6 @@ const NotificationView = () => {
 
     return (
         <div>
-            <h5>Novedades</h5>
-            <hr />
             <ErrorHandler errors={errorDescriptions} />
             {
                 isAdministrator &&

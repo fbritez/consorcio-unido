@@ -30,8 +30,10 @@ const NotificationGeneralView = () => {
                             </div>
                         }
                         </Col>
-                        <Col sm={7}>{
-                            consortium ?
+                        <Col sm={7}>
+                            <h5>Novedades</h5>
+                            <hr />
+                            {consortium ?
                                 <div className='scrollbar-dinamically'>
                                     <NotificationView setUpdated={setUpdated}/>
                                 </div>

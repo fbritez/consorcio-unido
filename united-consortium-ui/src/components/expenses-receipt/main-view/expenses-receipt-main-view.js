@@ -35,6 +35,8 @@ const ExpensesReceiptGeneralView = props => {
                                 </div>
                                 :
                                 <div className='text-center'>
+                                    <h5>Expensas</h5>
+                                    <hr/>
                                     <lable > Por favor seleccione un consorcio</lable>
                                 </div>
                         }
