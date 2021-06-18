@@ -14,6 +14,7 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import AddExpensesReceipt from './add-expenses-receipt';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
+import { UserContext } from '../../user-provider/user-provider';
 
 const service = new ExpensesReceiptService();
 
@@ -188,14 +189,35 @@ const ExpensesReceiptDetailView = (props) => {
     )
 }
 
+const MemberDetailHeader = () => {
+    const { user } = useContext(UserContext);
+    const { consortium } = useContext(ConsortiumContext);
+    debugger
+    const member = consortium.getMember(user);
 
-const MemberExpensesReceiptDetailView = props => {
+    return (
+        <div>
+            {
+                member && <div style={{ fontSize: 'smaller', marginBottom: '2%' }}>
+                    <text>{'Unidad funcional: '}</text>
+                    <strong>{member.member_name}</strong>
+                    <br/>
+                    <text>{'Consorcio: '}</text> 
+                    <strong>{consortium.name}</strong>
+                </div>
+            }
+
+        </div>
+    )
+}
+
+
+const MemberExpensesReceiptDetailView = () => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
     const [generalReceipt, setGeneralReceipt] = useState();
 
     useEffect(async () => {
-        debugger
         const result = await service.getExpensesReceipt(expensesReceipt)
         setGeneralReceipt(result);
     }, [expensesReceipt]);
@@ -203,6 +225,7 @@ const MemberExpensesReceiptDetailView = props => {
     return (
         <div>
             <ExpensesReceiptDetailHeader />
+            <MemberDetailHeader />
             <Tabs defaultActiveKey="myReceipt" id="uncontrolled-tab-example">
                 <Tab eventKey="myReceipt" title="Mi resumen">
                     <div style={{ marginTop: '3%' }}>

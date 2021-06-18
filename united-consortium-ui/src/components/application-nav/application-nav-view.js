@@ -45,6 +45,7 @@ const AppliactionNavView = () => {
                         {isAdministrator ? 
                             <Nav.Link data-testid='consortiums' onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
                     </Nav>
+                    <Navbar.Text className='right'>{user.email}</Navbar.Text>
                     <Navbar.Brand href="#home" className='right'>
                         <NavDropdown title={<BsPeopleCircle className='user-icon' />}>
                             <NavDropdown.Divider />

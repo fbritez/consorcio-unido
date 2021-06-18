@@ -6,5 +6,19 @@
 }
 
 .card-header-button{
-    font-size: inherit;
+
+}
+.expenses-card-header{
+    padding: 0%;
+}
+
+.my-total{
+    .card-body{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+.card-expenses-detail{
+    font-size: smaller;
 }

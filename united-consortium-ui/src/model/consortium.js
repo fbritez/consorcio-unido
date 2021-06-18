@@ -28,6 +28,10 @@ class Consortium{
         this.disabled = true;
     }
 
+    getMember(user){
+        return this.members.filter(member => member.user_email == user.email || member.secondary_email == user.email)[0]
+    }
+
 }
 
 export default Consortium

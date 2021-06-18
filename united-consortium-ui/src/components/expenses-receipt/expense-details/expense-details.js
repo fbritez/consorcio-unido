@@ -39,19 +39,19 @@ const ExpenseDetails = props => {
                                 return (
                                     <div className='contenedore-item' sytle={{fontSize: 'small' }}>
                                         <Card>
-                                            <Card.Header>
-                                                <Accordion.Toggle as={Button} className='card-header-button' variant="link" eventKey={eventKey}>
+                                            <Card.Header className='expenses-card-header'>
+                                                <Accordion.Toggle as={Button} variant="link" eventKey={eventKey}>
                                                     {renderOneLineDescription(item.title, item.getCurrencyAmount())}
                                                 </Accordion.Toggle>
                                             </Card.Header>
                                             <Accordion.Collapse eventKey={eventKey}>
-                                                <Card.Body >
+                                                <Card.Body className='card-expenses-detail'>
                                                     <Row>
                                                         <Col sm={9}>
                                                             <div className='card-details'>
-                                                                {item.title}
-                                                                <hr />
-                                                                <p>{`Descripcion: ${item.description}`}</p>
+                                                                <text style={{whiteSpace: 'break-spaces'}}>
+                                                                    {item.description}
+                                                                </text>
                                                             </div>
                                                         </Col>
                                                         <Col sm={3}>
@@ -81,7 +81,7 @@ const ExpenseDetails = props => {
                             })}
                         </Accordion>}
                     </div>
-                    <div>
+                    <div className='my-total'>
                         <Card className='total' border="success" body>
                             {renderOneLineDescription('Total a pagar', props.expensesReceipt.getCurrencyAndTotalAmount())}
                         </Card>
