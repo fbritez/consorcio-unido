@@ -3,9 +3,9 @@ import { UserContext } from "../user-provider/user-provider";
 import { Redirect } from "react-router-dom";
 
 
-const authenticationHandler = (functionComponent) => {
+const authenticationHandler = functionComponent => {
 
-    const AuthenticationHandlerComponent = (props) => {
+    const AuthenticationHandlerComponent = props => {
         const { user, setUser } = useContext(UserContext);
         return user ? functionComponent(props) : <Redirect to={'/login'} />
         

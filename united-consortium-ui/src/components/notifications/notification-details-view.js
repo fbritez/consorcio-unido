@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
-import ImageService from '../../services/image-service/image-service';
+import imageService from '../../services/image-service/image-service';
 import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
 
-const service = new ImageService();
+const service = imageService;
 
 const downloadTicket = file_id => {
     service.downloadImage(file_id)

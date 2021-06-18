@@ -8,10 +8,8 @@ import './notification-view.scss';
 import { UserContext } from '../user-provider/user-provider';
 import consortiumService from '../../services/consortium-service/consortium-service';
 import { FileUploaderButton } from '../common/buttons';
-import ImageService from '../../services/image-service/image-service';
+import imageService from '../../services/image-service/image-service';
 import ErrorHandler from '../common/handlers/error-handler';
-
-const fileService = new ImageService();
 
 const NotificationView = () => {
 
@@ -31,7 +29,7 @@ const NotificationView = () => {
     const save = () => {
         notificationService.save(consortium, message, selectedFile?.name).then(
             () => {
-                fileService.save(selectedFile).then(
+                imageService.save(selectedFile).then(
                     () => {
                         setMessage('')
                         setSelectedFile(undefined)
@@ -70,6 +68,7 @@ const NotificationView = () => {
                     <Form>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Control
+                                data_testid='news'
                                 as="textarea"
                                 rows={3}
                                 placeholder="Cuales son las novedades de hoy?"
@@ -77,6 +76,7 @@ const NotificationView = () => {
                                 value={message} />
                         </Form.Group>
                         <Button
+                            data_testid='button'
                             className='publish-button'
                             onClick={() => save()}
                             disabled={!message}>

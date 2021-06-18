@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { Card, Accordion, Button, Row, Col, Badge } from 'react-bootstrap';
 import { UpdateItemButton, RemoveItemButton, DownloadButton } from '../../common/buttons';
-import ImageService from '../../../services/image-service/image-service'
+import imageService from '../../../services/image-service/image-service'
 import './expense-details.scss';
 
 const downloadTicket = file_id => {
-    const service = new ImageService();
-    service.downloadImage(file_id)
+    imageService.downloadImage(file_id)
 }
 
 const renderOneLineDescription = (description, value) => {

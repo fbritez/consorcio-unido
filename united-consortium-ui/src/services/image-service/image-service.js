@@ -31,4 +31,4 @@ class ImageService {
     }
 }
 
-export default ImageService;
+export default new ImageService();
