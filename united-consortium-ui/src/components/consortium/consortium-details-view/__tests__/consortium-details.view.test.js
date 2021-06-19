@@ -8,6 +8,10 @@ import { UserContext } from '../../../user-provider/user-provider';
 
 const mockSetConsortium = jest.fn();
 
+jest.mock('../../../../services/consortium-service/consortium-service', () => ({
+    update: jest.fn()
+}))
+
 const expectedConsortium = {"address": undefined, "administrators": undefined, "disabled": false, "id": undefined, "members": undefined, "name": "united"};
 
 describe('add member view', () => {

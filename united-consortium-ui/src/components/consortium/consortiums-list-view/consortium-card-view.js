@@ -5,19 +5,19 @@ import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 
 const ConsortiumCardView = (props) => {
 
-    const selectedConsortium = props.consortium;
+    const currentConsortium = props.consortium;
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const [ selected, setSelected ] = useState(false);
 
     useEffect(() => {
-        if (selectedConsortium != consortium){
+        if (currentConsortium != consortium){
             setSelected(false)
         }
     }, [consortium]);
 
-    const detectBorderColor = () => selected ? 'dark' : '';
+    const detectBorderColor = () => selected || currentConsortium?.id == consortium?.id ? 'success' : '';
 
-    const setSelectedItem = (consortium) =>{
+    const setSelectedItem = (consortium) => {
         setSelected(true)
         setConsortium(consortium)
     }
@@ -26,13 +26,13 @@ const ConsortiumCardView = (props) => {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
                 <Card.Img variant="top" src="" />
-                <div onClick={() => setSelectedItem(selectedConsortium)}>
+                <div onClick={() => setSelectedItem(currentConsortium)}>
                     <Card.Body>
                         <Card.Title>
-                            <div data-testid='name'>{selectedConsortium.name}</div>
+                            <div data-testid='name'>{currentConsortium.name}</div>
                         </Card.Title>
                         <Card.Text>
-                            <div data-testid='address'>{selectedConsortium.address}</div>
+                            <div data-testid='address'>{currentConsortium.address}</div>
                         </Card.Text>
                     </Card.Body>
                 </div>
