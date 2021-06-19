@@ -2,3 +2,4 @@ flask~=1.1.2
 flask_cors
 pymongo~=3.11.3
 pytest
+yagmail~=0.14.256

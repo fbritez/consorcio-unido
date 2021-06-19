@@ -4,7 +4,6 @@ from src.DAO.mongo_DAO import ExpensesReceiptDAO
 from src.notifications.notifications import EspensesReceiptNotification
 from src.service.consorsium_service import ConsortiumService
 from src.service.notification_service import NotificationService
-from src.service.payments_service import PaymentsService
 
 
 class ExpensesReceiptService:
@@ -20,8 +19,12 @@ class ExpensesReceiptService:
     def create_model(self, expense_json):
         return self.dao.create_model(expense_json)
 
-    def add_publisher(self, publihser):
-        self.publisher_services.append(publihser)
+    def add_publisher(self, publisher):
+        self.publisher_services.append(publisher)
+
+    def add_publishers(self, publishers):
+        for publisher in publishers:
+            self.publisher_services.append(publisher)
 
     def get_expenses_for(self, consortium_id, user_email):
         consortium = self.consortium_service.get_consortium(consortium_id)
@@ -65,9 +68,10 @@ class ExpensesReceiptService:
         return self.dao.get_all({'_id': ObjectId(expenses_id)})[0]
 
     def publish_receipt_close(self, expenses_receipt):
+        consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
         for service in self.publisher_services:
-            p = EspensesReceiptNotification(expenses_receipt)
-            service.notify(p)
+            notification = EspensesReceiptNotification(expenses_receipt, consortium)
+            service.notify(notification)
 
     def generate_receipt(self, expenses_receipt):
         consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
