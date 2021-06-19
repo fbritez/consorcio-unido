@@ -54,7 +54,7 @@ def generate_receipt():
         updatedExpensesReceipt = request.json.get('updatedExpensesReceipt')
         expense_receipt = service.create_model(updatedExpensesReceipt)
 
-        service.publish_receipt_close(expense_receipt)
+        service.generate_receipt(expense_receipt)
     except Exception as ex:
         logging.error(ex)
 

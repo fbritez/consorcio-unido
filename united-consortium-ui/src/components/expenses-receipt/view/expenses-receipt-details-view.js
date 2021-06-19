@@ -15,6 +15,7 @@ import Modal from 'react-bootstrap/Modal';
 import AddExpensesReceipt from './add-expenses-receipt';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';
+import PaymentStatusView from '../../payment-status/payment-status-view';
 
 const service = new ExpensesReceiptService();
 
@@ -178,12 +179,23 @@ const ExpensesReceiptDetailView = (props) => {
                             showExpensesCRUD={(bool) => setShowExpensesCRUD(bool)} />
                     }
                 </div>
-                <ExpenseDetails
-                    expensesReceipt={expensesReceipt}
-                    userAdministrator={isAdministrator}
-                    updateAction={(item) => setItemAction(item, update, 'Modificar')}
-                    removeAction={(item) => setItemAction(item, remove, 'Eliminar')}
-                />
+                <Tabs defaultActiveKey="expenses" id="uncontrolled-tab-example">
+                    <Tab eventKey="expenses" title="Gastos">
+                        <div style={{ marginTop: '3%' }}>
+                            <ExpenseDetails
+                                expensesReceipt={expensesReceipt}
+                                userAdministrator={isAdministrator}
+                                updateAction={(item) => setItemAction(item, update, 'Modificar')}
+                                removeAction={(item) => setItemAction(item, remove, 'Eliminar')}
+                            />
+                        </div>
+                    </Tab>
+                    <Tab eventKey="memberStatus" title="Pagos">
+                        <div style={{ marginTop: '3%' }}>
+                            <PaymentStatusView />
+                        </div>
+                    </Tab>
+                </Tabs>
             </div>
         </div>
     )
@@ -201,8 +213,8 @@ const MemberDetailHeader = () => {
                 member && <div style={{ fontSize: 'smaller', marginBottom: '2%' }}>
                     <text>{'Unidad funcional: '}</text>
                     <strong>{member.member_name}</strong>
-                    <br/>
-                    <text>{'Consorcio: '}</text> 
+                    <br />
+                    <text>{'Consorcio: '}</text>
                     <strong>{consortium.name}</strong>
                 </div>
             }
