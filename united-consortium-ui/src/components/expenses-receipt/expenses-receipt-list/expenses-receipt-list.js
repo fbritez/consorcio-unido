@@ -17,13 +17,13 @@ const ExpensesReceiptList = () => {
     const [refresh, setRefresh] = useState(false);
 
     useEffect(async () => {
+        debugger
         if (consortium) {
             const exp = await service.getExpensesAccordingUser(consortium, user);
             setExpenses(exp);
             setIsAdministrator(consortium.isAdministrator(user));
             setRefresh(!refresh);
         }
-
     }, [consortium, expensesReceipt]);
 
     const getStatusDescription = item => item.isOpen()? ' - Abierta' : ''

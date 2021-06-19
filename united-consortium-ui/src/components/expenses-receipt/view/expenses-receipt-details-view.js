@@ -138,9 +138,10 @@ const ExpensesReceiptDetailView = (props) => {
 
     const closeExpenses = () => {
         expensesReceipt.close()
-        service.generateReceipt(expensesReceipt)
-        setExpensesReceipt(undefined)
-        setTransacionStatus(true)
+        service.generateReceipt(expensesReceipt).then(() => {
+            setExpensesReceipt(undefined)
+            setTransacionStatus(true)
+        }, () => { setTransacionStatus(false) })
     }
     return (
         <div className='expenses-receipt'>
