@@ -72,7 +72,7 @@ class ExpensesReceiptDAO(GenericDAO):
         object_id = element.get('_id')
         items = self.generate_items_from(element.get('expense_items'))
 
-        member_receipts = [MemberExpensesReceipt(consortiumMemberBuilder(r.get('member')),self.generate_items_from(r.get('expenses_items', []))) for r in element.get('member_expenses_receipt_details', [])]
+        member_receipts = [MemberExpensesReceipt(consortiumMemberBuilder(r.get('member')), self.generate_items_from(r.get('expenses_items', [])), r.get('paid')) for r in element.get('member_expenses_receipt_details', [])]
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
                                   expense_items=items, is_open=element.get('is_open'), identifier=str(object_id),

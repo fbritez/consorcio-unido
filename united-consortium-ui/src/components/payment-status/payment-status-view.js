@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
-import paymentsService from '../../services/payment-service/payment-service';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { Badge } from 'react-bootstrap';
 import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 import { Button } from 'react-bootstrap';
@@ -9,20 +9,39 @@ import ExpensesReceiptService from '../../services/expense-receipt-service/expen
 const expensesReceiptService = new ExpensesReceiptService();
 
 const PaymentMemberView = props => {
-    
-    const handleChange = () => {}
 
+    const [memberReceipt, setMemberReceipt] = useState();
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+
+    const handleChange = () => {
+        props.memberReceipt.setPaid();
+        expensesReceipt.updateMemberReceipt(props.memberReceipt);
+        expensesReceiptService.save(expensesReceipt).then(() => { setMemberReceipt(memberReceipt); setExpensesReceipt(expensesReceipt) }, () => { })
+    }
+
+    debugger
     return (
-        <div>
-            <Badge variant="dark">{props.member.member_name}</Badge>
-            Saldo Anterior
-            <div className='right'>Pendiente</div>
-            <input
-                type="number"
-                className='right'
-                id="formGroupExampleInput"
-                onChange={event => handleChange({ 'address': event.target.value })}
-            />
+        <div stlye={{ flex: 'center' }}>
+            <Row>
+                <Col sm={2}>
+                    <Badge variant="dark">{props.memberReceipt?.member.member_name}</Badge>
+                </Col>
+                <Col sm={4}>
+                    <div style={{ fontSize: 'smaller' }}>
+                        {props.memberReceipt?.paid ?
+                            <Button style={{ fontSize: 'smaller' }} onClick={handleChange}>Cancelar Pago</Button> :
+                            <Button style={{ fontSize: 'smaller' }} onClick={handleChange}>Pagar</Button>}
+                    </div>
+                </Col>
+                <Col sm={3}>
+                    <div>
+                        {props.memberReceipt?.paid ? <Badge variant="success">Pago</Badge> : <Badge variant="danger">Inpago</Badge>}
+                    </div>
+                </Col>
+                <Col sm={3}>
+                    <div className='right'>{`$ ${props.memberReceipt?.getTotalAmount()}`}</div>
+                </Col>
+            </Row>
             <hr />
         </div>
     )
@@ -32,20 +51,18 @@ const PaymentMemberView = props => {
 const PaymentStatusView = () => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
-    const { consortium } = useContext(ConsortiumContext);
-    const { paymentStatuses, setPaymentStatus } = useState([]);
+    const [ r, setR] = useState(false)
 
     useEffect(async () => {
-        //const result = await paymentsService.getPaymentStatus(expensesReceipt)
-        //setPaymentStatus(result);
-
+        setR(!r)
     }, [expensesReceipt]);
+
 
     return (
         <div>
             {
-                consortium.members.map(m => {
-                   return <PaymentMemberView member={m}/>
+                expensesReceipt.member_expenses_receipt_details.map(memberReceipt => {
+                    return <PaymentMemberView memberReceipt={memberReceipt} />
                 })
             }
         </div>

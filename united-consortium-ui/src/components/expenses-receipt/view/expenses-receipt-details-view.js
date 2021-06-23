@@ -191,11 +191,14 @@ const ExpensesReceiptDetailView = (props) => {
                             />
                         </div>
                     </Tab>
-                    <Tab eventKey="memberStatus" title="Pagos">
-                        <div style={{ marginTop: '3%' }}>
-                            <PaymentStatusView />
-                        </div>
-                    </Tab>
+                    {
+                        !expensesReceipt.isOpen() &&
+                        <Tab eventKey="memberStatus" title="Pagos">
+                            <div style={{ marginTop: '3%' }}>
+                                <PaymentStatusView expensesReceipt={expensesReceipt}/>
+                            </div>
+                        </Tab>
+                    }
                 </Tabs>
             </div>
         </div>
@@ -205,7 +208,6 @@ const ExpensesReceiptDetailView = (props) => {
 const MemberDetailHeader = () => {
     const { user } = useContext(UserContext);
     const { consortium } = useContext(ConsortiumContext);
-    debugger
     const member = consortium.getMember(user);
 
     return (
@@ -232,7 +234,6 @@ const MemberExpensesReceiptDetailView = () => {
 
     useEffect(async () => {
         const result = await service.getExpensesReceipt(expensesReceipt)
-        debugger
         setGeneralReceipt(result);
     }, [expensesReceipt]);
 

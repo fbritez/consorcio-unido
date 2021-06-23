@@ -1,31 +1,37 @@
 import { roundNumber } from './utils';
 
-class ExpensesReceipt{
+class ExpensesReceipt {
 
-    constructor(consortium_id, items, month, year, isOpen, identifier, members_receipts){
+    constructor(consortium_id, items, month, year, isOpen, identifier, members_receipts) {
         this.consortium_id = consortium_id;
         this.expense_items = items;
         this.month = month;
         this.year = year;
         this.is_open = isOpen;
         this.identifier = identifier;
-        this.members_receipts = members_receipts;
+        this.member_expenses_receipt_details = members_receipts;
     }
 
-    getTotalAmount(){
+    getTotalAmount() {
         return roundNumber(this.expense_items.reduce((a, b) => a + b.amount, 0));
     }
 
-    getCurrencyAndTotalAmount(){
+    getCurrencyAndTotalAmount() {
         return `$${this.getTotalAmount()}`;
     }
 
-    isOpen(){
+    isOpen() {
         return this.is_open;
     }
 
-    close(){
+    close() {
         this.is_open = false;
+    }
+
+    updateMemberReceipt(memberReceipt) {
+        debugger
+        const idx = this.member_expenses_receipt_details.findIndex(member => member.member.member_name == memberReceipt.member.member_name)
+        this.member_expenses_receipt_details[idx] = memberReceipt
     }
 
 }

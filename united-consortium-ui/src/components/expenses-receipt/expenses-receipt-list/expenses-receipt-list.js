@@ -17,7 +17,6 @@ const ExpensesReceiptList = () => {
     const [refresh, setRefresh] = useState(false);
 
     useEffect(async () => {
-        debugger
         if (consortium) {
             const exp = await service.getExpensesAccordingUser(consortium, user);
             setExpenses(exp);

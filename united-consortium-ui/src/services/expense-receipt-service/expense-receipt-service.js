@@ -21,7 +21,6 @@ class ExpensesReceiptService {
 
     getExpensesReceipt = async expensesReceipt => {
         const espensesData = await axios.get(`${SERVICE_URL}/expensesID?expensesID=${expensesReceipt.identifier}`);
-        debugger
         return this.createModel(espensesData.data);
      }
 
@@ -49,7 +48,6 @@ class ExpensesReceiptService {
     createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket, data.members)
 
     createMemberReceipts = data => {
-        debugger
         const items = data.expenses_items.map(itemData => this.createItemModel(itemData));
         return new MemberExpensesReceipt(data.member, items);
     }
@@ -57,15 +55,13 @@ class ExpensesReceiptService {
     createModel = data => {
         const items = data.expense_items.map(itemData => this.createItemModel(itemData));
         const member_receipts = data.member_expenses_receipt_details.map(memberData => this.createMemberReceipts(memberData));
-        const r =  new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open, data.identifier, member_receipts)
-        debugger
-        return r
+        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open, data.identifier, member_receipts)
     }
 
     isAdministrator = user => this.consortiumService.isAdministrator(user);
 
     createExpenseReceipt = async (consortium, month, year, items) => {
-        const exp = this.createModel({ consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items: items })
+        const exp = this.createModel({ consortium_id: consortium.id, month: month, year: year, is_open: true, expense_items: items, member_expenses_receipt_details:[]})
         return await this.save(exp)
     }
 }
