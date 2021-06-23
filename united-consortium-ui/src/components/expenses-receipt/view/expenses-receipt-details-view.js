@@ -232,6 +232,7 @@ const MemberExpensesReceiptDetailView = () => {
 
     useEffect(async () => {
         const result = await service.getExpensesReceipt(expensesReceipt)
+        debugger
         setGeneralReceipt(result);
     }, [expensesReceipt]);
 

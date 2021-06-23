@@ -1,9 +1,10 @@
 from bson import ObjectId
+import copy
 
 from src.DAO.mongo_DAO import ExpensesReceiptDAO
+from src.model.expeses_receipt import MemberExpensesReceipt
 from src.notifications.notifications import EspensesReceiptNotification
 from src.service.consorsium_service import ConsortiumService
-from src.service.notification_service import NotificationService
 
 
 class ExpensesReceiptService:
@@ -75,6 +76,14 @@ class ExpensesReceiptService:
 
     def generate_receipt(self, expenses_receipt):
         consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
+        receipts = []
+        for member in consortium.get_members():
+            items = [copy.deepcopy(item) for item in expenses_receipt.get_expenses_items() if item.is_for(member)]
+            [item.set_values_for(consortium, member) for item in items]
+            receipt = MemberExpensesReceipt(member, items)
+            receipts.append(receipt)
+
+        expenses_receipt.set_member_receipts(receipts)
         self.update_expense(expenses_receipt)
         self.publish_receipt_close(expenses_receipt)
 

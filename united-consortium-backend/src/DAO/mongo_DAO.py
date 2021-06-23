@@ -3,7 +3,7 @@ import json
 from pymongo import MongoClient
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
-from src.model.expeses_receipt import ExpensesReceipt
+from src.model.expeses_receipt import ExpensesReceipt, MemberExpensesReceipt
 from src.model.user import User, ConsortiumMember
 import gridfs
 
@@ -50,7 +50,8 @@ class ConsortiumDAO(GenericDAO):
     def create_model(self, element):
         from src.model.user import ConsortiumMember
 
-        members = [ConsortiumMember(member.get('user_email'), member.get('member_name'),member.get('secondary_email'), member.get('notes')) for member in
+        members = [ConsortiumMember(member.get('user_email'), member.get('member_name'), member.get('secondary_email'),
+                                    member.get('notes')) for member in
                    element.get('members', [])]
 
         name = element.get('name')
@@ -69,21 +70,26 @@ class ExpensesReceiptDAO(GenericDAO):
 
     def create_model(self, element):
         object_id = element.get('_id')
-        items = [ExpenseItem(item.get('title'),
-                             item.get('description'),
-                             item.get('amount'),
-                             item.get('ticket'),
-                             self._generate_members(item)) for
-                 item in
-                 element.get('expense_items')]
+        items = self.generate_items_from(element.get('expense_items'))
+
+        member_receipts = [MemberExpensesReceipt(consortiumMemberBuilder(r.get('member')),self.generate_items_from(r.get('expenses_items', []))) for r in element.get('member_expenses_receipt_details', [])]
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
-                                  expense_items=items, is_open=element.get('is_open'), identifier=str(object_id))
+                                  expense_items=items, is_open=element.get('is_open'), identifier=str(object_id),
+                                  member_expenses_receipt_details=member_receipts)
         return receipt
 
     def _generate_members(self, item):
         return [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in
                 item.get('members', [])]
+
+    def generate_items_from(self, items=[]):
+        return [ExpenseItem(item.get('title'),
+                            item.get('description'),
+                            item.get('amount'),
+                            item.get('ticket'),
+                            self._generate_members(item))
+                for item in items]
 
 
 class LoginDAO(GenericDAO):
@@ -144,4 +150,9 @@ class NotificationDAO(BasicDataTypeDAO):
 
     def collection(self):
         return self.db.notifications
+
+
+def consortiumMemberBuilder(json_dict):
+    return ConsortiumMember(json_dict.get('user_email'), json_dict.get('member_name'), json_dict.get('secondary_email'), json_dict.get('notes'))
+
 

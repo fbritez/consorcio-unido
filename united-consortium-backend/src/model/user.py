@@ -30,3 +30,9 @@ class ConsortiumMember:
 
     def get_name(self):
         return self.member_name
+
+    def __eq__(self, member):
+        return isinstance(member, ConsortiumMember) and \
+               self.member_name == member.get_name() and \
+               self.user_email == member.get_email() and \
+               (not self.secondary_email or self.secondary_email == member.get_secondary_email())
