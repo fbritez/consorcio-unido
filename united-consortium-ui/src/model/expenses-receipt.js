@@ -29,7 +29,6 @@ class ExpensesReceipt {
     }
 
     updateMemberReceipt(memberReceipt) {
-        debugger
         const idx = this.member_expenses_receipt_details.findIndex(member => member.member.member_name == memberReceipt.member.member_name)
         this.member_expenses_receipt_details[idx] = memberReceipt
     }

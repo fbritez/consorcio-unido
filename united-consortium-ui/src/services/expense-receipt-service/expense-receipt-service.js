@@ -1,7 +1,6 @@
 import axios from 'axios';
 import ExpensesReceipt from '../../model/expenses-receipt';
 import ExpenseReceiptitem from '../../model/expense-receipt-item';
-import consortiumService from '../consortium-service/consortium-service';
 import imageService from '../image-service/image-service';
 import SERVICE_URL from '../utils/constants';
 import MemberExpensesReceipt from '../../model/member-expenses-receipt';
@@ -15,7 +14,6 @@ class ExpensesReceiptService {
     getExpensesAccordingUser = async (consortium, user) => {
         const params = `consortium_identifier=${consortium.id}&user_identifier=${user.email}`
         const espensesData = await axios.get(`${SERVICE_URL}/expenses?${params}`);
-        debugger
         return espensesData.data.expenses.map(data => this.createModel(data));
     }
 
@@ -48,8 +46,9 @@ class ExpensesReceiptService {
     createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket, data.members)
 
     createMemberReceipts = data => {
+        debugger
         const items = data.expenses_items.map(itemData => this.createItemModel(itemData));
-        return new MemberExpensesReceipt(data.member, items);
+        return new MemberExpensesReceipt(data.member, items, data.paid, data.paid_amount);
     }
 
     createModel = data => {

@@ -58,8 +58,9 @@ class ExpensesReceipt:
 
 class MemberExpensesReceipt:
 
-    def __init__(self, member, expense_items=[], paid=False):
+    def __init__(self, member, expense_items=[], paid=False, paid_amount=0):
         self.member = member
         self.expenses_items = expense_items
         self.paid = paid
+        self.paid_amount = paid_amount
 

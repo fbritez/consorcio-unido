@@ -76,14 +76,17 @@ class ExpensesReceiptService:
 
     def generate_receipt(self, expenses_receipt):
         consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
+        self.generate_member_recepits(consortium, expenses_receipt)
+
+        self.update_expense(expenses_receipt)
+        self.publish_receipt_close(expenses_receipt)
+
+    def generate_member_recepits(self, consortium, expenses_receipt):
         receipts = []
         for member in consortium.get_members():
             items = [copy.deepcopy(item) for item in expenses_receipt.get_expenses_items() if item.is_for(member)]
             [item.set_values_for(consortium, member) for item in items]
             receipt = MemberExpensesReceipt(member, items)
             receipts.append(receipt)
-
         expenses_receipt.set_member_receipts(receipts)
-        self.update_expense(expenses_receipt)
-        self.publish_receipt_close(expenses_receipt)
 
