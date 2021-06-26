@@ -46,7 +46,6 @@ class ExpensesReceiptService {
     createItemModel = data => new ExpenseReceiptitem(data.title, data.description, data.amount, data.ticket, data.members)
 
     createMemberReceipts = data => {
-        debugger
         const items = data.expenses_items.map(itemData => this.createItemModel(itemData));
         return new MemberExpensesReceipt(data.member, items, data.paid, data.paid_amount);
     }

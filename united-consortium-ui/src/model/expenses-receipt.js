@@ -12,6 +12,10 @@ class ExpensesReceipt {
         this.member_expenses_receipt_details = members_receipts;
     }
 
+    getExpenses(){
+        return this.expense_items
+    }
+
     getTotalAmount() {
         return roundNumber(this.expense_items.reduce((a, b) => a + b.amount, 0));
     }
@@ -31,6 +35,10 @@ class ExpensesReceipt {
     updateMemberReceipt(memberReceipt) {
         const idx = this.member_expenses_receipt_details.findIndex(member => member.member.member_name == memberReceipt.member.member_name)
         this.member_expenses_receipt_details[idx] = memberReceipt
+    }
+
+    getMemberReceiptFor(user) {
+        return this.member_expenses_receipt_details.filter( receipt => receipt.isFor(user))[0]
     }
 
 }

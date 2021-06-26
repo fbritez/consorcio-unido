@@ -31,9 +31,12 @@ class ExpensesReceiptService:
         consortium = self.consortium_service.get_consortium(consortium_id)
         is_administrator = consortium.is_administrator(user_email)
 
-        expenses = self.dao.get_all(
-            {'consortium_id': consortium_id}) if is_administrator else self.generate_expenses_for(consortium,
-                                                                                                  user_email)
+        query_obj = {'consortium_id': consortium_id}
+
+        if not is_administrator:
+            query_obj['is_open'] = False
+
+        expenses = self.dao.get_all(query_obj)
 
         expenses.sort(key=lambda exp: exp.get_sort_criteria(), reverse=True)
         return expenses
@@ -89,4 +92,3 @@ class ExpensesReceiptService:
             receipt = MemberExpensesReceipt(member, items)
             receipts.append(receipt)
         expenses_receipt.set_member_receipts(receipts)
-

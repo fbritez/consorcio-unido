@@ -16,6 +16,7 @@ import AddExpensesReceipt from './add-expenses-receipt';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';
 import PaymentStatusView from '../../payment-status/payment-status-view';
+import MemberPaymentStatusView from '../../payment-status/member-payment-status-view'
 
 const service = new ExpensesReceiptService();
 
@@ -229,12 +230,13 @@ const MemberDetailHeader = () => {
 
 const MemberExpensesReceiptDetailView = () => {
 
+    const { user } = useContext(UserContext);
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
-    const [generalReceipt, setGeneralReceipt] = useState();
+    const [ particularExpenses, setParticularExpenses ] = useState();
 
     useEffect(async () => {
-        const result = await service.getExpensesReceipt(expensesReceipt)
-        setGeneralReceipt(result);
+        const expenses = expensesReceipt.getMemberReceiptFor(user)
+        setParticularExpenses(expenses)
     }, [expensesReceipt]);
 
     return (
@@ -246,7 +248,7 @@ const MemberExpensesReceiptDetailView = () => {
                     <div style={{ marginTop: '3%' }}>
                         <p>Gastos particulares pertenecientes a usted</p>
                         <ExpenseDetails
-                            expensesReceipt={expensesReceipt}
+                            expensesReceipt={particularExpenses}
                             userAdministrator={false}
                         />
                     </div>
@@ -255,9 +257,15 @@ const MemberExpensesReceiptDetailView = () => {
                     <div style={{ marginTop: '3%' }}>
                         <p>Gastos generales de todo el consorcio</p>
                         <ExpenseDetails
-                            expensesReceipt={generalReceipt}
+                            expensesReceipt={expensesReceipt}
                             userAdministrator={false}
                         />
+                    </div>
+                </Tab>
+                <Tab eventKey="expenseDetails" title="Pagos">
+                    <div style={{ marginTop: '3%' }}>
+                        <p>Detalle de Pagos por Unidad funcional</p>
+                        <MemberPaymentStatusView expensesReceipt={expensesReceipt}/>
                     </div>
                 </Tab>
             </Tabs>

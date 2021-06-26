@@ -6,6 +6,7 @@ import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-pro
 import { Button } from 'react-bootstrap';
 import ExpensesReceiptService from '../../services/expense-receipt-service/expense-receipt-service';
 import './payment-status.scss';
+import { getStatus } from './utils';
 
 const expensesReceiptService = new ExpensesReceiptService();
 
@@ -32,11 +33,7 @@ const PaymentMemberView = props => {
                     <Badge variant="dark">{props.memberReceipt?.member.member_name}</Badge>
                 </Col>
                 <Col sm={2}>
-                    <div style={{float: 'right'}}>
-                        {props.memberReceipt?.difference() === 0?
-                            <Badge variant="success">Pago</Badge> :
-                            <Badge variant="danger">Impago</Badge>}
-                    </div>
+                    {getStatus(props.memberReceipt)}
                 </Col>
                 <Col sm={2}>
                     <div style={{float: 'right'}}>{`$ ${props.memberReceipt?.getTotalAmount()}`}</div>

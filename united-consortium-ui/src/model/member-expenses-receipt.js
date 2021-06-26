@@ -6,7 +6,11 @@ class MemberExpensesReceipt{
         this.member = member
         this.expenses_items = expensesItems
         this.paid = paid
-        this.paid_amount = paid_amount
+        this.paid_amount = paid_amount ? paid_amount : 0
+    }
+
+    getExpenses(){
+        return this.expenses_items
     }
 
     getTotalAmount(){
@@ -19,6 +23,14 @@ class MemberExpensesReceipt{
 
     difference(){
         return this.getTotalAmount() - this.paid_amount
+    }
+
+    getCurrencyAndTotalAmount() {
+        return `$${this.getTotalAmount()}`;
+    }
+
+    isFor(user){
+        return this.member.user_email === user.email || this.member.secondary_email === user.email
     }
 }
 

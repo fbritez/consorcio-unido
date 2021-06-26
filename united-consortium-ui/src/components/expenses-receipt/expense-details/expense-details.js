@@ -27,15 +27,15 @@ const MemberDetailsView = (props) => {
 }
 
 const ExpenseDetails = props => {
-
+    debugger
     return (
         <div>
             {props.expensesReceipt &&
                 <div>
                     <div>
                         {<Accordion defaultActiveKey="0">
-                            {props.expensesReceipt.expense_items?.map(item => {
-                                let eventKey = props.expensesReceipt.expense_items.indexOf(item) + 1;
+                            {props.expensesReceipt.getExpenses()?.map(item => {
+                                let eventKey = props.expensesReceipt.getExpenses().indexOf(item) + 1;
                                 return (
                                     <div className='contenedore-item' sytle={{fontSize: 'small' }}>
                                         <Card>
