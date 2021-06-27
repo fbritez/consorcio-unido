@@ -22,7 +22,7 @@ class MemberExpensesReceipt{
     }
 
     difference(){
-        return this.getTotalAmount() - this.paid_amount
+        return roundNumber(this.getTotalAmount() - this.paid_amount)
     }
 
     getCurrencyAndTotalAmount() {

@@ -41,6 +41,10 @@ class ExpensesReceipt {
         return this.member_expenses_receipt_details.filter( receipt => receipt.isFor(user))[0]
     }
 
+    totalDifference(){
+        return roundNumber(this.member_expenses_receipt_details.reduce((a, b) => a + b.difference(), 0))
+    }
+
 }
 
 export default ExpensesReceipt;

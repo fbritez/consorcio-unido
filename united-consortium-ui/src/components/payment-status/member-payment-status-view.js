@@ -52,6 +52,20 @@ const MemberPaymentStatusView = () => {
                     return <PaymentMemberView memberReceipt={memberReceipt} />
                 })
             }
+              <Row className="justify-content-md-center">
+                <Col sm={3}>Totales</Col>
+                <Col sm={3}></Col>
+                <Col sm={3}>
+                    <div style={{ float: 'right', fontWeight: 'bold' }}>
+                        {`$ ${expensesReceipt.getTotalAmount()}`}
+                    </div>
+                </Col>
+                <Col sm={3}>
+                    <div style={{ fontWeight: 'bold'}}>
+                    {`$${expensesReceipt.totalDifference()}`}
+                    </div>
+                </Col>
+            </Row>
 
         </div>
     )
