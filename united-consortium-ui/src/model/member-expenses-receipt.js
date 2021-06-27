@@ -32,6 +32,10 @@ class MemberExpensesReceipt{
     isFor(user){
         return this.member.user_email === user.email || this.member.secondary_email === user.email
     }
+
+    pay(){
+        this.setPaidAmount(this.getTotalAmount())
+    }
 }
 
 

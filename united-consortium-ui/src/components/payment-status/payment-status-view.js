@@ -10,9 +10,19 @@ import { getStatus } from './utils';
 
 const expensesReceiptService = new ExpensesReceiptService();
 
+const PaymentButton = props => {
+    return (<Button
+        className='button'
+        disabled={props.disabled}
+        style={{ float: 'right', fontSize: 'xx-small' }}
+        onClick={props.action}>
+        {props.description}
+    </Button>)
+}
+
 const PaymentMemberView = props => {
 
-    const [amount, setAmount] = useState(props.memberReceipt?.paid_amount);
+    const [ amount, setAmount] = useState(props.memberReceipt?.paid_amount);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
 
     const handleChange = amount => {
@@ -25,15 +35,14 @@ const PaymentMemberView = props => {
         }, () => { })
     }
 
-    const paymentButton = (description, value) => {
-        return (<Button 
-                    className='button'
-                    disabled={expensesReceipt.paymentProcessed()}
-                    style={{ float: 'right', fontSize: 'xx-small' }}
-                    onClick={() => handleChange(value)}>
-                        {description}
-                </Button>)
+    useEffect(async () => {
+        setAmount(props.memberReceipt.paid_amount)
+    }, [props.amountChange]);
+
+    const memberPaymentButton = (description, value) => {
+        return <PaymentButton description={description} action={() => handleChange(value)} disabled={expensesReceipt.paymentProcessed()} />
     }
+
 
     return (
         <div>
@@ -56,7 +65,6 @@ const PaymentMemberView = props => {
                             onBlur={(event) => handleChange(parseFloat(event.target.value))}
                             value={amount}
                             onChange={event => setAmount(event.target.value)}
-
                         />
                     </div>
                 </Col>
@@ -68,8 +76,8 @@ const PaymentMemberView = props => {
                 <Col sm={3}>
                     <div>
                         {props.memberReceipt?.difference() === 0 ?
-                            paymentButton('Cancelar Pago', 0) :
-                            paymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
+                            memberPaymentButton('Cancelar Pago', 0) :
+                            memberPaymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
                     </div>
                 </Col>
             </Row>
@@ -81,10 +89,25 @@ const PaymentMemberView = props => {
 
 const PaymentStatusView = () => {
 
-    const { expensesReceipt } = useContext(ExpensesReceiptContext);
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const [amountChange, setAmountChange] = useState(true)
 
-    debugger
+    const update = receipt => {
+        expensesReceiptService.save(receipt).then(() => {
+            setAmountChange(!amountChange)
+            setExpensesReceipt(receipt)
+        }, () => { })
+    }
+    const payAll = () => {
+        expensesReceipt.payAll();
+        update(expensesReceipt);
+    }
+
+    const cancelAllPayments = () => {
+        expensesReceipt.cancelAllPayments();
+        update(expensesReceipt);
+    }
+
     return (
         <div>
             <Row className="justify-content-md-center" style={{ fontSize: 'xx-small' }}>
@@ -93,13 +116,19 @@ const PaymentStatusView = () => {
                 <Col sm={2}><div style={{ float: 'center' }}>A pagar</div></Col>
                 <Col sm={2}>Monto</Col>
                 <Col sm={2}>Saldo pendiente</Col>
-                <Col sm={3}></Col>
+                <Col sm={3}> 
+                    <div>
+                        {expensesReceipt?.totalDifference() === 0 ?
+                            <PaymentButton description={'Cancelar Todos'} action={cancelAllPayments} disabled={expensesReceipt.paymentProcessed()}/> :
+                            <PaymentButton description={'Pagar Todos'} action={payAll} disabled={expensesReceipt.paymentProcessed()}/>
+                        }
+                    </div>
+                </Col>
             </Row>
-            <hr />
-
+            <hr/>
             {
                 expensesReceipt.member_expenses_receipt_details.map(memberReceipt => {
-                    return <PaymentMemberView setAmountChange={setAmountChange} memberReceipt={memberReceipt} />
+                    return <PaymentMemberView amountChange={amountChange} setAmountChange={setAmountChange} memberReceipt={memberReceipt} />
                 })
             }
             <Row className="justify-content-md-center">

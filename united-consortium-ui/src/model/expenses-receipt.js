@@ -50,6 +50,14 @@ class ExpensesReceipt {
         return roundNumber(this.member_expenses_receipt_details.reduce((a, b) => a + b.difference(), 0))
     }
 
+    payAll(){
+        this.member_expenses_receipt_details.forEach(receipt => receipt.pay())
+    }
+
+    cancelAllPayments(){
+        this.member_expenses_receipt_details.forEach(receipt => receipt.setPaidAmount(0))
+    }
+
 }
 
 export default ExpensesReceipt;
