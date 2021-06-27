@@ -15,7 +15,7 @@ const ConsortiumCardView = (props) => {
         }
     }, [consortium]);
 
-    const detectBorderColor = () => selected || currentConsortium?.id == consortium?.id ? 'success' : '';
+    const detectBorderColor = () => selected || currentConsortium?.id == consortium?.id ? 'dark' : '';
 
     const setSelectedItem = (consortium) => {
         setSelected(true)
