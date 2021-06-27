@@ -2,7 +2,7 @@ import { roundNumber } from './utils';
 
 class ExpensesReceipt {
 
-    constructor(consortium_id, items, month, year, isOpen, identifier, members_receipts) {
+    constructor(consortium_id, items, month, year, isOpen, identifier, members_receipts, payment_processed) {
         this.consortium_id = consortium_id;
         this.expense_items = items;
         this.month = month;
@@ -10,6 +10,7 @@ class ExpensesReceipt {
         this.is_open = isOpen;
         this.identifier = identifier;
         this.member_expenses_receipt_details = members_receipts;
+        this.payment_processed = payment_processed;
     }
 
     getExpenses(){
@@ -30,6 +31,10 @@ class ExpensesReceipt {
 
     close() {
         this.is_open = false;
+    }
+
+    paymentProcessed(){
+        return this.payment_processed
     }
 
     updateMemberReceipt(memberReceipt) {

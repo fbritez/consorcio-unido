@@ -76,7 +76,8 @@ class ExpensesReceiptDAO(GenericDAO):
 
         receipt = ExpensesReceipt(element.get('consortium_id'), element.get('month'), element.get('year'),
                                   expense_items=items, is_open=element.get('is_open'), identifier=str(object_id),
-                                  member_expenses_receipt_details=member_receipts)
+                                  member_expenses_receipt_details=member_receipts,
+                                  payment_processed=element.get('payment_processed'))
         return receipt
 
     def generate_member_receipt(self, element):

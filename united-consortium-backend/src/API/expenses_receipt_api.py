@@ -35,7 +35,7 @@ def new_expenses():
         updatedExpensesReceipt = request.json.get('updatedExpensesReceipt')
         expense_receipt = service.create_model(updatedExpensesReceipt)
 
-        service.update_expense(expense_receipt)
+        service.update_expenses_receipt(expense_receipt)
     except Exception as ex:
         logging.error(ex)
 

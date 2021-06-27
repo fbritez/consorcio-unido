@@ -25,6 +25,16 @@ const PaymentMemberView = props => {
         }, () => { })
     }
 
+    const paymentButton = (description, value) => {
+        return (<Button 
+                    className='button'
+                    disabled={expensesReceipt.paymentProcessed()}
+                    style={{ float: 'right', fontSize: 'xx-small' }}
+                    onClick={() => handleChange(value)}>
+                        {description}
+                </Button>)
+    }
+
     return (
         <div>
             <Row className="justify-content-md-center">
@@ -42,6 +52,7 @@ const PaymentMemberView = props => {
                         <input
                             style={{ width: "75%" }}
                             type="number"
+                            disabled={expensesReceipt.paymentProcessed()}
                             onBlur={(event) => handleChange(parseFloat(event.target.value))}
                             value={amount}
                             onChange={event => setAmount(event.target.value)}
@@ -57,8 +68,8 @@ const PaymentMemberView = props => {
                 <Col sm={3}>
                     <div>
                         {props.memberReceipt?.difference() === 0 ?
-                            <Button className='pay-button' style={{ float: 'right', fontSize: 'xx-small' }} onClick={() => handleChange(0)}>Cancelar Pago</Button> :
-                            <Button className='pay-button' style={{ float: 'right', fontSize: 'xx-small' }} onClick={() => handleChange(props.memberReceipt?.getTotalAmount())}>Pago Total</Button>}
+                            paymentButton('Cancelar Pago', 0) :
+                            paymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
                     </div>
                 </Col>
             </Row>
@@ -71,7 +82,7 @@ const PaymentMemberView = props => {
 const PaymentStatusView = () => {
 
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
-    const [ amountChange, setAmountChange ] = useState(true)
+    const [amountChange, setAmountChange] = useState(true)
 
     debugger
     return (
@@ -102,8 +113,8 @@ const PaymentStatusView = () => {
                 <Col sm={3}>
                 </Col>
                 <Col sm={1}>
-                    <div style={{ fontSize: 'smaller' , fontWeight: 'bold'}}>
-                    {`$${expensesReceipt.totalDifference()}`}
+                    <div style={{ fontSize: 'smaller', fontWeight: 'bold' }}>
+                        {`$${expensesReceipt.totalDifference()}`}
                     </div>
                 </Col>
                 <Col sm={3}>

@@ -53,7 +53,7 @@ class ExpensesReceiptService {
     createModel = data => {
         const items = data.expense_items.map(itemData => this.createItemModel(itemData));
         const member_receipts = data.member_expenses_receipt_details.map(memberData => this.createMemberReceipts(memberData));
-        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open, data.identifier, member_receipts)
+        return new ExpensesReceipt(data.consortium_id, items, data.month, data.year, data.is_open, data.identifier, member_receipts, data.payment_processed)
     }
 
     isAdministrator = user => this.consortiumService.isAdministrator(user);
