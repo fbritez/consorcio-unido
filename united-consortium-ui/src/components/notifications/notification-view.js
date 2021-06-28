@@ -10,6 +10,8 @@ import consortiumService from '../../services/consortium-service/consortium-serv
 import { FileUploaderButton } from '../common/buttons';
 import imageService from '../../services/image-service/image-service';
 import ErrorHandler from '../common/handlers/error-handler';
+import FileSelectedItem from '../utils/file-selected-ite';
+
 
 const NotificationView = () => {
 
@@ -81,10 +83,9 @@ const NotificationView = () => {
                             Publicar
                         </Button>
                         <FileUploaderButton handleFile={onFileChange} className='publish-button' />
-                        <div className='right' style={{ fontSize: 'xx-small', textAlign: 'center' }}>
-                            {selectedFile?.name}
-                        </div>
+                        <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile}/>
                     </Form>
+                    <hr/>
                 </div>
             }
             <NotificationListView shouldRefresh={shouldRefresh} />

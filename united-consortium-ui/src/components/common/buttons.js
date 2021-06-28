@@ -84,7 +84,8 @@ const FileUploaderButton = props => {
         <div>
             <Button
                 className={props.className}
-                onClick={handleClick}>
+                onClick={handleClick}
+                disabled={props.disabled}>
                 <AiOutlinePaperClip />
             </Button>
             <input type="file"

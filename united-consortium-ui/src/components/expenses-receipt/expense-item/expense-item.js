@@ -11,6 +11,8 @@ import { ConsortiumContext } from '../../consortium/consortium-provider/consorti
 import { detectActionClassName } from '../../utils/detect-action-button-class';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import './expense-item.scss';
+import { FileUploaderButton } from '../../common/buttons';
+import FileSelectedItem from '../../utils/file-selected-ite';
 
 const service = new ExpensesReceiptService();
 
@@ -23,7 +25,7 @@ const ExpensesItemView = (props) => {
     const [oldItem, setOldItem] = useState(item)
     const [valid, setValid] = useState(false)
     const [description, setDescription] = useState(props.actionDescription)
-    const [selectedFile, setSelectedFile] = useState()
+    const [selectedFile, setSelectedFile] = useState({name: currentItem.ticket})
     const { consortium } = useContext(ConsortiumContext);
     const [members, setMembers] = useState([]);
     const [gridApi, setGridApi] = useState();
@@ -74,15 +76,17 @@ const ExpensesItemView = (props) => {
 
     const handleClose = () => { }
 
-    const onFileChange = (event) => {
-        const filename = event.target.files[0]
+    const onFileChange = (filename) => {
         const name = generateName(filename.name)
         const file = { filename: filename, name: name }
         setSelectedFile(file)
         handleChange({ ticket: name });
     }
 
-    
+    const handleSelectedFileChange = newFile => {
+        setSelectedFile(newFile)
+        handleChange({ ticket: undefined });
+    }
 
     const generateName = (filename) => {
         return `${new Date().getTime()}/${filename}`
@@ -139,12 +143,9 @@ const ExpensesItemView = (props) => {
                                         <Form.Group controlId="validateTicket">
                                             <Form.Label>Comprobante</Form.Label>
                                             <div>
-                                                <p>
-                                                    {`Archivo actual: ${getTicketName(currentItem.ticket)}`}
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <input type='file' onChange={onFileChange} disabled={shouldBeDisable} />
+                                                <FileUploaderButton handleFile={onFileChange} className='publish-button' disabled={shouldBeDisable}/>
+
+                                                <FileSelectedItem selectedFile={selectedFile} setSelectedFile={handleSelectedFileChange}/>
                                             </div>
                                         </Form.Group>
                                     </Form.Row>

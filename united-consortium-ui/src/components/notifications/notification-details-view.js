@@ -34,7 +34,7 @@ const NotificatioDetailsView = props => {
     }
 
     return (
-        <div style={{ marginTop: '1%' }}>
+        <div style={{ marginBottom: '1%' }}>
             <Card>
                 <Card.Body>
                     <Card.Subtitle style={{ fontSize: 'small' }} className="mb-2 text-muted">
