@@ -25,6 +25,7 @@ class ExpensesReceiptService {
     save = async (expensesReceipt, imageFile) => {
         try {
             const result = await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
+            debugger
             this.imageService.save(imageFile)
             return expensesReceipt
         } catch (error) {
@@ -47,7 +48,7 @@ class ExpensesReceiptService {
 
     createMemberReceipts = data => {
         const items = data.expenses_items.map(itemData => this.createItemModel(itemData));
-        return new MemberExpensesReceipt(data.member, items, data.paid, data.paid_amount);
+        return new MemberExpensesReceipt(data.member, items, data.paid, data.paid_amount, data.filename);
     }
 
     createModel = data => {

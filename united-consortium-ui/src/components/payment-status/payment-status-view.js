@@ -7,6 +7,10 @@ import { Button } from 'react-bootstrap';
 import ExpensesReceiptService from '../../services/expense-receipt-service/expense-receipt-service';
 import './payment-status.scss';
 import { getStatus } from './utils';
+import { DownloadButton, FileUploaderButton } from '../common/buttons';
+import { downloadTicket } from '../utils/download-files';
+import { image } from 'react-dom-factories';
+import imageService from '../../services/image-service/image-service';
 
 const expensesReceiptService = new ExpensesReceiptService();
 
@@ -23,16 +27,33 @@ const PaymentButton = props => {
 const PaymentMemberView = props => {
 
     const [ amount, setAmount] = useState(props.memberReceipt?.paid_amount);
+    const [ rerender, setRerender ] = useState(false);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+
+    const save = (memberReceipt, file) => {
+        expensesReceipt.updateMemberReceipt(memberReceipt);
+        expensesReceiptService.save(expensesReceipt, file).then(() => {
+            setExpensesReceipt(expensesReceipt)
+        }, () => { })
+    }
 
     const handleChange = amount => {
         setAmount(amount)
         props.setAmountChange(amount)
         props.memberReceipt.setPaidAmount(amount);
-        expensesReceipt.updateMemberReceipt(props.memberReceipt);
-        expensesReceiptService.save(expensesReceipt).then(() => {
-            setExpensesReceipt(expensesReceipt)
-        }, () => { })
+        save(props.memberReceipt)
+    }
+
+    const onFileChange = async (file) => {
+        setRerender(!rerender)
+        props.memberReceipt.setTicket(file.name);
+        save(props.memberReceipt, file)
+    }
+    
+    const cleanFile = () => {
+        setRerender(!rerender)
+        props.memberReceipt.setTicket(undefined);
+        save(props.memberReceipt)
     }
 
     useEffect(async () => {
@@ -56,7 +77,7 @@ const PaymentMemberView = props => {
                 <Col sm={2}>
                     <div style={{ float: 'right', fontSize: 'smaller' }}>{`$ ${props.memberReceipt?.getTotalAmount()}`}</div>
                 </Col>
-                <Col sm={3}>
+                <Col sm={2}>
                     <div style={{ fontSize: 'smaller' }}>
                         <input
                             style={{ width: "75%" }}
@@ -69,11 +90,21 @@ const PaymentMemberView = props => {
                     </div>
                 </Col>
                 <Col sm={1}>
-                    <div style={{ fontSize: 'smaller' }}>
+                    <div style={{float: 'right', fontSize: 'smaller'}}>
                         {`$${props.memberReceipt?.difference()}`}
                     </div>
                 </Col>
-                <Col sm={3}>
+                <Col sm={2}>
+                    {props.memberReceipt.filename ?
+                        <div>
+                            <DownloadButton style={{ fontSize: 'xx-small' }} onClick={() => downloadTicket()}/> 
+                            <Button style={{fontSize: 'xx-small'}}  disabled={expensesReceipt.paymentProcessed()} className='option-button' onClick={cleanFile}>X</Button>
+                        </div>: <div/>
+                    }
+                    <FileUploaderButton style={{ fontSize: 'xx-small' }} disabled={expensesReceipt.paymentProcessed()} handleFile={onFileChange}/>
+                    
+                </Col>
+                <Col sm={2}>
                     <div>
                         {props.memberReceipt?.difference() === 0 ?
                             memberPaymentButton('Cancelar Pago', 0) :
@@ -109,11 +140,11 @@ const PaymentStatusView = () => {
     }
 
     return (
-        <div>
+        <div style={{marginLeft: '1%', marginRight: '1%'}}>
             <Row className="justify-content-md-center" style={{ fontSize: 'xx-small' }}>
                 <Col sm={1}>Unidad</Col>
                 <Col sm={2}><div style={{ float: 'right' }}>Estado</div></Col>
-                <Col sm={2}><div style={{ float: 'center' }}>A pagar</div></Col>
+                <Col sm={2}><div style={{ float: 'right' }}>A pagar</div></Col>
                 <Col sm={2}>Monto</Col>
                 <Col sm={2}>Saldo pendiente</Col>
                 <Col sm={3}> 
@@ -124,6 +155,7 @@ const PaymentStatusView = () => {
                         }
                     </div>
                 </Col>
+                <Col sm={2}></Col>
             </Row>
             <hr/>
             {
@@ -139,14 +171,14 @@ const PaymentStatusView = () => {
                         {`$ ${expensesReceipt.getTotalAmount()}`}
                     </div>
                 </Col>
-                <Col sm={3}>
+                <Col sm={2}>
                 </Col>
                 <Col sm={1}>
-                    <div style={{ fontSize: 'smaller', fontWeight: 'bold' }}>
+                    <div style={{float: 'right', fontSize: 'smaller', fontWeight: 'bold'}}>
                         {`$${expensesReceipt.totalDifference()}`}
                     </div>
                 </Col>
-                <Col sm={3}>
+                <Col sm={4}>
                 </Col>
             </Row>
         </div>

@@ -1,12 +1,8 @@
 import React, { useContext } from 'react';
 import { Card, Accordion, Button, Row, Col, Badge } from 'react-bootstrap';
 import { UpdateItemButton, RemoveItemButton, DownloadButton } from '../../common/buttons';
-import imageService from '../../../services/image-service/image-service'
+import { downloadTicket } from '../../utils/download-files';
 import './expense-details.scss';
-
-const downloadTicket = file_id => {
-    imageService.downloadImage(file_id)
-}
 
 const renderOneLineDescription = (description, value) => {
     return (
@@ -27,7 +23,6 @@ const MemberDetailsView = (props) => {
 }
 
 const ExpenseDetails = props => {
-    debugger
     return (
         <div>
             {props.expensesReceipt &&

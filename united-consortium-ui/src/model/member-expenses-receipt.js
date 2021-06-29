@@ -2,11 +2,12 @@ import { roundNumber } from './utils';
 
 class MemberExpensesReceipt{
 
-    constructor(member, expensesItems, paid, paid_amount){
+    constructor(member, expensesItems, paid, paid_amount, filename){
         this.member = member
         this.expenses_items = expensesItems
         this.paid = paid
         this.paid_amount = paid_amount ? paid_amount : 0
+        this.filename = filename
     }
 
     getExpenses(){
@@ -35,6 +36,10 @@ class MemberExpensesReceipt{
 
     pay(){
         this.setPaidAmount(this.getTotalAmount())
+    }
+
+    setTicket(filename) {
+        this.filename = filename
     }
 }
 

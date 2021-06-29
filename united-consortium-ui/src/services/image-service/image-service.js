@@ -23,7 +23,7 @@ class ImageService {
     }
 
     async save(imageFile){
-        if(imageFile){
+        if(imageFile & imageFile?.name){
             let formData = new FormData();
             formData.append("file", imageFile.filename, imageFile.name);
             await axios.post(`${SERVICE_URL}/storeTicket`, formData);   

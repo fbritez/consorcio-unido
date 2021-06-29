@@ -78,12 +78,20 @@ const FileUploaderButton = props => {
     };
     const handleChange = event => {
         const fileUploaded = event.target.files[0];
-        props.handleFile(fileUploaded);
+        const name = generateName(fileUploaded.name)
+        const file = { filename: fileUploaded, name: name }
+        props.handleFile(file);
     };
+
+    const generateName = (filename) => {
+        return `${new Date().getTime()}/${filename}`
+    }
+
     return (
         <div>
             <Button
-                className={props.className}
+                className={props.className? props.className : 'publish-button'}
+                style={props.style ? props.style : {fontSize: 'small'}}
                 onClick={handleClick}
                 disabled={props.disabled}>
                 <AiOutlinePaperClip />
@@ -98,8 +106,14 @@ const FileUploaderButton = props => {
 };
 
 const DownloadButton = props => {
+
     return(
-        <Button className={props.className ? props.className: 'option-button'} onClick={props.onClick}>
+        <Button 
+            className={props.className ? props.className: 'option-button'} 
+            style={props.style ? props.style : {}}
+            disabled={props.disabled}
+            onClick={props.onClick}
+            >
             <AiFillCaretDown />
         </Button>
     )

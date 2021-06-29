@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
-import imageService from '../../services/image-service/image-service';
 import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
+import { downloadTicket } from '../utils/download-files';
 
-const service = imageService;
-
-const downloadTicket = file_id => {
-    service.downloadImage(file_id)
-}
 
 const NotificatioDetailsView = props => {
 

@@ -45,14 +45,9 @@ const NotificationView = () => {
     }
 
     const onFileChange = fileUploaded => {
-        const name = generateName(fileUploaded.name)
-        const file = { filename: fileUploaded, name: name }
-        setSelectedFile(file)
+        setSelectedFile(fileUploaded)
     }
 
-    const generateName = (filename) => {
-        return `${new Date().getTime()}/${filename}`
-    }
 
     const errorDescriptions = [{
         value: wrongTransaction,
@@ -82,7 +77,7 @@ const NotificationView = () => {
                             disabled={!message}>
                             Publicar
                         </Button>
-                        <FileUploaderButton handleFile={onFileChange} className='publish-button' />
+                        <FileUploaderButton handleFile={onFileChange} />
                         <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile}/>
                     </Form>
                 </div>

@@ -71,11 +71,12 @@ class ExpensesReceipt:
 
 class MemberExpensesReceipt:
 
-    def __init__(self, member, expense_items=[], paid=False, paid_amount=0):
+    def __init__(self, member, expense_items=[], paid=False, paid_amount=0, filename=''):
         self.member = member
         self.expenses_items = expense_items
         self.paid = paid
         self.paid_amount = paid_amount
+        self.filename = filename
 
     def get_member(self):
         return self.member

@@ -83,8 +83,9 @@ class ExpensesReceiptDAO(GenericDAO):
     def generate_member_receipt(self, element):
         consortium = consortiumMemberBuilder(element.get('member'))
         items = self.generate_items_from(element.get('expenses_items', []))
+        filename = element.get('filename')
 
-        return MemberExpensesReceipt(consortium, items, element.get('paid'), element.get('paid_amount'))
+        return MemberExpensesReceipt(consortium, items, element.get('paid'), element.get('paid_amount'), filename)
 
     def _generate_members(self, item):
         return [ConsortiumMember(member.get('user_email'), member.get('member_name')) for member in

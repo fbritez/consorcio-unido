@@ -70,26 +70,16 @@ const ExpensesItemView = (props) => {
         }
     };
 
-    const getTicketName = (ticketName) => {
-        return ticketName ? ticketName.split('/')[1] : ''
-    }
-
     const handleClose = () => { }
 
-    const onFileChange = (filename) => {
-        const name = generateName(filename.name)
-        const file = { filename: filename, name: name }
+    const onFileChange = (file) => {
         setSelectedFile(file)
-        handleChange({ ticket: name });
+        handleChange({ ticket: file.name });
     }
 
     const handleSelectedFileChange = newFile => {
         setSelectedFile(newFile)
         handleChange({ ticket: undefined });
-    }
-
-    const generateName = (filename) => {
-        return `${new Date().getTime()}/${filename}`
     }
 
     return (
@@ -143,7 +133,7 @@ const ExpensesItemView = (props) => {
                                         <Form.Group controlId="validateTicket">
                                             <Form.Label>Comprobante</Form.Label>
                                             <div>
-                                                <FileUploaderButton handleFile={onFileChange} className='publish-button' disabled={shouldBeDisable}/>
+                                                <FileUploaderButton handleFile={onFileChange} disabled={shouldBeDisable}/>
 
                                                 <FileSelectedItem selectedFile={selectedFile} setSelectedFile={handleSelectedFileChange}/>
                                             </div>
