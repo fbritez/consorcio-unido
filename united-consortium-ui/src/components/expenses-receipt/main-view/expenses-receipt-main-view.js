@@ -22,13 +22,13 @@ const ExpensesReceiptGeneralView = props => {
             <Container>
                 <div style={{ marginLeft: '7%', marginRight: '7%'}}>
                     <Row style={{ marginTop: '1%' }} className="justify-content-md-center">
-                        <Col sm={3}>{
+                        <Col sm={2}>{
                             <div>
                                 <ConsortiumsListView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user} />
                             </div>
                         }
                         </Col>
-                        <Col sm={6}>{
+                        <Col sm={8}>{
                             consortium ?
                                 <div className='scrollbar-dinamically'>
                                     <ExpensesReceiptView/>
@@ -41,7 +41,7 @@ const ExpensesReceiptGeneralView = props => {
                                 </div>
                         }
                         </Col>
-                        <Col>
+                        <Col sm={2}>
                             <ExpensesReceiptList consortium={consortium}  />
                         </Col>
                     </Row>

@@ -60,7 +60,7 @@ class ExpensesReceipt:
         return MONTH_VALUES.index(self.get_month())
 
     def get_sort_criteria(self):
-        return '{} - {}'.format(self.get_year(), self._month_sort_value())
+        return (self.get_year(), self._month_sort_value())
 
     def set_member_receipts(self, set_member_receipts):
         self.member_expenses_receipt_details = set_member_receipts

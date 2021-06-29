@@ -85,7 +85,6 @@ const NotificationView = () => {
                         <FileUploaderButton handleFile={onFileChange} className='publish-button' />
                         <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile}/>
                     </Form>
-                    <hr/>
                 </div>
             }
             <NotificationListView shouldRefresh={shouldRefresh} />

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Badge } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
@@ -25,7 +26,7 @@ const ExpensesReceiptList = () => {
         }
     }, [consortium, expensesReceipt]);
 
-    const getStatusDescription = item => item.isOpen()? ' - Abierta' : ''
+    const getStatusDescription = item => item.isOpen()? <Badge variant="success">Abierta</Badge> : <div/>
 
     return (
         <div className='scrollbar-dinamically'>
@@ -39,14 +40,19 @@ const ExpensesReceiptList = () => {
                 </ListGroup>
                 : <div />
             }
-            <div style={{ marginTop: '3%' }}>
+            <div style={{ marginTop: '3%', fontSize: 'small' }}>
                 <ListGroup>
                     {expenses?.map(item => {
                         return (
                             <ListGroup.Item
                                 action
-                                onClick={() => setExpensesReceipt(item)}>
-                                    {`${item.year} - ${item.month} ${getStatusDescription(item)}`}    
+                                onClick={() => setExpensesReceipt(item)}
+                                as='div'>
+                                    <div>
+                                     {`${item.year} - ${item.month} `}
+                                     {getStatusDescription(item)}
+                                    </div> 
+                                    
                             </ListGroup.Item>
                         )
                     })}

@@ -5,11 +5,11 @@ import Row from 'react-bootstrap/Row';
 const FileSelectedItem = props => {
 
     const formatName = () => {
-        return props.selectedFile.name.split('/')[1]
+        return props.selectedFile?.name?.split('/')[1]
     }
     return (
         <div>
-            {props.selectedFile ?
+            {props.selectedFile?.name ?
                 <div>
                     <Row >
                         <BiFile size={40}/>              
