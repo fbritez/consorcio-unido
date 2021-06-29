@@ -16,6 +16,7 @@ const ConsortiumCardView = (props) => {
     }, [consortium]);
 
     const detectBorderColor = () => selected || currentConsortium?.id == consortium?.id ? 'dark' : '';
+    const detectSelected = () => selected || currentConsortium?.id == consortium?.id ? {backgroundColor: '#E3DFDE'} : {}
 
     const setSelectedItem = (consortium) => {
         setSelected(true)
@@ -27,7 +28,7 @@ const ConsortiumCardView = (props) => {
             <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
                 <Card.Img variant="top" src="" />
                 <div onClick={() => setSelectedItem(currentConsortium)}>
-                    <Card.Body>
+                    <Card.Body style={detectSelected()}>
                         <Card.Title>
                             <div data-testid='name'>{currentConsortium.name}</div>
                         </Card.Title>

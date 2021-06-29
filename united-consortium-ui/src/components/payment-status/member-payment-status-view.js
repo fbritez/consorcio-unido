@@ -59,6 +59,7 @@ const MemberPaymentStatusView = () => {
                     return <PaymentMemberView memberReceipt={memberReceipt} />
                 })
             }
+            <hr/>
               <Row className="justify-content-md-center">
                 <Col sm={2}>Totales</Col>
                 <Col sm={3}></Col>
