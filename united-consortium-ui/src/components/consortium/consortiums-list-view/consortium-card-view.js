@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent';
 import consortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 
@@ -26,16 +27,15 @@ const ConsortiumCardView = (props) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
-                <Card.Img variant="top" src="" />
+
                 <div onClick={() => setSelectedItem(currentConsortium)}>
-                    <Card.Body style={detectSelected()}>
-                        <Card.Title>
+                    <CardContent style={detectSelected()}>
+
                             <div data-testid='name'>{currentConsortium.name}</div>
-                        </Card.Title>
-                        <Card.Text>
+
                             <div data-testid='address'>{currentConsortium.address}</div>
-                        </Card.Text>
-                    </Card.Body>
+
+                    </CardContent>
                 </div>
             </Card>
         </div>
