@@ -12,7 +12,7 @@ const FileSelectedItem = props => {
             {props.selectedFile?.name ?
                 <div>
                     <Row >
-                        <BiFile size={40}/>              
+                        <BiFile size={35}/>              
                         <BiXCircle onClick={() => props.setSelectedFile(undefined)}/>
                     </Row>
                     <div style={{ fontSize: 'smaller' }}>

@@ -72,6 +72,7 @@ const NotificationView = () => {
                         </Form.Group>
                         <Button
                             data_testid='button'
+                            style={{fontSize: 'small'}}
                             className='publish-button'
                             onClick={() => save()}
                             disabled={!message}>
