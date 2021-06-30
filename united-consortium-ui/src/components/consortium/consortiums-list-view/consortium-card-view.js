@@ -50,13 +50,11 @@ const AddConsortiumCardView = (props) => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                <Card.Img variant="top" src="" />
+                
                 <div onClick={() => setConsortium(service.createEmptyConsortium())}>
-                    <Card.Body>
-                        <Card.Text>
+                    <CardContent>
                             Nuevo Consorcio
-                        </Card.Text>
-                    </Card.Body>
+                    </CardContent>
                 </div>
             </Card>
         </div>

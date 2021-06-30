@@ -2,7 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 import consortiumService from '../../../services/consortium-service/consortium-service';
 import ConsortiumMembersTable from '../consortium-members-table/consortium-members-table';
-import Card from 'react-bootstrap/Card';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Button from 'react-bootstrap/Button'
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab'
@@ -23,7 +25,7 @@ const BasicConsortiumDetails = props => {
     const address = () => consortium ? consortium.address : ''
 
     return (
-        <div style={{fontSize: 'smaller'}}>
+        <div style={{ fontSize: 'smaller' }}>
             <label htmlFor="formGroupExampleInput" style={{ marginTop: '1%' }}>Nombre / Identificardor del consorcio</label>
             <input
                 data-testid='consortium-name'
@@ -82,25 +84,23 @@ const AdvancedConsortiumDetails = props => {
             />
 
             {
-                consortium.id && 
+                consortium.id &&
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <hr />
-                    <Card className='delete-consortium-card'
+                    <Card
                         style={{ width: '60rem', marginTop: '10px', textAlign: 'center' }}>
                         <div>
-                            <Card.Body>
-                                <Card.Text>
-                                    <p><strong>{`Eliminar ${consortium.name}`}</strong></p>
-                                    <p>Tenga que cuenta que una vez eliminado no podra revertir esta acción.</p>
-                                    <div style={{ marginTop: '1%', marginBotton: '2%' }}>
-                                        <Button
-                                            className='remove-button'
-                                            onClick={() => disableConsortium()}>
+                            <CardContent className='delete-consortium-card'>
+                                <p><strong>{`Eliminar ${consortium.name}`}</strong></p>
+                                <p>Tenga que cuenta que una vez eliminado no podra revertir esta acción.</p>
+                                <CardActions>
+                                    <Button
+                                        className='remove-button'
+                                        onClick={() => disableConsortium()}>
                                             Eliminar
-                                    </Button>
-                                    </div>
-                                </Card.Text>
-                            </Card.Body>
+                                        </Button>
+                                </CardActions>
+                            </CardContent>
                         </div>
                     </Card>
                 </div>

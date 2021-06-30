@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Typography from '@material-ui/core/Typography';
 import Button from 'react-bootstrap/Button'
 import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
@@ -31,11 +34,13 @@ const NotificatioDetailsView = props => {
     return (
         <div style={{ marginBottom: '1%' }}>
             <Card>
-                <Card.Body>
-                    <Card.Subtitle style={{ fontSize: 'small' }} className="mb-2 text-muted">
+                <CardContent>
+
+                    <Typography style={{ fontSize: 'xx-small' }}  color="textSecondary" gutterBottom>
                         {formatDate()}
-                    </Card.Subtitle>
-                    <Card.Text>
+                    </Typography>
+
+                   
                         <div style={{whiteSpace: 'pre-line'}}>
                             <hr />
                             <text>{text}</text>
@@ -51,8 +56,8 @@ const NotificatioDetailsView = props => {
                         <div className='right'>
                             { notification.filename && <DownloadButton onClick={() => downloadTicket(notification.filename)}/>}
                          </div>
-                    </Card.Text>
-                </Card.Body>
+                    
+                </CardContent>
             </Card>
         </div>
     )
