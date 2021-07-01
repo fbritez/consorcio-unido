@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Button from 'react-bootstrap/Button'
 import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
@@ -31,13 +33,11 @@ const NotificatioDetailsView = props => {
     return (
         <div style={{ marginBottom: '1%' }}>
             <Card>
-                <Card.Body>
-                    <Card.Subtitle style={{ fontSize: 'small' }} className="mb-2 text-muted">
+                <CardContent>
+                    <div style={{ fontSize: 'small' }} className="mb-2 text-muted">
                         {formatDate()}
-                    </Card.Subtitle>
-                    <Card.Text>
+                    </div>
                         <div style={{whiteSpace: 'pre-line'}}>
-                            <hr />
                             <text>{text}</text>
                             {
                                shoudlUseSmallText() ?
@@ -48,11 +48,12 @@ const NotificatioDetailsView = props => {
                                 <div/>
                             }
                         </div>
+                </CardContent>
+                <CardActions>
                         <div className='right'>
                             { notification.filename && <DownloadButton onClick={() => downloadTicket(notification.filename)}/>}
                          </div>
-                    </Card.Text>
-                </Card.Body>
+                </CardActions>
             </Card>
         </div>
     )

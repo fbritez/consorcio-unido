@@ -12,6 +12,7 @@ import {
     Route,
 } from "react-router-dom";
 import AppliactionNavView from '../application-nav/application-nav-view';
+import Prueba from './prueba';
 
 const Main = () => {
 
@@ -32,6 +33,9 @@ const Main = () => {
                     </Route>
                     <Route exact path="/login">
                         <Login />
+                    </Route>
+                    <Route exact path="/pruebas">
+                        <Prueba />
                     </Route>
                     <Route >
                         <PageNotFoundView />

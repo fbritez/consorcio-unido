@@ -107,8 +107,8 @@ const PaymentMemberView = props => {
                 <Col sm={2}>
                     <div>
                         {props.memberReceipt?.difference() === 0 ?
-                            memberPaymentButton('Cancelar Pago', 0) :
-                            memberPaymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
+                            memberPaymentButton('Cancelar', 0) :
+                            memberPaymentButton('Pagar', props.memberReceipt?.getTotalAmount())}
                     </div>
                 </Col>
             </Row>

@@ -60,19 +60,20 @@ const NotificationView = () => {
             {
                 isAdministrator &&
                 <div style={{ marginBottom: '10%' }}>
-                    <Form>
+                    <Form style={{fontSize:'smaller'}}>
                         <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Control
                                 data_testid='news'
                                 as="textarea"
                                 rows={3}
+                                style={{fontSize:'smaller'}}
                                 placeholder="Cuales son las novedades de hoy?"
                                 onChange={event => setMessage(event.target.value)}
                                 value={message} />
                         </Form.Group>
                         <Button
                             data_testid='button'
-                            style={{fontSize: 'small'}}
+                            style={{fontSize: 'smaller'}}
                             className='publish-button'
                             onClick={() => save()}
                             disabled={!message}>
