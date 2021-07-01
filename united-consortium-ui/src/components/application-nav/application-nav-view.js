@@ -42,10 +42,10 @@ const AppliactionNavView = () => {
                         <img src={logo} alt="drawing" width="50" className="icon" onClick={() => push('notifications')} />
                         <div className="vl" />
                         <Nav.Link data-testid='notification' onClick={() => push('notifications')}> {'Novedades'}</Nav.Link>
-                        <Nav.Link data-testid='notification' onClick={() => push('pruebas')}> {'aklsdjalsdkjasd'}</Nav.Link>
                         <Nav.Link data-testid='expenses' onClick={() => push('expenses')}> {'Expensas'}</Nav.Link>
                         {isAdministrator ? 
                             <Nav.Link data-testid='consortiums' onClick={() => push('consortiums')}>{'Consorcios'}</Nav.Link> : ''}
+                        <Nav.Link data-testid='notification' onClick={() => push('dashboard')}> {'Dashboard'}</Nav.Link>
                     </Nav>
                     <Navbar.Text className='right'>{user.email}</Navbar.Text>
                     <Navbar.Brand href="#home" className='right'>

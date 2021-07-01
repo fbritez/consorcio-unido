@@ -6,18 +6,16 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { UserContext } from '../user-provider/user-provider';
 import NotificationView from '../notifications/notification-view';
 import { ExpensesReceiptContextProvider } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 
 
-const PrePrueba = props => {
+const MainDashboard = props => {
 
     const { consortium, setConsortium } = useContext(ConsortiumContext);
     const [updated, setUpdated] = useState(false);
-    const { user } = useContext(UserContext);
 
     return (
         <div >
@@ -67,13 +65,13 @@ const PrePrueba = props => {
 }
 
 
-const Prueba = (props) => {
+const Dashboard = (props) => {
     return (
         <ExpensesReceiptContextProvider>
-            <PrePrueba />
+            <MainDashboard />
         </ExpensesReceiptContextProvider>
     )
 }
 
 
-export default Prueba
+export default Dashboard
