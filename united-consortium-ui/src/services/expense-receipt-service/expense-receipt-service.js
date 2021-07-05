@@ -25,7 +25,6 @@ class ExpensesReceiptService {
     save = async (expensesReceipt, imageFile) => {
         try {
             const result = await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
-            debugger
             this.imageService.save(imageFile)
             return expensesReceipt
         } catch (error) {

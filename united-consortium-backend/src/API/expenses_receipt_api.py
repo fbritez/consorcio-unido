@@ -15,6 +15,7 @@ CORS(expenses_receipt_api, suppport_credentials=True)
 service = ExpensesReceiptService()
 service.add_publishers([NotificationService(), EmailService()])
 
+
 @expenses_receipt_api.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():
@@ -41,10 +42,10 @@ def new_expenses():
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
+
 @expenses_receipt_api.route('/expensesID', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses_id():
-
     return json_dumps(service.get_expenses_receipt(request.args.get('expensesID')))
 
 

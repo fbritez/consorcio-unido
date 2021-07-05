@@ -26,9 +26,13 @@ const PaymentButton = props => {
 
 const PaymentMemberView = props => {
 
-    const [ amount, setAmount] = useState(props.memberReceipt?.paid_amount);
+    const [ amount, setAmount] = useState();
     const [ rerender, setRerender ] = useState(false);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
+
+    useEffect(async () => {
+        setAmount(props.memberReceipt?.paid_amount)
+    }, [expensesReceipt]);
 
     const save = (memberReceipt, file) => {
         expensesReceipt.updateMemberReceipt(memberReceipt);
@@ -145,7 +149,7 @@ const PaymentStatusView = () => {
                 <Col sm={1}>Unidad</Col>
                 <Col sm={2}><div style={{ float: 'right' }}>Estado</div></Col>
                 <Col sm={2}><div style={{ float: 'right' }}>A pagar</div></Col>
-                <Col sm={2}>Monto</Col>
+                <Col sm={2}><div style={{ float: 'right' }}>Monto</div></Col>
                 <Col sm={2}>Saldo pendiente</Col>
                 <Col sm={3}> 
                     <div>
