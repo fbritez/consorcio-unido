@@ -25,7 +25,7 @@ const ConsortiumCardView = (props) => {
     
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card border={detectBorderColor()} style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
+            <Card style={{ width: '18rem', marginTop: '10px', textAlign: 'center'}}>
                 <Card.Img variant="top" src="" />
                 <div onClick={() => setSelectedItem(currentConsortium)}>
                     <Card.Body style={detectSelected()}>

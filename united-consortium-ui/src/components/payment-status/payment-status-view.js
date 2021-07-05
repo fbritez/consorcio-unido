@@ -82,9 +82,9 @@ const PaymentMemberView = props => {
                     <div style={{ float: 'right', fontSize: 'smaller' }}>{`$ ${props.memberReceipt?.getTotalAmount()}`}</div>
                 </Col>
                 <Col sm={2}>
-                    <div style={{ fontSize: 'smaller' }}>
+                    <div style={{ float: 'right', fontSize: 'smaller' }}>
                         <input
-                            style={{ width: "75%" }}
+                            style={{ width: "75%" , float: 'right'}}
                             type="number"
                             disabled={expensesReceipt.paymentProcessed()}
                             onBlur={(event) => handleChange(parseFloat(event.target.value))}

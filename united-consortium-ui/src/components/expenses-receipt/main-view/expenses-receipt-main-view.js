@@ -24,7 +24,6 @@ const ExpensesReceiptGeneralView = props => {
                     <Row style={{ marginTop: '1%' }} className="justify-content-md-center">
                         <Col sm={2}>{
                             <div>
-                                <ConsortiumsListView setConsortium={(selectecConsortium) => setConsortium(selectecConsortium)} user={user} />
                             </div>
                         }
                         </Col>
