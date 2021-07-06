@@ -16,7 +16,7 @@ const ConsortiumDropdown = props => {
 
     useEffect(async () => {
         service.getConsortiums(user).then((c) => { setConsortiums(c) });
-    }, [props.updated, user]);
+    }, [props.updated, user, consortium]);
 
     return (
         <Dropdown className='consortium-dropdown'>
@@ -24,7 +24,7 @@ const ConsortiumDropdown = props => {
                 {consortium?.name ? consortium.name : 'Consorcio'}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
+            <Dropdown.Menu className='consortium-menu'>
                 {
                     consortiums?.map(consortium => {
                         return (

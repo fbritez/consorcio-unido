@@ -26,7 +26,7 @@ const ConsortiumsGeneralView = (props) => {
             <Container>
                 <div style={{ marginLeft: '7%', marginRight: '7%' }}>
                     <Row style={{ marginTop: '1%' }}>
-                        <Col sm={3}>{
+                        <Col sm={2}>{
                             <div>
                                 <ConsortiumsListView setConsortium={setConsortiums} user={user} add={true} updated={updated} />
                             </div>
