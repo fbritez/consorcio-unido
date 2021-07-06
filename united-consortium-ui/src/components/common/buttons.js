@@ -88,10 +88,10 @@ const FileUploaderButton = props => {
     }
 
     return (
-        <div>
+        <React.Fragment>
             <Button
-                className={props.className? props.className : 'publish-button'}
-                style={props.style ? props.style : {fontSize: 'small'}}
+                className={props.className ? props.className : 'publish-button'}
+                style={props.style ? props.style : { fontSize: 'small' }}
                 onClick={handleClick}
                 disabled={props.disabled}>
                 <AiOutlinePaperClip />
@@ -99,21 +99,21 @@ const FileUploaderButton = props => {
             <input type="file"
                 ref={hiddenFileInput}
                 onChange={handleChange}
-                style={{ display: 'none' }}
+                style={{ display: 'none', width: "1%" }}
             />
-        </div>
+        </React.Fragment>
     );
 };
 
 const DownloadButton = props => {
 
-    return(
-        <Button 
-            className={props.className ? props.className: 'option-button'} 
+    return (
+        <Button
+            className={props.className ? props.className : 'option-button'}
             style={props.style ? props.style : {}}
             disabled={props.disabled}
             onClick={props.onClick}
-            >
+        >
             <AiFillCaretDown />
         </Button>
     )

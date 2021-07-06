@@ -26,8 +26,8 @@ const PaymentButton = props => {
 
 const PaymentMemberView = props => {
 
-    const [ amount, setAmount] = useState();
-    const [ rerender, setRerender ] = useState(false);
+    const [amount, setAmount] = useState();
+    const [rerender, setRerender] = useState(false);
     const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
 
     useEffect(async () => {
@@ -53,7 +53,7 @@ const PaymentMemberView = props => {
         props.memberReceipt.setTicket(file.name);
         save(props.memberReceipt, file)
     }
-    
+
     const cleanFile = () => {
         setRerender(!rerender)
         props.memberReceipt.setTicket(undefined);
@@ -70,7 +70,7 @@ const PaymentMemberView = props => {
 
 
     return (
-        <div>
+        <div className='payment-content'>
             <Row className="justify-content-md-center">
                 <Col sm={1}>
                     <Badge variant="dark">{props.memberReceipt?.member.member_name}</Badge>
@@ -84,7 +84,7 @@ const PaymentMemberView = props => {
                 <Col sm={2}>
                     <div style={{ float: 'right', fontSize: 'smaller' }}>
                         <input
-                            style={{ width: "75%" , float: 'right'}}
+                            style={{ width: "75%", float: 'right' }}
                             type="number"
                             disabled={expensesReceipt.paymentProcessed()}
                             onBlur={(event) => handleChange(parseFloat(event.target.value))}
@@ -94,19 +94,20 @@ const PaymentMemberView = props => {
                     </div>
                 </Col>
                 <Col sm={1}>
-                    <div style={{float: 'right', fontSize: 'smaller'}}>
+                    <div style={{ float: 'right', fontSize: 'smaller' }}>
                         {`$${props.memberReceipt?.difference()}`}
                     </div>
                 </Col>
                 <Col sm={2}>
-                    {props.memberReceipt.filename ?
-                        <div>
-                            <DownloadButton style={{ fontSize: 'xx-small' }} onClick={() => downloadTicket()}/> 
-                            <Button style={{fontSize: 'xx-small'}}  disabled={expensesReceipt.paymentProcessed()} className='option-button' onClick={cleanFile}>X</Button>
-                        </div>: <div/>
-                    }
-                    <FileUploaderButton style={{ fontSize: 'xx-small' }} disabled={expensesReceipt.paymentProcessed()} handleFile={onFileChange}/>
-                    
+                    <div>
+                        <FileUploaderButton className='option-button' style={{ fontSize: 'xx-small', float:'right'}} disabled={expensesReceipt.paymentProcessed()} handleFile={onFileChange} />
+                        {props.memberReceipt.filename ?
+                            <React.Fragment>
+                                <DownloadButton style={{ fontSize: 'xx-small', float:'right'}} onClick={() => downloadTicket()} />
+                                <Button style={{ fontSize: 'xx-small', float:'right'}} disabled={expensesReceipt.paymentProcessed()} className='option-button' onClick={cleanFile}>X</Button>
+                            </React.Fragment> : <React.Fragment />
+                        }
+                    </div>
                 </Col>
                 <Col sm={2}>
                     <div>
@@ -144,24 +145,25 @@ const PaymentStatusView = () => {
     }
 
     return (
-        <div style={{marginLeft: '1%', marginRight: '1%'}}>
+        <div style={{ marginLeft: '0.5%', marginRight: '0.5%' }}>
             <Row className="justify-content-md-center" style={{ fontSize: 'xx-small' }}>
                 <Col sm={1}>Unidad</Col>
                 <Col sm={2}><div style={{ float: 'right' }}>Estado</div></Col>
                 <Col sm={2}><div style={{ float: 'right' }}>A pagar</div></Col>
                 <Col sm={2}><div style={{ float: 'right' }}>Monto</div></Col>
-                <Col sm={2}>Saldo pendiente</Col>
-                <Col sm={3}> 
+                <Col sm={1}>Saldo pendiente</Col>
+                <Col sm={1}></Col>
+                <Col sm={3}>
                     <div>
                         {expensesReceipt?.totalDifference() === 0 ?
-                            <PaymentButton description={'Cancelar Todos'} action={cancelAllPayments} disabled={expensesReceipt.paymentProcessed()}/> :
-                            <PaymentButton description={'Pagar Todos'} action={payAll} disabled={expensesReceipt.paymentProcessed()}/>
+                            <PaymentButton description={'Cancelar Todos'} action={cancelAllPayments} disabled={expensesReceipt.paymentProcessed()} /> :
+                            <PaymentButton description={'Pagar Todos'} action={payAll} disabled={expensesReceipt.paymentProcessed()} />
                         }
                     </div>
                 </Col>
-                <Col sm={2}></Col>
+
             </Row>
-            <hr/>
+            <hr />
             {
                 expensesReceipt.member_expenses_receipt_details.map(memberReceipt => {
                     return <PaymentMemberView amountChange={amountChange} setAmountChange={setAmountChange} memberReceipt={memberReceipt} />
@@ -178,7 +180,7 @@ const PaymentStatusView = () => {
                 <Col sm={2}>
                 </Col>
                 <Col sm={1}>
-                    <div style={{float: 'right', fontSize: 'smaller', fontWeight: 'bold'}}>
+                    <div style={{ float: 'right', fontSize: 'smaller', fontWeight: 'bold' }}>
                         {`$${expensesReceipt.totalDifference()}`}
                     </div>
                 </Col>
