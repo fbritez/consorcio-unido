@@ -1,6 +1,8 @@
 import json
 
 from pymongo import MongoClient
+
+from src.model.claim import Claim, ClaimMessage
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt, MemberExpensesReceipt
@@ -158,6 +160,16 @@ class NotificationDAO(BasicDataTypeDAO):
 
     def collection(self):
         return self.db.notifications
+
+
+class ClaimsDAO(GenericDAO):
+
+    def collection(self):
+        return self.db.claims
+
+    def create_model(self, element):
+        messages = [ClaimMessage(message.get('owner'), message.get('message'), message.get('filename')) for message in element.get('messages')]
+        return Claim(element.get('identifier'), element.get('consortium_id'), element.get('owner'), element.get('title'), element.get('state', None), element.get('creation_date'), messages=messages)
 
 
 def consortiumMemberBuilder(json_dict):

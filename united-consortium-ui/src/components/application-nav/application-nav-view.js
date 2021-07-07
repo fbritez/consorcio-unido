@@ -74,6 +74,7 @@ const AppliactionNavView = () => {
                                 <div className="vl" />
                                 <Nav.Link className={detectClassName('notifications')} data-testid='notification' onClick={() => handleClick('notifications')}> {'Novedades'}</Nav.Link>
                                 <Nav.Link className={detectClassName('expenses')} data-testid='expenses' onClick={() => handleClick('expenses')}> {'Expensas'}</Nav.Link>
+                                <Nav.Link className={detectClassName('claims')} data-testid='expenses' onClick={() => handleClick('claims')}> {'Reclamos'}</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
