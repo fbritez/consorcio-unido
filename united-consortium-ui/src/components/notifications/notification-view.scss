@@ -28,17 +28,16 @@
 }
 
 .scrollbar-dinamically {
-    height: 98vh;
+    height: 90vh;
     overflow: scroll;
 }
 
 .scrollbar-dinamically::-webkit-scrollbar {
     display: none;
   }
-  /* Hide scrollbar for IE, Edge and Firefox */
   .example {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
 

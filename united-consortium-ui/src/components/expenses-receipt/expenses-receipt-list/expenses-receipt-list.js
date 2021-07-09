@@ -41,7 +41,7 @@ const ExpensesReceiptList = props => {
                 Mis Expensas
                 <hr/>
             </div>
-            {isAdministrator ?
+            {isAdministrator && props.add ?
                 <ListGroup>
                     <ListGroup.Item
                         action
