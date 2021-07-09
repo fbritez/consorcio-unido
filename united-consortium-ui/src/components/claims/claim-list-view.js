@@ -6,7 +6,7 @@ import { UserContext } from '../user-provider/user-provider';
 import claimService from '../../services/claims-service/claims-service';
 import { ClaimContext } from './claim-provider';
 
-const ClaimListView = () => {
+const ClaimListView = props => {
 
     const { user } = useContext(UserContext);
     const { consortium } = useContext(ConsortiumContext);
@@ -23,6 +23,10 @@ const ClaimListView = () => {
                 const member = consortium.getMember(user)
                 data = await claimService.claimsFor(consortium, member.member_name);
             }
+            if(props.filterFuction) {
+                data = data.filter(props.filterFuction)
+            }
+            data = data.reverse()
             setClaims(data)
         }
     }, [consortium, claim]);

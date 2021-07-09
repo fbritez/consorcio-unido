@@ -8,7 +8,7 @@ import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-re
 
 const service = new ExpensesReceiptService();
 
-const ExpensesReceiptList = () => {
+const ExpensesReceiptList = props => {
 
     const { user } = useContext(UserContext);
     const [expenses, setExpenses] = useState();
@@ -27,7 +27,14 @@ const ExpensesReceiptList = () => {
     }, [consortium, expensesReceipt]);
 
     const getStatusDescription = item => item.isOpen()? <Badge variant="success">Abierta</Badge> : <div/>
-
+    
+    const runAction = item => {
+        setExpensesReceipt(item)
+        if(props.action){
+            props.action(item)
+        }
+    }
+    
     return (
         <div className='scrollbar-dinamically'>
               <div>
@@ -50,7 +57,7 @@ const ExpensesReceiptList = () => {
                         return (
                             <ListGroup.Item
                                 action
-                                onClick={() => setExpensesReceipt(item)}
+                                onClick={() => runAction(item)}
                                 as='div'>
                                     <div>
                                      {`${item.year} - ${item.month} `}

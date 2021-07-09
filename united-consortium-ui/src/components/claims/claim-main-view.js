@@ -7,13 +7,14 @@ import { ConsortiumContext } from '../consortium/consortium-provider/consortium-
 import ClaimDetailsView from './claim-detail-view';
 import AddClaimView from './add-claim-view';
 import ClaimListView from './claim-list-view';
-import { ClaimContextProvider } from './claim-provider';
+import { ClaimContext } from './claim-provider';
 import { UserContext } from '../user-provider/user-provider';
 import ClaimActions from './claim-actions';
 
 const ClaimsGeneralView = () => {
 
     const { consortium } = useContext(ConsortiumContext);
+    const { claim } = useContext(ClaimContext)
     const { user } = useContext(UserContext)
 
     return (
@@ -28,13 +29,22 @@ const ClaimsGeneralView = () => {
                                 <ClaimListView />
                             </Col>
                             <Col sm={6}>
-                                <div className='scrollbar-dinamically'>
-                                    <ClaimDetailsView />
-                                </div>
+                                <h5>Reclamos</h5>
+                                <hr />
+                                {
+                                    claim ?
+                                        <div className='scrollbar-dinamically'>
+                                            <ClaimDetailsView />
+                                        </div>
+                                        :
+                                        <div>
+                                            Selecciones un Reclamo
+                                        </div>
+                                }
                             </Col>
                             <Col sm={3}>
                                 {consortium.isAdministrator(user) ?
-                                    <ClaimActions />
+                                    <React.Fragment />
                                     :
                                     <AddClaimView />
                                 }

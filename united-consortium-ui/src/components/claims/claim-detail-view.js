@@ -68,7 +68,7 @@ const ClaimDetailsView = () => {
         setSelectedFile(fileUploaded)
     }
 
-    const isOpen = () => claim?.state != 'Open'
+    const isClose = () => claim?.state != 'Open'
 
     const detectUser = () => consortium.isAdministrator(user) ? user.email : consortium.getMember(user).member_name
 
@@ -98,7 +98,7 @@ const ClaimDetailsView = () => {
                                 id="formGroupExampleInput"
                                 value={message}
                                 placeholder={''}
-                                disabled={isOpen()}
+                                disabled={isClose()}
                                 onChange={event => setMessage(event.target.value)}
                             />
                             <div style={{ marginTop: '1%' }}>
@@ -108,7 +108,7 @@ const ClaimDetailsView = () => {
                                     disabled={!message}
                                     onClick={() => save()}
                                 />
-                                <FileUploaderButton style={{ fontSize: 'x-small' }} handleFile={onFileChange} />
+                                <FileUploaderButton style={{ fontSize: 'x-small' }} disabled={isClose()} handleFile={onFileChange} />
                                 <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
                             </div>
                         </React.Fragment>
