@@ -13,40 +13,43 @@ const ExpensesReceiptView = props => {
 
     const { user } = useContext(UserContext);
     const { consortium } = useContext(ConsortiumContext);
-    const { expensesReceipt, setExpensesReceipt} = useContext(ExpensesReceiptContext);
+    const { expensesReceipt, setExpensesReceipt } = useContext(ExpensesReceiptContext);
     const [isAdministrator, setIsAdministrator] = useState();
 
     useEffect(async () => {
-        if (consortium){
+
+        if (consortium) {
             const isAdmin = consortium.isAdministrator(user);
             setIsAdministrator(isAdmin)
             var expenses = await service.getExpensesAccordingUser(consortium, user);
-            if(isAdmin){
+            if (isAdmin) {
                 expenses = expenses.filter(expense => expense.isOpen());
             }
-            if (expenses.length > 0){
-                setExpensesReceipt(expenses[0]);
-            }else{
-                setExpensesReceipt(undefined);
+            if (!expensesReceipt) {
+                if (expenses.length > 0) {
+                    setExpensesReceipt(expenses[0]);
+                } else {
+                    setExpensesReceipt(undefined);
+                }
             }
         }
     }, [consortium]);
-    
+
     return (
         <div>{
             expensesReceipt ?
-                isAdministrator?
+                isAdministrator ?
                     <ExpensesReceiptDetailView expensesReceipt={expensesReceipt} isAdministrator={isAdministrator} /> :
-                    <MemberExpensesReceiptDetailView /> 
+                    <MemberExpensesReceiptDetailView />
                 :
-                isAdministrator ? 
+                isAdministrator ?
                     <AddExpensesReceipt
                         consortium={consortium}
                         setCurrentExpeses={(exp) => setExpensesReceipt(exp)}
                         validate={true}
-                        /> : 
-                    <NoneExpensesReceipt/>
-            }
+                    /> :
+                    <NoneExpensesReceipt />
+        }
         </div>
     )
 }

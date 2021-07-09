@@ -60,4 +60,4 @@ const ExpensesReceiptMainView = (props) => {
 }
 
 
-export default authenticationHandler(ExpensesReceiptMainView)
+export default authenticationHandler(ExpensesReceiptGeneralView)
