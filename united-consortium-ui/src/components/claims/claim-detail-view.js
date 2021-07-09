@@ -114,7 +114,7 @@ const ClaimDetailsView = () => {
                         </React.Fragment>
                     </Card.Text>
                     <Card.Text style={{ fontSize: 'small' }}>
-                        <div>Actividad</div>
+                        <strong>Actividad</strong>
                         <hr />
                         {
                             claim?.messages.map(message => {

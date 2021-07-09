@@ -8,7 +8,8 @@ import logo from '../../images/medium-icon.png';
 import loginService from '../../services/login-service/login-service';
 import Alert from 'react-bootstrap/Alert';
 import userService from '../../services/user-service/user-service';
-import { useHistory } from "react-router-dom";
+import { PathContext } from '../main/path-provider';
+import { notifications } from '../main/routes';
 
 const service = loginService;
 
@@ -22,8 +23,8 @@ function Login() {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState(false);
     const [invalidPassword, setInvalidPassword] = useState(false);
-    const { user, setUser } = useContext(UserContext);
-    const history = useHistory();
+    const { setUser } = useContext(UserContext);
+    const { setPath } = useContext(PathContext);
 
     const validateEmail = async (email) => {
         let response = await service.validateEmail(email);
@@ -44,7 +45,7 @@ function Login() {
     const redirectToMain = async (email) => {
         const loggedUser = await userService.getUser(email);
         setUser(loggedUser);
-        history.push('/notifications');
+        setPath(notifications());
     }
 
     const authenticate = async () => {

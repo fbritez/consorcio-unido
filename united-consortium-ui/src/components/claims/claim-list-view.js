@@ -31,6 +31,14 @@ const ClaimListView = props => {
         }
     }, [consortium, claim]);
 
+    const handleClaim = claim => {
+        setClaim(claim); 
+        if(props.sideEffect){
+            props.sideEffect()
+        }
+        
+    }
+
     const getStatusDescription = item => item.isOpen() ? <Badge variant="success">Abierta</Badge> : <div />
 
     return (
@@ -41,7 +49,7 @@ const ClaimListView = props => {
                         return (
                             <ListGroup.Item
                                 action
-                                onClick={() => setClaim(claim)}
+                                onClick={() => handleClaim(claim)}
                                 as='div'>
                                 <div>
                                     {claim.identifier}

@@ -1,4 +1,4 @@
-const notifications = () => 'notifictions'
+const notifications = () => 'notifications'
 const consortiums = () => 'consortiums'
 const expenses = () => 'expenses'
 const claims = () => 'claims'
