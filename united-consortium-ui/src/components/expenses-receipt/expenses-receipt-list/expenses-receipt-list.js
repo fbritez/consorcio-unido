@@ -30,6 +30,10 @@ const ExpensesReceiptList = () => {
 
     return (
         <div className='scrollbar-dinamically'>
+              <div>
+                Mis Expensas
+                <hr/>
+            </div>
             {isAdministrator ?
                 <ListGroup>
                     <ListGroup.Item

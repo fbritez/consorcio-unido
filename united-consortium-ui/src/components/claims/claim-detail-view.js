@@ -7,11 +7,29 @@ import claimService from '../../services/claims-service/claims-service';
 import imageService from '../../services/image-service/image-service';
 import { ClaimContext } from './claim-provider';
 import { FaBuilding, FaUserAlt } from "react-icons/fa";
-import { Row } from 'react-bootstrap';
+import { Row, Badge } from 'react-bootstrap';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../user-provider/user-provider';
 import ErrorHandler from '../common/handlers/error-handler';
 
+const StateBadge = props => {
+
+    var description;
+    var variant;
+
+    switch (props.state) {
+        case 'Open':
+            description = 'Abierta';
+            variant = 'success';
+            break;
+        case 'Close':
+            description = 'Cerrada';
+            variant = 'danger';
+            break;
+    }
+
+    return (<Badge variant={variant}>{description}</Badge>)
+}
 
 const ClaimDetailsView = () => {
 
@@ -25,11 +43,12 @@ const ClaimDetailsView = () => {
     const save = () => {
         const newMessage = { message: message, filename: selectedFile?.name, owner: detectUser() }
         claim.messages.push(newMessage)
+        claim.messages = claim.messages.reverse()
         claimService.save(claim).then(
             () => {
                 imageService.save(selectedFile).then(
                     () => {
-                        setMessage()
+                        setMessage('')
                         setSelectedFile(undefined)
                         setClaim(claim)
                     },
@@ -49,21 +68,26 @@ const ClaimDetailsView = () => {
         setSelectedFile(fileUploaded)
     }
 
+    const isOpen = () => claim?.state != 'Open'
+
     const detectUser = () => consortium.isAdministrator(user) ? user.email : consortium.getMember(user).member_name
 
     const detectAdminIcon = owner => consortium.isAdministrator({ email: owner }) ? <FaBuilding /> : <FaUserAlt />
 
-    const detectOwner = owner => consortium.isAdministrator({ email: owner }) ? 'Administracion' : claim.owner
+    const detectOwner = owner => consortium.isAdministrator({ email: owner }) ? 'Administración' : claim.owner
 
     return (
-        <div style={{ marginBottom: '1%' }}>
+        <div className='claim' style={{ marginBottom: '1%' }}>
             <ErrorHandler errors={errorDescriptions} />
             <Card>
-                <Card.Body style={{ marginLeft: '5%', marginRight: '5%'  }}>
+                <Card.Body style={{ marginLeft: '5%', marginRight: '5%' }}>
                     <Card.Subtitle style={{ fontSize: 'xx-small' }} className="mb-2 text-muted">
                         {claim?.identifier}
                     </Card.Subtitle>
-                    {claim?.title}
+                    <div>
+                        <div className='left'>{claim?.title}</div>
+                        <div className='right'><StateBadge state={claim?.state} /></div>
+                    </div>
                     <Card.Text style={{ fontSize: 'small' }}>
                         <React.Fragment>
                             <textarea
@@ -74,15 +98,19 @@ const ClaimDetailsView = () => {
                                 id="formGroupExampleInput"
                                 value={message}
                                 placeholder={''}
+                                disabled={isOpen()}
                                 onChange={event => setMessage(event.target.value)}
                             />
-                            <BasicAddItemButton
-                                style={{ fontSize: 'xx-small' }}
-                                description={'Agregar'}
-                                onClick={() => save()}
-                            />
-                            <FileUploaderButton handleFile={onFileChange} />
-                            <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
+                            <div style={{ marginTop: '1%' }}>
+                                <BasicAddItemButton
+                                    style={{ fontSize: 'x-small' }}
+                                    description={'Agregar'}
+                                    disabled={!message}
+                                    onClick={() => save()}
+                                />
+                                <FileUploaderButton style={{ fontSize: 'x-small' }} handleFile={onFileChange} />
+                                <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
+                            </div>
                         </React.Fragment>
                     </Card.Text>
                     <Card.Text style={{ fontSize: 'small' }}>
@@ -93,14 +121,18 @@ const ClaimDetailsView = () => {
                                 return (
                                     <div>
                                         <Row>
-                                            {detectAdminIcon(message.owner)}
-                                            {detectOwner(message.owner)}
+                                            <div className='left'>
+                                                {detectAdminIcon(message.owner)}
+                                                {'  '}
+                                                {detectOwner(message.owner)}
+                                            </div>
+                                            <div className='right'>{message.date}</div>
                                         </Row>
                                         <text style={{ whiteSpace: 'pre-line' }}>{message.message}</text>
                                         <div className='right'>
                                             {message.filename && <DownloadButton onClick={() => downloadTicket(message.filename)} />}
                                         </div>
-                                        <hr/>
+                                        <hr />
                                     </div>
                                 )
                             })

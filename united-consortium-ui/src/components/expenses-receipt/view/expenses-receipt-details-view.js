@@ -235,6 +235,7 @@ const MemberExpensesReceiptDetailView = () => {
     const [ particularExpenses, setParticularExpenses ] = useState();
 
     useEffect(async () => {
+        debugger
         const expenses = expensesReceipt.getMemberReceiptFor(user)
         setParticularExpenses(expenses)
     }, [expensesReceipt]);

@@ -22,12 +22,12 @@ const ClaimsGeneralView = () => {
                 {consortium ?
                     <div style={{ marginLeft: '7%', marginRight: '7%' }}>
                         <Row style={{ marginTop: '1%' }} >
-                            <Col sm={2}>
+                            <Col sm={3}>
                                 <h7>Mis Reclamos</h7>
                                 <hr />
                                 <ClaimListView />
                             </Col>
-                            <Col sm={7}>
+                            <Col sm={6}>
                                 <div className='scrollbar-dinamically'>
                                     <ClaimDetailsView />
                                 </div>
@@ -50,13 +50,4 @@ const ClaimsGeneralView = () => {
     )
 }
 
-const MainView = () => {
-    return (
-            <ClaimContextProvider>
-                <ClaimsGeneralView />
-            </ClaimContextProvider>
-    )
-}
-
-
-export default authenticationHandler(MainView)
+export default authenticationHandler(ClaimsGeneralView)

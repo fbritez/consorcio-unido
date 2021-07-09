@@ -13,38 +13,43 @@ import {
 } from "react-router-dom";
 import AppliactionNavView from '../application-nav/application-nav-view';
 import ClaimMainView from '../claims/claim-main-view';
+import { ClaimContextProvider } from '../claims/claim-provider';
+import { ExpensesReceiptContextProvider } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 
 const Main = () => {
 
     return (
-        <ConsortiumContextProvider>
-            <UserContextProvider>
-                <Router>
-                    <AppliactionNavView/>
-                    <Switch>
-                        <Route path="/notifications">
-                            <NotificationMainView />
-                        </Route>
-                        <Route path="/consortiums">
-                            <ConsortiumsMainView />
-                        </Route>
-                        <Route path="/expenses">
-                            <ExpensesReceiptMainView />
-                        </Route>
-                        <Route exact path="/claims">
-                            <ClaimMainView />
-                        </Route>
-                        <Route exact path="/login">
-                            <Login />
-                        </Route>
-                        <Route >
-                            <PageNotFoundView />
-                        </Route>
-                    </Switch>
-                </Router>
-            </UserContextProvider>
-        </ConsortiumContextProvider>
-
+        <ClaimContextProvider>
+            <ExpensesReceiptContextProvider>
+                <ConsortiumContextProvider>
+                    <UserContextProvider>
+                        <Router>
+                            <AppliactionNavView />
+                            <Switch>
+                                <Route path="/notifications">
+                                    <NotificationMainView />
+                                </Route>
+                                <Route path="/consortiums">
+                                    <ConsortiumsMainView />
+                                </Route>
+                                <Route path="/expenses">
+                                    <ExpensesReceiptMainView />
+                                </Route>
+                                <Route exact path="/claims">
+                                    <ClaimMainView />
+                                </Route>
+                                <Route exact path="/login">
+                                    <Login />
+                                </Route>
+                                <Route >
+                                    <PageNotFoundView />
+                                </Route>
+                            </Switch>
+                        </Router>
+                    </UserContextProvider>
+                </ConsortiumContextProvider>
+            </ExpensesReceiptContextProvider>
+        </ClaimContextProvider>
     )
 }
 

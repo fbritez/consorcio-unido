@@ -39,7 +39,7 @@ const AddClaimView = () => {
             () => {
                 imageService.save(selectedFile).then(
                     () => {
-                        setMessage({})
+                        setMessage({title: '', message: ''})
                         setSelectedFile(undefined)
                         setClaim(claim)
                     },
@@ -87,10 +87,10 @@ const AddClaimView = () => {
                                     value={message.message} />
                             </Form.Group>
                             <BasicAddItemButton
-                                style={{ fontSize: 'xx-small' }}
+                                style={{ fontSize: 'x-small' }}
                                 description={'Crear'}
                                 onClick={() => save()} />
-                            <FileUploaderButton handleFile={onFileChange} />
+                            <FileUploaderButton style={{ fontSize: 'x-small' }} handleFile={onFileChange} />
                             <FileSelectedItem selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
                         </Form>
                     </Card.Text>

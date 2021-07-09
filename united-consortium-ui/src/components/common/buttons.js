@@ -62,6 +62,7 @@ const BasicAddItemButton = props => {
         <Button
             data-testid='add-item-button'
             className='add-button'
+            style={props.style}
             onClick={() => props.onClick()}
             disabled={props.disabled}
         >
