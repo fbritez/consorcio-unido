@@ -42,7 +42,6 @@ const ExpensesReceiptGeneralView = props => {
                         }
                         </Col>
                         <Col sm={2}>
-                            <ExpensesReceiptList consortium={consortium}  />
                         </Col>
                     </Row>
                 </div>

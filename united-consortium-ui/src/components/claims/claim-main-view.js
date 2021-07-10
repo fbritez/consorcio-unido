@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -13,8 +13,13 @@ import { UserContext } from '../user-provider/user-provider';
 const ClaimsGeneralView = () => {
 
     const { consortium } = useContext(ConsortiumContext);
-    const { claim } = useContext(ClaimContext)
+    const { claim, setClaim } = useContext(ClaimContext)
     const { user } = useContext(UserContext)
+
+
+    useEffect(async () => {
+        setClaim(undefined);
+    }, [consortium]);
 
     return (
         <div className='background'>
