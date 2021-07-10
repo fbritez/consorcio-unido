@@ -46,8 +46,13 @@ const ConsortiumDropdown = props => {
     const { user } = useContext(UserContext);
 
     useEffect(async () => {
-        service.getConsortiums(user).then((c) => { setConsortiums(c) });
-    }, [props.updated, user, consortium]);
+        service.getConsortiums(user).then((listOfConsortium) => { 
+            setConsortiums(listOfConsortium)
+            if(listOfConsortium.length === 1) {
+                setConsortium(listOfConsortium[0])
+            }
+        });
+    }, [props.updated, user]);
 
     return (
         <NavDropdown title={consortium?.name ? consortium.name : 'Consorcio'} className='consortium-dropdown'>

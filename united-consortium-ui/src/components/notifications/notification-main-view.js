@@ -55,7 +55,7 @@ const NotificationGeneralView = () => {
                                 <hr />
                                 <ClaimListView
                                     sideEffect={() => setPath(claims())} 
-                                    filterFuction={(claim) => claim.state === 'Open'}
+                                    filterFuction={(claim) => claim.state != 'Close'}
                                 />
                             </div>
                         }

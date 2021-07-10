@@ -31,13 +31,13 @@ describe('add member view', () => {
             const name_input = getByTestId('member_name_input');
             const email_input = getByTestId('user_email_input');
 
-            userEvent.type(name_input, "united");
+            userEvent.type(name_input, "myName");
             userEvent.type(email_input, "test@email.com");
          
             const button = getByTestId('button');
             button.click();
 
-            expect(addMemberFuction).toBeCalledWith({ member_name: 'united', user_email: 'test@email.com' })
+            expect(addMemberFuction).toBeCalledWith({ member_name: 'myName', user_email: 'test@email.com' })
             
         })
     })

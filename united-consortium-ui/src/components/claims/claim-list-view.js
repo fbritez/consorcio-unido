@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Badge } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../user-provider/user-provider';
 import claimService from '../../services/claims-service/claims-service';
 import { ClaimContext } from './claim-provider';
+import StateBadge from './state-badge-view';
 
 const ClaimListView = props => {
 
@@ -14,6 +14,7 @@ const ClaimListView = props => {
     const { claim, setClaim } = useContext(ClaimContext);
 
     useEffect(async () => {
+        debugger
         if (consortium) {
             var data;
             const isAdmin = consortium.isAdministrator(user);
@@ -39,8 +40,6 @@ const ClaimListView = props => {
         
     }
 
-    const getStatusDescription = item => item.isOpen() ? <Badge variant="success">Abierta</Badge> : <div />
-
     return (
         <div className='scrollbar-dinamically'>
             <div style={{ marginTop: '3%', fontSize: 'small' }}>
@@ -53,6 +52,8 @@ const ClaimListView = props => {
                                 as='div'>
                                 <div>
                                     {claim.identifier}
+                                    {' - '}
+                                    <StateBadge state={claim?.state}/>
                                 </div>
 
                             </ListGroup.Item>

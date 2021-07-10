@@ -9,7 +9,6 @@ import AddClaimView from './add-claim-view';
 import ClaimListView from './claim-list-view';
 import { ClaimContext } from './claim-provider';
 import { UserContext } from '../user-provider/user-provider';
-import ClaimActions from './claim-actions';
 
 const ClaimsGeneralView = () => {
 
@@ -26,7 +25,7 @@ const ClaimsGeneralView = () => {
                             <Col sm={3}>
                                 <h7>Mis Reclamos</h7>
                                 <hr />
-                                <ClaimListView />
+                                <ClaimListView/>
                             </Col>
                             <Col sm={6}>
                                 <h5>Reclamos</h5>
@@ -34,7 +33,7 @@ const ClaimsGeneralView = () => {
                                 {
                                     claim ?
                                         <div className='scrollbar-dinamically'>
-                                            <ClaimDetailsView />
+                                            <ClaimDetailsView/>
                                         </div>
                                         :
                                         <div>
