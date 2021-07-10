@@ -22,4 +22,4 @@ class SettingService{
     }
 }
 
-export default SettingService
+export default new SettingService()

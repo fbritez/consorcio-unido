@@ -9,10 +9,9 @@ import Tab from 'react-bootstrap/Tab'
 import Alert from 'react-bootstrap/Alert';
 import { UserContext } from '../../user-provider/user-provider';
 import './consortium-details.scss';
-import SettingService from '../../../services/setting-service/setting-service';
+import settingService from '../../../services/setting-service/setting-service';
 
 const service = consortiumService;
-const settingService = new SettingService();
 
 const BasicConsortiumDetails = props => {
 
@@ -190,7 +189,7 @@ const ConsortiumDetails = (props) => {
                             handleSettingChange={handleSettingChange} />
                     </Tab>
                 </Tabs>
-                <Button className="add-button" onClick={handleSubmit}>
+                <Button data-testid='save-button' className="add-button" onClick={handleSubmit}>
                     Guardar
                 </Button>
             </div>

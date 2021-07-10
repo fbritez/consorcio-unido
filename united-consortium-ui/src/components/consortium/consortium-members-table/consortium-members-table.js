@@ -5,11 +5,9 @@ import { BasicRemoveItemButton, BasicUpdateItemButton } from '../../common/butto
 import AddMemberView from './add-member-view';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
-import SettingService from '../../../services/setting-service/setting-service';
+import settingService from '../../../services/setting-service/setting-service';
 import MemberDetailsView from './member-details-view';
 import { BiAlignJustify } from "react-icons/bi";
-
-const settingService = new SettingService();
 
 const ConsortiumMembersTable = (props) => {
 
