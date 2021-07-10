@@ -82,7 +82,7 @@ class MemberExpensesReceipt:
         return self.member
 
     def total_amount(self):
-        return sum([item.get_amount() for item in self.expenses_items])
+        return round(sum([item.get_amount() for item in self.expenses_items]), 2)
 
     def is_non_payment(self):
         return not self.get_pending_amount() == 0
