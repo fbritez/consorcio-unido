@@ -34,7 +34,7 @@ const ExpensesReceiptClosedStatus = () => {
     }
 
     return (
-        <div>
+        <div style={{marginBottom: '-2%'}}>
             <Row>
                 <Col sm={2}>
                 </Col>
@@ -235,7 +235,6 @@ const MemberExpensesReceiptDetailView = () => {
     const [ particularExpenses, setParticularExpenses ] = useState();
 
     useEffect(async () => {
-        debugger
         const expenses = expensesReceipt.getMemberReceiptFor(user)
         setParticularExpenses(expenses)
     }, [expensesReceipt]);

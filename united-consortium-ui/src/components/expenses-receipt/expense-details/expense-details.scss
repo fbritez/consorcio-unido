@@ -1,13 +1,10 @@
-
+@import '../../utils/basic-colours.scss';
 
 .badge.badge-dark{
-    background-color:#2C4068;
-    color: white
+    background-color: $hard-color;
+    color: white;
 }
 
-.card-header-button{
-
-}
 .expenses-card-header{
     padding: 0%;
 }

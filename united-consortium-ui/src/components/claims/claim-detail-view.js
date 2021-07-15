@@ -37,6 +37,7 @@ const ClaimDetailsView = () => {
                     () => {
                         setMessage('')
                         setSelectedFile(undefined)
+                        setClaim({})
                         setClaim(claim)
                     },
                     () => {

@@ -61,4 +61,21 @@
       border: 0;
       border-top: 1px solid rgba(0,0,0,.1);
   }
+
+  
+  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: $hard-color;
+    background-color: $soft-color;
+    font-weight: bold;
+    border-color: $hard-soft-color $hard-soft-color $soft-color;
+  }
+
+  .nav-tabs .nav-link {
+    margin-bottom: -1px;
+    color: $hard-color;
+    background-color: $sweet-soft-color;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+  }
 }

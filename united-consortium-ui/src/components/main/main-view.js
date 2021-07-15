@@ -25,7 +25,6 @@ const UnitedConsortiumRoutes = () => {
     const { path } = useContext(PathContext)
 
     useEffect(async () => {
-        debugger
         history?.push(path)
     }, [path]);
 

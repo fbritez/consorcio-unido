@@ -2,9 +2,9 @@
 
 .consortium-dropdown{
     .btn-success{
-        border-color: #2C4068;
-        background-color: #E3DECA;
-        color: #2C4068; 
+        border-color: $hard-color;
+        background-color: $hard-soft-color;
+        color: $hard-color; 
         border-radius: 0rem;
         width: 200px;
         text-align: inherit;
@@ -18,16 +18,16 @@
     }
 
     .btn-success.dropdown-toggle {
-        border-color: #2C4068;
-        background-color: #E3DECA;
-        color: #2C4068; 
+        border-color: $hard-color;
+        background-color: $hard-soft-color;
+        color: $hard-color; 
         box-shadow: 0 0 0 .2rem rgba(44, 64, 104,0);
     }
 
     .btn-success.dropdown-toggle.active, .btn-success.dropdown-toggle:active {
-        border-color: #2C4068;
-        background-color: #E3DECA;
-        color: #2C4068; 
+        border-color: $hard-color;
+        background-color: $hard-soft-color;
+        color: $hard-color; 
         box-shadow: 0 0 0 .2rem rgba(44, 64, 104,0);
     }
 
@@ -38,7 +38,7 @@
     .dropdown-item.active, .dropdown-item:active {
         color: #fff;
         text-decoration: none;
-        background-color: #2C4068;
+        background-color: $hard-color;
     }
 }
 

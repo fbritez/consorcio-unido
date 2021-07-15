@@ -14,7 +14,6 @@ const ClaimListView = props => {
     const { claim, setClaim } = useContext(ClaimContext);
 
     useEffect(async () => {
-        debugger
         if (consortium) {
             var data;
             const isAdmin = consortium.isAdministrator(user);

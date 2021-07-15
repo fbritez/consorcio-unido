@@ -1,12 +1,19 @@
 
+$hard-color:            #2C4068;
+//$hard-hard-color:       #343355;
+//$disabled-hard-color:   #424253;
+//$focus-hard-color:      #6663a3;
+$soft-color:            #FCF8F0;
+$hard-soft-color:       #E3DECA;
+$sweet-soft-color:      #eee9d5;
 
 .background {
-    background-color: #FCF8F0;
+    background-color: $soft-color;
     height: 100hv;
 }
 
 .contrast-background {
-    background-color: #2C4068;
+    background-color: $hard-color;
 }
 
 .button:hover{
@@ -14,24 +21,24 @@
 }
 
 .button:focus {     
-    background-color: #2C4068;
-    border-color: #2C4068  
+    background-color: $hard-color;
+    border-color: $hard-color 
 }
 .button {
-    background-color: #2C4068;
-    border-color: #2C4068;
+    background-color: $hard-color;
+    border-color: $hard-color;
     border-radius: 0%;
 }
 
 .button:disabled{
     background-color: black;
-    border-color: #2C4068
+    border-color: $hard-color
 }
 
 .navbar-color{
-    background-color: #E3DECA;
+    background-color: $hard-soft-color;
 }
 
 .nav-bar-text{
-    color: #2C4068 
+    color: $hard-color
 }

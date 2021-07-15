@@ -11,21 +11,21 @@
 }
 
 .pay-button {
-    background-color:#2C4068;
+    background-color:$hard-color;
     color: white;
-    border-color: #2C4068
+    border-color: $hard-color
 }
 
 .pay-button:hover {
-    background-color:#2C4068;
+    background-color:$hard-color;
     color: white;
-    border-color: #2C4068
+    border-color: $hard-color
 }
 
 .pay-button:focus {     
-    background-color:#2C4068;
+    background-color:$hard-color;
     color: white;
-    border-color: #2C4068 
+    border-color: $hard-color
 }
 
 .payment-content{
