@@ -7,10 +7,6 @@ import MemberExpensesReceipt from '../../model/member-expenses-receipt';
 
 class ExpensesReceiptService {
 
-    constructor() {
-        this.imageService = imageService;
-    }
-
     getExpensesAccordingUser = async (consortium, user) => {
         const params = `consortium_identifier=${consortium.id}&user_identifier=${user.email}`
         const espensesData = await axios.get(`${SERVICE_URL}/expenses?${params}`);
@@ -25,7 +21,8 @@ class ExpensesReceiptService {
     save = async (expensesReceipt, imageFile) => {
         try {
             const result = await axios.post(`${SERVICE_URL}/newExpenses`, { updatedExpensesReceipt: expensesReceipt });
-            this.imageService.save(imageFile)
+            debugger
+            imageService.save(imageFile)
             return expensesReceipt
         } catch (error) {
             console.log(error)
