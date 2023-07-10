@@ -2,6 +2,7 @@ import React from 'react';
 import { Badge } from 'react-bootstrap';
 
 const getStatus = memberReceipt => {
+    debugger
     return (
         <div style={{ float: 'right' }}>
             {memberReceipt?.difference() === 0 ?

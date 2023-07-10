@@ -11,6 +11,7 @@ import { DownloadButton, FileUploaderButton } from '../common/buttons';
 import { downloadTicket } from '../utils/download-files';
 import { image } from 'react-dom-factories';
 import imageService from '../../services/image-service/image-service';
+import { DataGrid } from '@mui/x-data-grid';
 
 const expensesReceiptService = new ExpensesReceiptService();
 
@@ -99,27 +100,111 @@ const PaymentMemberView = props => {
                     </div>
                 </Col>
                 <Col sm={2}>
-                    <div>
-                        <FileUploaderButton className='option-button' style={{ fontSize: 'xx-small', float:'right'}} disabled={expensesReceipt.paymentProcessed()} handleFile={onFileChange} />
-                        {props.memberReceipt.filename ?
-                            <React.Fragment>
-                                <DownloadButton style={{ fontSize: 'xx-small', float:'right'}} onClick={() => downloadTicket()} />
-                                <Button style={{ fontSize: 'xx-small', float:'right'}} disabled={expensesReceipt.paymentProcessed()} className='option-button' onClick={cleanFile}>X</Button>
-                            </React.Fragment> : <React.Fragment />
-                        }
-                    </div>
+                    
                 </Col>
                 <Col sm={2}>
-                    <div>
-                        {props.memberReceipt?.difference() === 0 ?
-                            memberPaymentButton('Cancelar Pago', 0) :
-                            memberPaymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
-                    </div>
+                    
                 </Col>
             </Row>
             <hr />
         </div>
     )
+}
+
+const RenderX = (props) =>{
+
+    const onFileChange = () => {}
+
+    const handleChange = amount => {
+
+    }
+
+    const memberPaymentButton = (description, value) => {
+        return <PaymentButton description={description} action={() => handleChange(value)}  />
+    }
+
+
+    const columns = [
+        { field: 'unit', 
+          headerName: 'Unidad', 
+          width: 90,
+          valueGetter: (row) => {
+            const memberReceipt = row.row
+          return `${memberReceipt?.member?.member_name}`},
+        },
+        {
+          field: 'state',
+          headerName: 'Estado',
+          width: 150,
+          editable: false,
+          renderCell: (dataObj) => getStatus(dataObj.row),
+        },
+      { field: 'amount', 
+        headerName: 'Monto', 
+        width: 90,
+        valueGetter: (dataObj) => {
+          const memberReceipt = dataObj.row
+          return `${memberReceipt?.getTotalAmount()}`},
+      },
+      { field: 'paid_amount', 
+      headerName: 'A Pagar', 
+      width: 90,
+      editable: true,
+      valueGetter: (dataObj) => `$${dataObj.row?.paid_amount}`,
+      onChange: (dataObj) => {
+          debugger
+      }
+    },
+      { field: 'totalAmount', 
+      headerName: 'Saldo Pendiente', 
+          width: 90,
+      valueGetter: (dataObj) => {
+        const memberReceipt = dataObj.row
+        return `${memberReceipt?.difference()}`},
+    },
+      { 
+      field: 'x', 
+      headerName: 'Actions', 
+      width: 90,
+      renderCell: (dataObj) => {
+
+        return (
+        <div>
+        <div>
+        <FileUploaderButton className='option-button' style={{ fontSize: 'xx-small', float:'right'}}  handleFile={onFileChange} />
+        {dataObj.row.filename ?
+            <React.Fragment>
+                <DownloadButton style={{ fontSize: 'xx-small', float:'right'}} onClick={() => downloadTicket()} />
+                <Button style={{ fontSize: 'xx-small', float:'right'}} className='option-button'>X</Button>
+            </React.Fragment> : <React.Fragment />
+        }
+        </div>
+         <div>
+         {props.memberReceipt?.difference() === 0 ?
+             memberPaymentButton('Cancelar Pago', 0) :
+             memberPaymentButton('Pago Total', props.memberReceipt?.getTotalAmount())}
+        </div>
+        </div>)
+      }
+    }
+      ];
+
+      debugger
+    const xxxx =  props.member_expenses_receipt_details.map(t => {t['id']= Math.random(); return t})
+    return <div>
+    <DataGrid
+    rows={xxxx}
+      columns={columns}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: 5,
+          },
+        },
+      }}
+      pageSizeOptions={[5]}
+      disableRowSelectionOnClick
+    /></div>
 }
 
 
@@ -164,6 +249,9 @@ const PaymentStatusView = () => {
 
             </Row>
             <hr />
+            <div>
+                        <RenderX amountChange={amountChange} setAmountChange={setAmountChange} member_expenses_receipt_details={expensesReceipt.member_expenses_receipt_details}/>
+            </div>
             {
                 expensesReceipt.member_expenses_receipt_details.map(memberReceipt => {
                     return <PaymentMemberView amountChange={amountChange} setAmountChange={setAmountChange} memberReceipt={memberReceipt} />
