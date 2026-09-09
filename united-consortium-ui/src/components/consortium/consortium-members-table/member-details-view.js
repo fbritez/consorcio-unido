@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import { Modal } from '../../common/mui-components';
 import { BasicAddItemButton } from '../../common/buttons';
 
 const MemberDetailsView = props => {
@@ -39,7 +39,6 @@ const MemberDetailsView = props => {
                                 data-testid='secondary_email'
                                 style={{ fontSize: 'smaller' }}
                                 type="text"
-                                className="form-control"
                                 id="formGroupExampleInput"
                                 value={updatedMember.secondary_email}
                                 placeholder={'Mail Secundario'}
@@ -50,7 +49,6 @@ const MemberDetailsView = props => {
                                 data-testid='notes'
                                 style={{ fontSize: 'smaller' }}
                                 type="text"
-                                className="form-control"
                                 id="formGroupExampleInput"
                                 value={updatedMember.notes}
                                 placeholder={'Notas'}

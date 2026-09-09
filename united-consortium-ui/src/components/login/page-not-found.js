@@ -1,6 +1,6 @@
 import React from 'react';
 import './login.scss'
-import Card from 'react-bootstrap/Card';
+import { Card } from '../common/mui-components';
 import logo from '../../images/medium-icon.png';
 
 const PageNotFoundView = (props) =>{

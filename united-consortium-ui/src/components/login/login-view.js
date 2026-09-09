@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../user-provider/user-provider';
 import './login.scss'
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Card, Form, Button, Alert } from '../common/mui-components';
 import logo from '../../images/medium-icon.png';
 import loginService from '../../services/login-service/login-service';
-import Alert from 'react-bootstrap/Alert';
 import userService from '../../services/user-service/user-service';
 import { PathContext } from '../main/path-provider';
 import { notifications } from '../main/routes';

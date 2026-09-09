@@ -1,8 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import './application-nav-view.scss'
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Nav from 'react-bootstrap/Nav'
+import { AppBar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import logo from '../../images/medium-icon.png';
 import { BsPeopleCircle } from 'react-icons/bs';
 import { UserContext } from '../user-provider/user-provider';
@@ -18,6 +15,7 @@ const AppliactionNavView = () => {
     const { user, setUser } = useContext(UserContext);
     const [isAdministrator, setIsAdministrator] = useState();
     const { path, setPath } = useContext(PathContext);
+    const [userMenuAnchor, setUserMenuAnchor] = useState(null);
 
     useEffect(async () => {
         if (user) {
@@ -27,6 +25,7 @@ const AppliactionNavView = () => {
     });
 
     const logout = () => {
+        setUserMenuAnchor(null)
         setUser(undefined)
         setPath(login())
     }
@@ -38,44 +37,28 @@ const AppliactionNavView = () => {
     const detectClassName = description => path === description ? 'selected' : ''
 
     return (
-        <div>{
-            user &&
-            <div>
-                <div className="basic-navbar-nav">
-                    <Navbar >
-                        <Navbar.Collapse style={{ marginLeft: '7%', marginRight: '7%' }}>
-                            <Nav className="mr-auto">
-                                <img src={logo} alt="drawing" width="50" className="icon" onClick={() => setPath(notifications())} />
-                                <div className="vl" />
-                                <ConsortiumDropdown/>
-                                <div className="vl" />
-                                {isAdministrator ?
-                                    <Nav.Link className={detectClassName('consortiums')} data-testid='consortiums' onClick={() => handleClick(consortiums())}>{'Administrar'}</Nav.Link> : ''}
-                            </Nav>
-                            <Navbar.Text className='right'>{user.email}</Navbar.Text>
-                            <Navbar.Brand href="#home">
-                                <NavDropdown className='user-icon' title={<BsPeopleCircle className='user-icon' />}>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={() => logout()}>Sign out</NavDropdown.Item>
-                                </NavDropdown>
-                            </Navbar.Brand>
-                        </Navbar.Collapse>
-                    </Navbar>
-                </div>
-                <div className="secondary-navbar-nav">
-                    <Navbar className="secondary-navbar-nav" >
-                        <Navbar.Collapse style={{ marginLeft: '7%', marginRight: '7%' }}>
-                            <Nav className="mr-auto">
-                                <div className="vl" />
-                                <Nav.Link className={detectClassName('notifications')} data-testid='notification' onClick={() => handleClick(notifications())}> {'Novedades'}</Nav.Link>
-                                <Nav.Link className={detectClassName('expenses')} data-testid='expenses' onClick={() => handleClick(expenses())}> {'Expensas'}</Nav.Link>
-                                <Nav.Link className={detectClassName('claims')} data-testid='expenses' onClick={() => handleClick(claims())}> {'Reclamos'}</Nav.Link>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Navbar>
-                </div>
-            </div>
-        }
+        <div>
+            {user && <>
+                <AppBar position="static" color="transparent" elevation={0} sx={{ backgroundColor: '#E3DECA' }}>
+                    <Toolbar sx={{ mx: { xs: 1, md: '7%' }, minHeight: 64 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexGrow: 1 }}>
+                            <Box component="img" src={logo} alt="Inicio" width={50} sx={{ cursor: 'pointer' }} onClick={() => setPath(notifications())} />
+                            <ConsortiumDropdown />
+                            {isAdministrator && <Button data-testid='consortiums' onClick={() => handleClick(consortiums())} sx={{ color: 'primary.main' }}>Administrar</Button>}
+                        </Box>
+                        <Typography sx={{ display: { xs: 'none', sm: 'block' }, mr: 1, color: 'primary.main', fontWeight: 600 }}>{user.email}</Typography>
+                        <IconButton aria-label="Menú de usuario" onClick={event => setUserMenuAnchor(event.currentTarget)} sx={{ color: 'primary.main' }}><BsPeopleCircle /></IconButton>
+                        <Menu anchorEl={userMenuAnchor} open={Boolean(userMenuAnchor)} onClose={() => setUserMenuAnchor(null)}><MenuItem onClick={logout}>Cerrar sesión</MenuItem></Menu>
+                    </Toolbar>
+                </AppBar>
+                <Box sx={{ backgroundColor: '#EEE9D5', px: { xs: 1, md: '7%' } }}>
+                    <Toolbar disableGutters sx={{ minHeight: 48, gap: 1 }}>
+                        <Button data-testid='notification' onClick={() => handleClick(notifications())}>Novedades</Button>
+                        <Button data-testid='expenses' onClick={() => handleClick(expenses())}>Expensas</Button>
+                        <Button data-testid='claims' onClick={() => handleClick(claims())}>Reclamos</Button>
+                    </Toolbar>
+                </Box>
+            </>}
         </div>
     )
 

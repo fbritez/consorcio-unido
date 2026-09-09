@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Badge } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Badge, ListGroup } from '../../common/mui-components';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';

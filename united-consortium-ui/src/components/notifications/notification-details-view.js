@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
+import { Card, Button } from '../common/mui-components';
 import { DownloadButton } from '../common/buttons';
 import './notification-view.scss';
 import { downloadTicket } from '../utils/download-files';
@@ -32,7 +31,7 @@ const NotificatioDetailsView = props => {
         <div style={{ marginBottom: '1%' }}>
             <Card>
                 <Card.Body>
-                    <Card.Subtitle style={{ fontSize: 'small' }} className="mb-2 text-muted">
+                    <Card.Subtitle style={{ fontSize: 'small' }}>
                         {formatDate()}
                     </Card.Subtitle>
                     <Card.Text>

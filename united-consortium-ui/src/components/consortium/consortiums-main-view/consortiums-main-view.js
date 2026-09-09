@@ -1,8 +1,6 @@
 import React, { useState, useContext } from 'react';
 import ConsortiumsListView from '../consortiums-list-view/consortiums-list-view';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
+import { Row, Container, Col } from '../../common/mui-components';
 import { UserContext } from '../../user-provider/user-provider';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 import authenticationHandler from '../../login/authentication-handler';
@@ -41,7 +39,7 @@ const ConsortiumsGeneralView = (props) => {
                                 <div>
                                     <h5>Consorcios</h5>
                                     <hr />
-                                    <div className='text-center'>
+                                    <div style={{ textAlign: 'center' }}>
                                         <lable > Por favor seleccione un consorcio</lable>
                                     </div>
                                 </div>

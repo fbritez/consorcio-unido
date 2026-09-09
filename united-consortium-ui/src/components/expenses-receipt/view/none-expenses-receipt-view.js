@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Card from 'react-bootstrap/Card';
+import { Card } from '../../common/mui-components';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 
 const NoneExpensesReceipt = () => {

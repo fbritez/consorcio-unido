@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, Accordion, Button, Row, Col, Badge } from 'react-bootstrap';
+import { Card, Accordion, Button, Row, Col, Badge } from '../../common/mui-components';
 import { UpdateItemButton, RemoveItemButton, DownloadButton } from '../../common/buttons';
 import { downloadTicket } from '../../utils/download-files';
 import './expense-details.scss';
@@ -40,7 +40,7 @@ const ExpenseDetails = props => {
                                                 </Accordion.Toggle>
                                             </Card.Header>
                                             <Accordion.Collapse eventKey={eventKey}>
-                                                <Card.Body className='card-expenses-detail'>
+                                                <Card.Body className='expense-detail-content'>
                                                     <Row>
                                                         <Col sm={9}>
                                                             <div className='card-details'>

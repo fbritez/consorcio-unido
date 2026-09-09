@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { Badge } from 'react-bootstrap';
+import { Col, Row, Badge } from '../common/mui-components';
 import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 import './payment-status.scss';
 import { getStatus } from './utils';

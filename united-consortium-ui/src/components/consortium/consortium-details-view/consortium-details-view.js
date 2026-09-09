@@ -2,11 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 import consortiumService from '../../../services/consortium-service/consortium-service';
 import ConsortiumMembersTable from '../consortium-members-table/consortium-members-table';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab'
-import Alert from 'react-bootstrap/Alert';
+import { Card, Button, Tabs, Tab, Alert } from '../../common/mui-components';
 import { UserContext } from '../../user-provider/user-provider';
 import './consortium-details.scss';
 import settingService from '../../../services/setting-service/setting-service';
@@ -27,7 +23,6 @@ const BasicConsortiumDetails = props => {
             <input
                 data-testid='consortium-name'
                 type="text"
-                className="form-control"
                 id="formGroupExampleInput"
                 value={name()}
                 onChange={event => props.handleChange({ 'name': event.target.value })}
@@ -37,7 +32,6 @@ const BasicConsortiumDetails = props => {
             <input
                 data-testid='consortium-address'
                 type="text"
-                className="form-control"
                 id="formGroupExampleInput"
                 value={address()}
                 onChange={event => props.handleChange({ 'address': event.target.value })}
@@ -74,7 +68,6 @@ const AdvancedConsortiumDetails = props => {
             </label>
             <input
                 type="number"
-                className="form-control"
                 id="formGroupExampleInput"
                 value={memberValue()}
                 onChange={event => props.handleSettingChange({ 'memberValues': event.target.value })}

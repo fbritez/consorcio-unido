@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
+import { Card, Form } from '../common/mui-components';
 import { BasicAddItemButton, FileUploaderButton } from '../common/buttons';
 import claimService from '../../services/claims-service/claims-service';
 import imageService from '../../services/image-service/image-service';

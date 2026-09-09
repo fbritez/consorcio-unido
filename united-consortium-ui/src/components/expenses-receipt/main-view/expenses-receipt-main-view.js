@@ -4,9 +4,7 @@ import { ConsortiumContext } from '../../consortium/consortium-provider/consorti
 import ExpensesReceiptView from '../view/expenses-receipt-view';
 import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
 import './expenses-receipt-main-view.scss';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
+import { Row, Container, Col } from '../../common/mui-components';
 import { UserContext } from '../../user-provider/user-provider';
 import authenticationHandler from '../../login/authentication-handler';
 import { ExpensesReceiptContextProvider } from '../expenses-receipt-provider/expenses-receipt-provider';
@@ -34,7 +32,7 @@ const ExpensesReceiptGeneralView = props => {
                                     <ExpensesReceiptView/>
                                 </div>
                                 :
-                                <div className='text-center'>
+                                <div style={{ textAlign: 'center' }}>
                                     <h5>Expensas</h5>
                                     <hr/>
                                     <lable > Por favor seleccione un consorcio</lable>

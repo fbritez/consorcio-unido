@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Badge } from 'react-bootstrap';
+import { Badge } from '../common/mui-components';
 
 const StateBadge = props => {
 

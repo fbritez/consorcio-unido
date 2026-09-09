@@ -1,7 +1,5 @@
 import axios from 'axios';
 import SERVICE_URL from '../utils/constants';
-import CryptoJS from 'crypto-js';
-
 const encrypt = value => {
     //return CryptoJS.AES.encrypt(value, "Secret Passphrase").toString();
     return value

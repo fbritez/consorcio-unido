@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
+import { Row, Container, Col } from '../common/mui-components';
 import authenticationHandler from '../login/authentication-handler';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import ClaimDetailsView from './claim-detail-view';
@@ -55,7 +53,7 @@ const ClaimsGeneralView = () => {
                             </Col>
                         </Row>
                     </div> :
-                    <div className='text-center'>
+                    <div style={{ textAlign: 'center' }}>
                         <lable > Por favor seleccione un consorcio</lable>
                     </div>
                 }

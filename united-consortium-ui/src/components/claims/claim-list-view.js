@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { ListGroup } from '../common/mui-components';
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../user-provider/user-provider';
 import claimService from '../../services/claims-service/claims-service';

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import consortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumCardView } from './consortium-card-view';
 import { AddConsortiumCardView } from './consortium-card-view';
@@ -16,7 +15,7 @@ const ConsortiumsListView = (props) => {
 
     return (
         <div className='consortiums'>
-            <div className='text-center'>
+            <div style={{ textAlign: 'center' }}>
                 Consorcios disponibles
                 </div>
             <hr />

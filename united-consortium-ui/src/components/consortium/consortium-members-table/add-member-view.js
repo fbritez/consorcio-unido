@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Button, Form, Col, Row } from '../../common/mui-components';
 
 const emptyMember = () => ({ member_name: '', user_email: '' })
 
@@ -31,7 +28,6 @@ const AddMemberView = (props) => {
                         <input
                             data-testid='member_name_input'
                             type="text"
-                            className="form-control"
                             placeholder="Identificador de la unidad"
                             value={member?.member_name}
                             onChange={event => handleChange({ 'member_name': event.target.value })}
@@ -41,7 +37,6 @@ const AddMemberView = (props) => {
                         <input
                             data-testid='user_email_input'
                             type="text"
-                            className="form-control"
                             placeholder="Correo de contacto"
                             value={member?.user_email}
                             onChange={event => handleChange({ 'user_email': event.target.value })}

@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { AddItemButton } from '../../common/buttons';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Dropdown, Col, Row } from '../../common/mui-components';
 import './expenses-receipt-details-view.scss';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import ErrorHandler from '../../common/handlers/error-handler';
 
 const service = new ExpensesReceiptService();

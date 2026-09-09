@@ -1,11 +1,6 @@
 
 import React, { useState, useEffect, useContext } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import FormControl from 'react-bootstrap/FormControl';
-import Form from 'react-bootstrap/Form';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab'
+import { Modal, Button, FormControl, Form, Tabs, Tab } from '../../common/mui-components';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { detectActionClassName } from '../../utils/detect-action-button-class';
@@ -108,7 +103,7 @@ const ExpensesItemView = (props) => {
                                     </Form.Group>
                                     <Form.Group controlId="validateAmount">
                                         <Form.Label>Monto</Form.Label>
-                                        <Form.Control className="form-control"
+                                        <Form.Control
                                             aria-label="Monto"
                                             type="number"
                                             required

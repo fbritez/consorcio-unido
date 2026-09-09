@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BsFillTrashFill, BsPencil } from 'react-icons/bs';
 import { AiOutlinePaperClip, AiFillCaretDown } from "react-icons/ai";
-import { Button } from 'react-bootstrap';
+import { Button } from '@mui/material';
 import './buttons.scss'
 import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 

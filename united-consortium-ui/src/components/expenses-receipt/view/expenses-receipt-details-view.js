@@ -2,16 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import './expenses-receipt-details-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import ExpenseItemView from '../expense-item/expense-item'
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Tabs, Tab, Alert, Col, Row, Modal } from '../../common/mui-components';
 import ExpenseDetails from '../expense-details/expense-details';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab'
 import { ExpensesReceiptContext } from '../expenses-receipt-provider/expenses-receipt-provider';
-import Alert from 'react-bootstrap/Alert';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Modal from 'react-bootstrap/Modal';
 import AddExpensesReceipt from './add-expenses-receipt';
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { UserContext } from '../../user-provider/user-provider';
@@ -80,7 +73,7 @@ const ExpensesReceiptDetailHeader = () => {
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
     return (
         <div>
-            <div className='text-center'>
+            <div style={{ textAlign: 'center' }}>
                 <p>{`Gastos correspondientes al mes de ${expensesReceipt?.month} ${expensesReceipt?.year}`}</p>
             </div>
             <hr />

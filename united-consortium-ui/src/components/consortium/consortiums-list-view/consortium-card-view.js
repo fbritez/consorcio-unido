@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { Card, CardContent } from '@mui/material';
 import consortiumService from '../../../services/consortium-service/consortium-service';
 import { ConsortiumContext } from '../consortium-provider/consortium-provider';
 

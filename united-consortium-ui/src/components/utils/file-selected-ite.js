@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiFile, BiXCircle } from "react-icons/bi";
-import Row from 'react-bootstrap/Row';
+import { Row } from '../common/mui-components';
 
 const FileSelectedItem = props => {
 

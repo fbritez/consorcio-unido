@@ -1,49 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Button, Menu, MenuItem, Typography } from '@mui/material';
 import { UserContext } from '../user-provider/user-provider';
 import consortiumService from '../../services/consortium-service/consortium-service';
 import { ConsortiumContext } from './consortium-provider/consortium-provider';
-import './consortium-dropdown.scss';
 
 const service = consortiumService;
-
-const C_onsortiumDropdown = props => {
-
-    const [consortiums, setConsortiums] = useState();
-    const { consortium, setConsortium } = useContext(ConsortiumContext)
-    const { user } = useContext(UserContext);
-
-    useEffect(async () => {
-        service.getConsortiums(user).then((c) => { setConsortiums(c) });
-    }, [props.updated, user, consortium]);
-
-    return (
-        <Dropdown className='consortium-dropdown'>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {consortium?.name ? consortium.name : 'Consorcio'}
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className='consortium-menu'>
-                {
-                    consortiums?.map(consortium => {
-                        return (
-                            <Dropdown.Item onClick={() => setConsortium(consortium)}>
-                                <div style={{ fontSize: 'small', fontWeight: 'bold' }}>{consortium.name}</div>
-                                <div style={{ fontSize: 'small' }}>{consortium.address}</div>
-                            </Dropdown.Item>)
-                    })
-                }
-            </Dropdown.Menu>
-        </Dropdown>)
-}
 
 const ConsortiumDropdown = props => {
 
     const [consortiums, setConsortiums] = useState();
     const { consortium, setConsortium } = useContext(ConsortiumContext)
     const { user } = useContext(UserContext);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     useEffect(async () => {
         service.getConsortiums(user).then((listOfConsortium) => { 
@@ -54,19 +23,16 @@ const ConsortiumDropdown = props => {
         });
     }, [props.updated, user]);
 
-    return (
-        <NavDropdown title={consortium?.name ? consortium.name : 'Consorcio'} className='consortium-dropdown'>
-            {
-                consortiums?.map(consortium => {
-                    return (
-                        <NavDropdown.Item onClick={() => setConsortium(consortium)}>
-                            <div style={{ fontSize: 'small', fontWeight: 'bold' }}>{consortium.name}</div>
-                            <div style={{ fontSize: 'small' }}>{consortium.address}</div>
-                        </NavDropdown.Item>)
-                })
-            }
-        </NavDropdown>
-    )
+    return <>
+        <Button onClick={event => setAnchorEl(event.currentTarget)} sx={{ color: 'primary.main', border: '1px solid', borderColor: 'primary.main', minWidth: 200, justifyContent: 'flex-start' }}>
+            {consortium?.name ? consortium.name : 'Consorcio'}
+        </Button>
+        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+            {consortiums?.map(currentConsortium => <MenuItem key={currentConsortium.id || currentConsortium.name} onClick={() => { setConsortium(currentConsortium); setAnchorEl(null); }}>
+                <div><Typography variant="body2" fontWeight={700}>{currentConsortium.name}</Typography><Typography variant="caption" display="block">{currentConsortium.address}</Typography></div>
+            </MenuItem>)}
+        </Menu>
+    </>
 }
 
 export default ConsortiumDropdown

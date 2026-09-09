@@ -5,11 +5,11 @@
     max-width: 100%;
     height: 100vh;
 
-    .card-body{
+    .MuiCardContent-root{
         padding: 0 !important;
     }
 
-    .my-card.card{
+    .my-card{
         padding: 1.25rem;
         @extend .background;
     }
@@ -20,6 +20,9 @@
 }
 
 .imagen-login{
-    margin-left: 0%;
-    width: 3px;
+    width: 96px;
+    height: auto;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
 }
