@@ -13,6 +13,19 @@ service = UserService()
 @user_api.route('/userData', methods=['GET'])
 @cross_origin(support_credentials=True)
 def user_data():
+    """Get user data by email.
+        --
+        tags:
+            - Users
+        parameters:
+            - name: userEmail
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: User data
+    """
     email = request.args.get('userEmail')
 
     return {'user': objects_to_json(service.get_user(email))}

@@ -15,6 +15,19 @@ service = ConsortiumService()
 @consortium_api.route('/consortiums', methods=['GET'])
 @cross_origin(support_credentials=True)
 def consortiums():
+    """Get the consortiums associated with a user.
+        --
+        tags:
+            - Consortiums
+        parameters:
+            - name: user_identifier
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: User consortiums
+    """
     user_identifier = request.args.get('user_identifier')
     cons = service.get_consortium_for(user_identifier)
     return {
@@ -25,6 +38,23 @@ def consortiums():
 @consortium_api.route('/updateConsortium', methods=['POST'])
 @cross_origin(support_credentials=True)
 def update_consortium():
+    """Create or update a consortium.
+        --
+        tags:
+            - Consortiums
+        parameters:
+            - in: body
+                name: consortium
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        updatedConsortium:
+                            type: object
+        responses:
+            200:
+                description: Consortium saved
+    """
     try:
         consortium = service.create_model(request.json.get('updatedConsortium'))
 

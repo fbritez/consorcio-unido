@@ -12,6 +12,20 @@ service = LoginService()
 @login_api.route('/validateUserEmail', methods=['GET'])
 @cross_origin(support_credentials=True)
 def validate_user_email():
+    """Validate whether an email is registered.
+        --
+        tags: [Login]
+        parameters:
+            - name: user_email
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: Email validation result
+            401:
+                description: Validation failed
+    """
 
     try:
         user_email = request.args.get('user_email')
@@ -25,6 +39,30 @@ def validate_user_email():
 @login_api.route('/setCredentials', methods=['POST'])
 @cross_origin(support_credentials=True)
 def set_credentials():
+    """Set a user's password.
+        --
+        tags:
+            - Login
+        parameters:
+            - in: body
+                name: credentials
+                required: true
+                schema:
+                    type: object
+                    required:
+                        - user_email
+                        - password
+                    properties:
+                        user_email:
+                            type: string
+                        password:
+                            type: string
+        responses:
+            200:
+                description: Credentials updated
+            500:
+                description: Credentials could not be updated
+    """
     try:
         user_email = request.json.get('user_email')
         password = request.json.get('password')
@@ -38,6 +76,30 @@ def set_credentials():
 @login_api.route('/authenticate', methods=['POST'])
 @cross_origin(support_credentials=True)
 def authenticate():
+    """Authenticate a user.
+        --
+        tags:
+            - Login
+        parameters:
+            - in: body
+                name: credentials
+                required: true
+                schema:
+                    type: object
+                    required:
+                        - user_email
+                        - password
+                    properties:
+                        user_email:
+                            type: string
+                        password:
+                            type: string
+        responses:
+            200:
+                description: Authentication successful
+            401:
+                description: Invalid credentials
+    """
 
     user_email = request.json.get('user_email')
     password = request.json.get('password')

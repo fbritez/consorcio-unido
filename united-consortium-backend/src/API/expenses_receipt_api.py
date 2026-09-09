@@ -19,6 +19,23 @@ service.add_publishers([NotificationService(), EmailService()])
 @expenses_receipt_api.route('/expenses', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses():
+    """Get expenses for a consortium and user.
+        --
+        tags:
+            - Expenses
+        parameters:
+            - name: consortium_identifier
+                in: query
+                required: true
+                type: string
+            - name: user_identifier
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: Expenses matching the filters
+    """
     consortium_id = request.args.get('consortium_identifier')
     user_id = request.args.get('user_identifier')
 
@@ -32,6 +49,23 @@ def expenses():
 @expenses_receipt_api.route('/newExpenses', methods=['POST'])
 @cross_origin(support_credentials=True)
 def new_expenses():
+    """Create or update an expense receipt.
+        --
+        tags:
+            - Expenses
+        parameters:
+            - in: body
+                name: expense
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        updatedExpensesReceipt:
+                            type: object
+        responses:
+            200:
+                description: Expense receipt saved
+    """
     try:
         updatedExpensesReceipt = request.json.get('updatedExpensesReceipt')
         expense_receipt = service.create_model(updatedExpensesReceipt)
@@ -46,12 +80,42 @@ def new_expenses():
 @expenses_receipt_api.route('/expensesID', methods=['GET'])
 @cross_origin(support_credentials=True)
 def expenses_id():
+    """Get an expense receipt by identifier.
+        --
+        tags:
+            - Expenses
+        parameters:
+            - name: expensesID
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: Expense receipt
+    """
     return json_dumps(service.get_expenses_receipt(request.args.get('expensesID')))
 
 
 @expenses_receipt_api.route('/generateReceipt', methods=['POST'])
 @cross_origin(support_credentials=True)
 def generate_receipt():
+    """Generate a receipt for an expense.
+        --
+        tags:
+            - Expenses
+        parameters:
+            - in: body
+                name: expense
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        updatedExpensesReceipt:
+                            type: object
+        responses:
+            200:
+                description: Receipt generated
+    """
     try:
         updatedExpensesReceipt = request.json.get('updatedExpensesReceipt')
         expense_receipt = service.create_model(updatedExpensesReceipt)

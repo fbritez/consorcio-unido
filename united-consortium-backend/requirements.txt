@@ -7,3 +7,4 @@ greenlet==3.0.3
 psycopg2-binary>=2.9.0
 pytest
 yagmail~=0.14.256
+flasgger~=0.9.7.1

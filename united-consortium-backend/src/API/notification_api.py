@@ -15,6 +15,19 @@ service = NotificationService()
 @notification_api.route('/notification/notificationFor', methods=['GET'])
 @cross_origin(support_credentials=True)
 def get_notifications():
+    """Get notifications for a consortium.
+        --
+        tags:
+            - Notifications
+        parameters:
+            - name: consortiumID
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: Consortium notifications
+    """
     consortium_id = request.args.get('consortiumID')
 
     notifications = service.get_notifications(consortium_id)
@@ -25,6 +38,23 @@ def get_notifications():
 @notification_api.route('/notification/update', methods=['POST'])
 @cross_origin(support_credentials=True)
 def update_notifications():
+    """Create or update a notification.
+        --
+        tags:
+            - Notifications
+        parameters:
+            - in: body
+                name: notification
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        notification:
+                            type: object
+        responses:
+            200:
+                description: Notification saved
+    """
     try:
         notification = request.json.get('notification')
 

@@ -15,6 +15,23 @@ service = SettingsService()
 @settings_api.route('/settings/get', methods=['GET'])
 @cross_origin(support_credentials=True)
 def get_settings():
+    """Get application settings.
+        --
+        tags:
+            - Settings
+        parameters:
+            - name: type
+                in: query
+                required: true
+                type: string
+            - name: id
+                in: query
+                required: true
+                type: string
+        responses:
+            200:
+                description: Application settings
+    """
     type = request.args.get('type')
     id = request.args.get('id')
 
@@ -26,6 +43,23 @@ def get_settings():
 @settings_api.route('/settings/update', methods=['POST'])
 @cross_origin(support_credentials=True)
 def update_settings():
+    """Create or update application settings.
+        --
+        tags:
+            - Settings
+        parameters:
+            - in: body
+                name: settings
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        applicationSettings:
+                            type: object
+        responses:
+            200:
+                description: Settings saved
+    """
     try:
         selectedSettings = request.json.get('applicationSettings')
 
