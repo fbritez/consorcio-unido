@@ -1,13 +1,13 @@
 
-from src.DAO.mongo_DAO import ClaimsDAO
+from src.DAO.dao_factory import DAOFactory
 from src.service.consorsium_service import ConsortiumService
 
 
 class ClaimsService:
 
-    def __init__(self, dao=ClaimsDAO()):
-        self.dao = dao
-        self.consortium_service = ConsortiumService()
+    def __init__(self, dao=None, consortium_service=None):
+        self.dao = dao or DAOFactory.create_dao('claims')
+        self.consortium_service = consortium_service or ConsortiumService()
 
     def save_or_update(self, claim):
 

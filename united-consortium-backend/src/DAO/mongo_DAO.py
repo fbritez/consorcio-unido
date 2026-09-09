@@ -1,18 +1,29 @@
 import json
 
-from pymongo import MongoClient
+try:
+    from pymongo import MongoClient
+except ImportError:  # pragma: no cover - handled by runtime strategy selection
+    MongoClient = None
+
+try:
+    import gridfs
+except ImportError:  # pragma: no cover - handled by runtime strategy selection
+    gridfs = None
 
 from src.model.claim import Claim, ClaimMessage
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import ExpensesReceipt, MemberExpensesReceipt
 from src.model.user import User, ConsortiumMember
-import gridfs
 
 
 class GenericDAO(object):
 
-    def __init__(self, db_client=MongoClient('localhost:27017')):
+    def __init__(self, db_client=None):
+        if db_client is None:
+            if MongoClient is None:
+                raise RuntimeError('MongoDB dependencies are not installed. Install pymongo or select the postgres backend.')
+            db_client = MongoClient('mongodb://localhost:27017')
         self.db = db_client.unitedConsortiums
 
     def object_to_json(self, element):
@@ -123,10 +134,14 @@ class UserDAO(GenericDAO):
 class ImageDAO(GenericDAO):
 
     def store(self, file_id, file):
+        if gridfs is None:
+            raise RuntimeError('MongoDB dependencies are not installed. Install pymongo to use ImageDAO.')
         fs = gridfs.GridFS(self.db)
         fs.put(file.read(), filename=file_id)
 
     def read(self, file_id):
+        if gridfs is None:
+            raise RuntimeError('MongoDB dependencies are not installed. Install pymongo to use ImageDAO.')
         fs = gridfs.GridFS(self.db)
         file = fs.find_one({'filename': file_id})
 

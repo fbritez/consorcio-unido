@@ -1,10 +1,10 @@
-from src.DAO.mongo_DAO import SettingsDAO
+from src.DAO.dao_factory import DAOFactory
 
 
 class SettingsService:
 
-    def __init__(self, dao=SettingsDAO()):
-        self.dao = dao
+    def __init__(self, dao=None):
+        self.dao = dao or DAOFactory.create_dao('settings')
 
     def get(self, type, id):
         settings = self.dao.get({'type': type, 'id': id})

@@ -1,12 +1,12 @@
-from src.DAO.mongo_DAO import LoginDAO
+from src.DAO.dao_factory import DAOFactory
 from src.service.consorsium_service import ConsortiumService
 
 
 class LoginService:
 
-    def __init__(self, dao=LoginDAO(), consortium_service=ConsortiumService()):
-        self.dao = dao
-        self.consortium_service = consortium_service
+    def __init__(self, dao=None, consortium_service=None):
+        self.dao = dao or DAOFactory.create_dao('login')
+        self.consortium_service = consortium_service or ConsortiumService()
 
     def validate_user_email(self, email):
         consortiums = self.consortium_service.get_consortium_for(email)

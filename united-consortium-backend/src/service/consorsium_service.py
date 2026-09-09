@@ -1,4 +1,4 @@
-from src.DAO.mongo_DAO import ConsortiumDAO
+from src.DAO.dao_factory import DAOFactory
 from src.service.emailService import EmailService
 from src.service.user_service import UserService
 import uuid
@@ -6,9 +6,9 @@ import uuid
 
 class ConsortiumService:
 
-    def __init__(self, user_service=UserService()):
-        self.dao = ConsortiumDAO()
-        self.user_service = user_service
+    def __init__(self, user_service=None, dao=None):
+        self.dao = dao or DAOFactory.create_dao('consortium')
+        self.user_service = user_service or UserService()
         self.email_service = EmailService()
 
     def get_consortium(self, consortium_id):

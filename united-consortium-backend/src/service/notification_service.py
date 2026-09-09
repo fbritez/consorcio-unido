@@ -1,12 +1,12 @@
 import datetime
 
-from src.DAO.mongo_DAO import NotificationDAO
+from src.DAO.dao_factory import DAOFactory
 
 
 class NotificationService:
 
-    def __init__(self, dao=NotificationDAO()):
-        self.dao = dao
+    def __init__(self, dao=None):
+        self.dao = dao or DAOFactory.create_dao('notification')
 
     def get_notifications(self, consortium_id):
         notifications = self.dao.get({'consortium_id': consortium_id})

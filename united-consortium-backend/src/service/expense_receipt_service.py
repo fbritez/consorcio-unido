@@ -1,7 +1,6 @@
-from bson import ObjectId
 import copy
 
-from src.DAO.mongo_DAO import ExpensesReceiptDAO
+from src.DAO.dao_factory import DAOFactory
 from src.model.expense_item import ExpenseItem
 from src.model.expeses_receipt import MemberExpensesReceipt
 from src.notifications.notifications import EspensesReceiptNotification
@@ -10,9 +9,9 @@ from src.service.consorsium_service import ConsortiumService
 
 class ExpensesReceiptService:
 
-    def __init__(self, dao=ExpensesReceiptDAO(), consortium_service=ConsortiumService()):
-        self.dao = dao
-        self.consortium_service = consortium_service
+    def __init__(self, dao=None, consortium_service=None):
+        self.dao = dao or DAOFactory.create_dao('expenses_receipt')
+        self.consortium_service = consortium_service or ConsortiumService()
         self.publisher_services = []
 
     def get_dao(self):
