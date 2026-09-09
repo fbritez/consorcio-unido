@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Box } from '@mui/material';
 import { UserContext } from '../user-provider/user-provider';
-import './login.scss'
 import { Card, Form, Button, Alert } from '../common/mui-components';
 import logo from '../../images/medium-icon.png';
 import loginService from '../../services/login-service/login-service';
@@ -67,11 +67,9 @@ function Login() {
     }, [validEmail, firstLogin]);
 
     return (
-        <div className='login-background'>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Card className='my-card' style={{ width: '18rem', marginTop: '10px', textAlign: 'center' }}>
-                    <Card.Img variant="top" src={logo} className='imagen-login' />
-                    <div>
+        <Box sx={{ minHeight: '100vh', display: 'grid', placeItems: 'center', p: 2, background: 'linear-gradient(135deg, #1B2945 0%, #2C4068 55%, #5278C5 100%)' }}>
+                <Card sx={{ width: '100%', maxWidth: 430, textAlign: 'center', p: { xs: 1, sm: 2 } }}>
+                    <Box component="img" src={logo} alt="Consorcio Unido" sx={{ width: 112, height: 82, objectFit: 'contain', mx: 'auto', mt: 1 }} />
                         <Card.Body>
                             <Card.Title>
                                 Bienvenido, por favor ingresa tu direccion de correo
@@ -90,7 +88,7 @@ function Login() {
                                 }
                                 {!validEmail &&
                                     <div>
-                                        <Button data-testid='siguiente' className='update-button' style={{ marginBottom: '3%' }} onClick={() => validateEmail(email)}>
+                                        <Button data-testid='siguiente' sx={{ mb: 1 }} onClick={() => validateEmail(email)}>
                                             Siguiente
                                         </Button>
                                     </div>
@@ -113,7 +111,7 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button className='update-button' style={{ marginBottom: '3%' }} onClick={setCredentials}>
+                                        <Button sx={{ mb: 1 }} onClick={setCredentials}>
                                             Confirmar
                                         </Button>
                                     </div>
@@ -132,20 +130,18 @@ function Login() {
                                                 </Alert>
                                             </div>
                                         }
-                                        <Button  data-testid='login' className='update-button' style={{ marginBottom: '3%' }} onClick={() => processAuthentication()}>
+                                        <Button data-testid='login' sx={{ mb: 1 }} onClick={() => processAuthentication()}>
                                             Login
                                         </Button>
-                                        <Button variant="secondary" className='cancel-button' style={{ marginBottom: '3%' }} onClick={() => clean()}>
+                                        <Button variant="secondary" sx={{ mb: 1 }} onClick={() => clean()}>
                                             Otro mail
                                         </Button>
                                     </div>
                                 }
                             </Card.Text>
                         </Card.Body>
-                    </div>
                 </Card>
-            </div>
-        </div>
+        </Box>
     );
 }
 

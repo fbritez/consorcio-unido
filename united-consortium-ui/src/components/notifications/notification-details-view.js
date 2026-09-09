@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from '../common/mui-components';
 import { DownloadButton } from '../common/buttons';
-import './notification-view.scss';
 import { downloadTicket } from '../utils/download-files';
 
 

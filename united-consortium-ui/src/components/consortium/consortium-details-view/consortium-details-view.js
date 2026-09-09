@@ -4,7 +4,6 @@ import consortiumService from '../../../services/consortium-service/consortium-s
 import ConsortiumMembersTable from '../consortium-members-table/consortium-members-table';
 import { Card, Button, Tabs, Tab, Alert } from '../../common/mui-components';
 import { UserContext } from '../../user-provider/user-provider';
-import './consortium-details.scss';
 import settingService from '../../../services/setting-service/setting-service';
 
 const service = consortiumService;

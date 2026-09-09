@@ -5,7 +5,6 @@ import ExpensesReceiptService from '../../../services/expense-receipt-service/ex
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import { detectActionClassName } from '../../utils/detect-action-button-class';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import './expense-item.scss';
 import { FileUploaderButton } from '../../common/buttons';
 import FileSelectedItem from '../../utils/file-selected-ite';
 

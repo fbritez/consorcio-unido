@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import './expenses-receipt-details-view.scss';
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import ExpenseItemView from '../expense-item/expense-item'
 import { Button, Tabs, Tab, Alert, Col, Row, Modal } from '../../common/mui-components';

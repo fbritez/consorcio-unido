@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { BsFillTrashFill, BsPencil } from 'react-icons/bs';
 import { AiOutlinePaperClip, AiFillCaretDown } from "react-icons/ai";
 import { Button } from '@mui/material';
-import './buttons.scss'
 import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 
 const UpdateItemButton = props => {
@@ -10,7 +9,8 @@ const UpdateItemButton = props => {
     const { expensesReceipt } = useContext(ExpensesReceiptContext)
     return (
         <Button
-            className='option-button'
+            size="small"
+            sx={{ minWidth: 36, p: 0.75 }}
             onClick={() => props.onClick()}
             disabled={!expensesReceipt?.isOpen()}
         >
@@ -24,21 +24,21 @@ const RemoveItemButton = props => {
     const { expensesReceipt } = useContext(ExpensesReceiptContext);
 
     return (
-        <Button className='option-button' disabled={!expensesReceipt?.isOpen()} onClick={() => props.onClick()}><BsFillTrashFill /></Button>
+        <Button size="small" sx={{ minWidth: 36, p: 0.75 }} disabled={!expensesReceipt?.isOpen()} onClick={() => props.onClick()}><BsFillTrashFill /></Button>
     )
 }
 
 const BasicRemoveItemButton = props => {
 
     return (
-        <Button className='option-button' onClick={() => props.onClick()}><BsFillTrashFill /></Button>
+        <Button size="small" sx={{ minWidth: 36, p: 0.75 }} onClick={() => props.onClick()}><BsFillTrashFill /></Button>
     )
 }
 
 const BasicUpdateItemButton = props => {
 
     return (
-        <Button className='option-button' onClick={() => props.onClick()}> <BsPencil /></Button>
+        <Button size="small" sx={{ minWidth: 36, p: 0.75 }} onClick={() => props.onClick()}> <BsPencil /></Button>
     )
 }
 
@@ -47,7 +47,6 @@ const AddItemButton = props => {
     const disabled = props.disabled ? (expensesReceipt && !expensesReceipt.isOpen()) : false;
     return (
         <Button
-            className='add-button'
             onClick={() => props.onClick()}
             disabled={disabled}
         >
@@ -61,7 +60,6 @@ const BasicAddItemButton = props => {
     return (
         <Button
             data-testid='add-item-button'
-            className='add-button'
             style={props.style}
             onClick={() => props.onClick()}
             disabled={props.disabled}
@@ -91,8 +89,8 @@ const FileUploaderButton = props => {
     return (
         <React.Fragment>
             <Button
-                className={props.className ? props.className : 'publish-button'}
-                style={props.style ? props.style : { fontSize: 'small' }}
+                size="small"
+                sx={{ minWidth: 36, p: 0.75 }}
                 onClick={handleClick}
                 disabled={props.disabled}>
                 <AiOutlinePaperClip />
@@ -110,8 +108,8 @@ const DownloadButton = props => {
 
     return (
         <Button
-            className={props.className ? props.className : 'option-button'}
-            style={props.style ? props.style : {}}
+            size="small"
+            sx={{ minWidth: 36, p: 0.75 }}
             disabled={props.disabled}
             onClick={props.onClick}
         >

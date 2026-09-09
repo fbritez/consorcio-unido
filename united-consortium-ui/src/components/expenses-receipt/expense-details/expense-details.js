@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Card, Accordion, Button, Row, Col, Badge } from '../../common/mui-components';
 import { UpdateItemButton, RemoveItemButton, DownloadButton } from '../../common/buttons';
 import { downloadTicket } from '../../utils/download-files';
-import './expense-details.scss';
 
 const renderOneLineDescription = (description, value) => {
     return (

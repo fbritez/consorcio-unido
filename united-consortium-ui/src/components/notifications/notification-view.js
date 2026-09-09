@@ -3,7 +3,6 @@ import notificationService from '../../services/notification-service/notificatio
 import { ConsortiumContext } from '../consortium/consortium-provider/consortium-provider';
 import NotificationListView from './notification-list';
 import { Form, Button } from '../common/mui-components';
-import './notification-view.scss';
 import { UserContext } from '../user-provider/user-provider';
 import consortiumService from '../../services/consortium-service/consortium-service';
 import { FileUploaderButton } from '../common/buttons';

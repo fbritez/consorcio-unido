@@ -3,7 +3,6 @@ import ConsortiumsListView from '../../consortium/consortiums-list-view/consorti
 import { ConsortiumContext } from '../../consortium/consortium-provider/consortium-provider';
 import ExpensesReceiptView from '../view/expenses-receipt-view';
 import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list';
-import './expenses-receipt-main-view.scss';
 import { Row, Container, Col } from '../../common/mui-components';
 import { UserContext } from '../../user-provider/user-provider';
 import authenticationHandler from '../../login/authentication-handler';

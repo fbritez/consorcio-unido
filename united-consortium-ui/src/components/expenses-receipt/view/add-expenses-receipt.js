@@ -3,7 +3,6 @@ import ExpensesReceiptList from '../expenses-receipt-list/expenses-receipt-list'
 import ExpensesReceiptService from '../../../services/expense-receipt-service/expense-receipt-service';
 import { AddItemButton } from '../../common/buttons';
 import { Dropdown, Col, Row } from '../../common/mui-components';
-import './expenses-receipt-details-view.scss';
 import ErrorHandler from '../../common/handlers/error-handler';
 
 const service = new ExpensesReceiptService();

@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Col, Row, Badge, Button } from '../common/mui-components';
 import { ExpensesReceiptContext } from '../expenses-receipt/expenses-receipt-provider/expenses-receipt-provider';
 import ExpensesReceiptService from '../../services/expense-receipt-service/expense-receipt-service';
-import './payment-status.scss';
 import { getStatus } from './utils';
 import { DownloadButton, FileUploaderButton } from '../common/buttons';
 import { downloadTicket } from '../utils/download-files';
