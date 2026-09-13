@@ -40,11 +40,21 @@ def _matches(document, query):
             if not any(_matches(document, option) for option in expected):
                 return False
             continue
-        actual = document.get(key)
+        actual = document
+        for part in key.split('.'):
+            if isinstance(actual, list):
+                actual = [item.get(part) for item in actual if isinstance(item, dict)]
+            elif isinstance(actual, dict):
+                actual = actual.get(part)
+            else:
+                actual = None
         if key == '_id':
             actual = str(actual) if actual is not None else actual
             expected = str(expected)
-        if actual != expected:
+        if isinstance(actual, list):
+            if expected not in actual:
+                return False
+        elif actual != expected:
             return False
     return True
 

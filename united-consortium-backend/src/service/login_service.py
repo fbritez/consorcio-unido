@@ -9,12 +9,8 @@ class LoginService:
         self.consortium_service = consortium_service or ConsortiumService()
 
     def validate_user_email(self, email):
-        consortiums = self.consortium_service.get_consortium_for(email)
-
-        if consortiums:
-            result = self.dao.get_all(query_obj={'$or': [{'user_email': email}, {'secondary_email': email}]})
-        else:
-            raise Exception('Invalid User')
+     
+        result = self.dao.get_all(query_obj={'$or': [{'user_email': email}, {'secondary_email': email}]})
 
         return not bool(result)
 
