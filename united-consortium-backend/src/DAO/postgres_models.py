@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text, ForeignKey
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
 
 from src.DAO.postgres_db import Base
@@ -20,8 +20,8 @@ class ConsortiumModel(Base):
     address = Column(String(255), nullable=False)
     disabled = Column(Boolean, default=False)
 
-    members = relationship('ConsortiumMemberModel', back_populates='consortium')
-    administrators = relationship('ConsortiumAdministratorModel', back_populates='consortium')
+    members = relationship('ConsortiumMemberModel', back_populates='consortium', cascade='all, delete-orphan')
+    administrators = relationship('ConsortiumAdministratorModel', back_populates='consortium', cascade='all, delete-orphan')
 
 
 class ConsortiumMemberModel(Base):
@@ -57,6 +57,7 @@ class ClaimModel(Base):
     title = Column(String(255), nullable=False)
     state = Column(String(50), nullable=True)
     creation_date = Column(DateTime, nullable=True)
+    messages = relationship('ClaimMessageModel', back_populates='claim', cascade='all, delete-orphan')
 
 
 class ClaimMessageModel(Base):
@@ -67,6 +68,7 @@ class ClaimMessageModel(Base):
     owner = Column(String(255), nullable=False)
     message = Column(Text, nullable=False)
     filename = Column(String(255), default='')
+    claim = relationship('ClaimModel', back_populates='messages')
 
 
 class ExpenseItemModel(Base):
@@ -75,19 +77,23 @@ class ExpenseItemModel(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
-    amount = Column(String(255), nullable=False)
+    amount = Column(Float, nullable=False)
     ticket = Column(String(255), default='')
+    receipt_id = Column(Integer, ForeignKey('expenses_receipts.id'))
+    receipt = relationship('ExpensesReceiptModel', back_populates='expense_items')
 
 
 class ExpensesReceiptModel(Base):
     __tablename__ = 'expenses_receipts'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+    identifier = Column(String(255), unique=True, nullable=False)
     consortium_id = Column(String(255), nullable=False)
     month = Column(String(50), nullable=False)
     year = Column(Integer, nullable=False)
     is_open = Column(Boolean, default=True)
     payment_processed = Column(Boolean, default=False)
+    expense_items = relationship('ExpenseItemModel', back_populates='receipt', cascade='all, delete-orphan')
 
 
 class NotificationModel(Base):
