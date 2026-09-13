@@ -12,12 +12,22 @@ from src.model.expeses_receipt import ExpensesReceipt, MemberExpensesReceipt
 from src.model.user import ConsortiumMember, User
 
 
-DEFAULT_DATABASE_PATH = Path(__file__).resolve().parents[2] / 'data' / 'united_consortium.db'
+DATABASE_ROOT = Path(__file__).resolve().parents[2] / 'data'
+DATABASE_ENVIRONMENTS = {
+    'uat': 'UAT',
+    'tests': 'TESTS',
+    'prod': 'PROD',
+}
 
 
 def _database_path():
     configured_path = os.environ.get('SQLITE_DATABASE_PATH')
-    path = Path(configured_path) if configured_path else DEFAULT_DATABASE_PATH
+    if configured_path:
+        path = Path(configured_path)
+    else:
+        database_environment = os.environ.get('DB_ENV', 'uat').strip().lower()
+        directory_name = DATABASE_ENVIRONMENTS.get(database_environment, 'UAT')
+        path = DATABASE_ROOT / directory_name / 'united_consortium.db'
     path.parent.mkdir(parents=True, exist_ok=True)
     return path
 
