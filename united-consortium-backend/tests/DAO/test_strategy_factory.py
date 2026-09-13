@@ -16,19 +16,19 @@ class StrategyFactoryTest(unittest.TestCase):
         else:
             os.environ.pop('DB_BACKEND', None)
 
-    def test_default_backend_is_mongo(self):
+    def test_default_backend_is_sqlite(self):
         os.environ.pop('DB_BACKEND', None)
 
         backend_name = DAOFactory.resolve_backend_name()
 
-        self.assertEqual(backend_name, 'mongo')
-        self.assertIsInstance(DAOFactory.create_default_backend(), MongoBackend)
+        self.assertEqual(backend_name, 'sqlite')
+        self.assertIsInstance(DAOFactory.create_default_backend(), SQLiteBackend)
 
-    def test_invalid_backend_defaults_to_mongo(self):
+    def test_invalid_backend_defaults_to_sqlite(self):
         os.environ['DB_BACKEND'] = 'oracle'
 
-        self.assertEqual(DAOFactory.resolve_backend_name(), 'mongo')
-        self.assertIsInstance(DAOFactory.create_default_backend(), MongoBackend)
+        self.assertEqual(DAOFactory.resolve_backend_name(), 'sqlite')
+        self.assertIsInstance(DAOFactory.create_default_backend(), SQLiteBackend)
 
     def test_postgres_backend_is_supported(self):
         os.environ['DB_BACKEND'] = 'postgres'

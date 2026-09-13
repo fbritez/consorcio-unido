@@ -2,6 +2,7 @@ from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 
 from src.DAO.postgres_db import SessionLocal
+from src.DAO.postgres_models import LoginModel
 from src.model.claim import Claim, ClaimMessage
 from src.model.consortium import Consortium
 from src.model.expense_item import ExpenseItem
@@ -76,10 +77,28 @@ class UserDAO(PostgresBaseDAO):
 
 
 class LoginDAO(PostgresBaseDAO):
-    model = User
+    model = LoginModel
 
     def create_model(self, element):
         return element
+
+    def insert(self, element):
+        db_obj = self.db.query(LoginModel).filter_by(user_email=element['user_email']).first()
+        if db_obj is None:
+            db_obj = LoginModel(user_email=element['user_email'], password=element['password'])
+            self.db.add(db_obj)
+        else:
+            db_obj.password = element['password']
+        self.db.commit()
+        return element
+
+    def get_all(self, query_obj=None):
+        query = self.db.query(self.model)
+        for key, value in (query_obj or {}).items():
+            if key.startswith('$'):
+                continue
+            query = query.filter(getattr(self.model, key) == value)
+        return [{'user_email': item.user_email, 'password': item.password} for item in query.all()]
 
 
 class ConsortiumDAO(PostgresBaseDAO):

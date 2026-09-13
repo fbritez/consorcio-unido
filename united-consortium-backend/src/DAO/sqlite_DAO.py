@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import sqlite3
+import threading
 from pathlib import Path
 
 from src.model.claim import Claim, ClaimMessage
@@ -53,26 +54,30 @@ class SQLiteBaseDAO:
 
     def __init__(self, database_path=None):
         self.database_path = str(database_path or _database_path())
-        self.db = sqlite3.connect(self.database_path)
+        self._lock = threading.RLock()
+        self.db = sqlite3.connect(self.database_path, check_same_thread=False)
         self.db.row_factory = sqlite3.Row
-        self.db.execute(
-            f'CREATE TABLE IF NOT EXISTS {self.table_name} '
-            '(id INTEGER PRIMARY KEY AUTOINCREMENT, document TEXT NOT NULL)'
-        )
-        self.db.commit()
+        with self._lock:
+            self.db.execute(
+                f'CREATE TABLE IF NOT EXISTS {self.table_name} '
+                '(id INTEGER PRIMARY KEY AUTOINCREMENT, document TEXT NOT NULL)'
+            )
+            self.db.commit()
 
     def _close(self):
-        self.db.close()
+        with self._lock:
+            self.db.close()
 
     def _rows(self, query_obj=None):
-        rows = self.db.execute(f'SELECT id, document FROM {self.table_name} ORDER BY id').fetchall()
-        result = []
-        for row in rows:
-            document = json.loads(row['document'])
-            document.setdefault('_id', row['id'])
-            if _matches(document, query_obj):
-                result.append(document)
-        return result
+        with self._lock:
+            rows = self.db.execute(f'SELECT id, document FROM {self.table_name} ORDER BY id').fetchall()
+            result = []
+            for row in rows:
+                document = json.loads(row['document'])
+                document.setdefault('_id', row['id'])
+                if _matches(document, query_obj):
+                    result.append(document)
+            return result
 
     def get_all(self, query_obj=None):
         return [self.create_model(document) for document in self._rows(query_obj)]
@@ -81,15 +86,16 @@ class SQLiteBaseDAO:
         return [dict(document) for document in self._rows(query_obj)]
 
     def insert(self, element):
-        document = _to_document(element)
-        document.pop('_id', None)
-        cursor = self.db.execute(
-            f'INSERT INTO {self.table_name} (document) VALUES (?)',
-            (json.dumps(document),),
-        )
-        self.db.commit()
-        document['_id'] = cursor.lastrowid
-        return element
+        with self._lock:
+            document = _to_document(element)
+            document.pop('_id', None)
+            cursor = self.db.execute(
+                f'INSERT INTO {self.table_name} (document) VALUES (?)',
+                (json.dumps(document),),
+            )
+            self.db.commit()
+            document['_id'] = cursor.lastrowid
+            return element
 
     def insert_all(self, elements):
         for element in elements:
@@ -97,20 +103,21 @@ class SQLiteBaseDAO:
         return elements
 
     def update_all(self, query_obj, new_element):
-        documents = self._rows(query_obj)
-        replacement = _to_document(new_element)
-        for document in documents:
-            row_id = document['_id']
-            replacement_to_save = dict(replacement)
-            replacement_to_save.pop('_id', None)
-            self.db.execute(
-                f'UPDATE {self.table_name} SET document = ? WHERE id = ?',
-                (json.dumps(replacement_to_save), row_id),
-            )
-        if not documents:
-            return self.insert(new_element)
-        self.db.commit()
-        return new_element
+        with self._lock:
+            documents = self._rows(query_obj)
+            replacement = _to_document(new_element)
+            for document in documents:
+                row_id = document['_id']
+                replacement_to_save = dict(replacement)
+                replacement_to_save.pop('_id', None)
+                self.db.execute(
+                    f'UPDATE {self.table_name} SET document = ? WHERE id = ?',
+                    (json.dumps(replacement_to_save), row_id),
+                )
+            if not documents:
+                return self.insert(new_element)
+            self.db.commit()
+            return new_element
 
     def update(self, query_obj, new_element):
         return self.update_all(query_obj, new_element)
@@ -191,17 +198,19 @@ class ImageDAO(SQLiteBaseDAO):
         super().__init__(database_path)
 
     def store(self, file_id, file):
-        document = json.dumps({'file_id': file_id, 'data': file.read().decode('latin1')})
-        self.db.execute(f'INSERT INTO {self.table_name} (document) VALUES (?)', (document,))
-        self.db.commit()
+        with self._lock:
+            document = json.dumps({'file_id': file_id, 'data': file.read().decode('latin1')})
+            self.db.execute(f'INSERT INTO {self.table_name} (document) VALUES (?)', (document,))
+            self.db.commit()
 
     def read(self, file_id):
-        rows = self.db.execute(f'SELECT document FROM {self.table_name}').fetchall()
-        for row in rows:
-            document = json.loads(row['document'])
-            if document.get('file_id') == file_id:
-                return document['data'].encode('latin1')
-        return None
+        with self._lock:
+            rows = self.db.execute(f'SELECT document FROM {self.table_name}').fetchall()
+            for row in rows:
+                document = json.loads(row['document'])
+                if document.get('file_id') == file_id:
+                    return document['data'].encode('latin1')
+            return None
 
 
 class BasicDataTypeDAO(SQLiteBaseDAO):

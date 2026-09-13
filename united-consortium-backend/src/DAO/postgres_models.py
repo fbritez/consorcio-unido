@@ -12,6 +12,14 @@ class UserModel(Base):
     name = Column(String(255), nullable=False)
 
 
+class LoginModel(Base):
+    __tablename__ = 'login'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_email = Column(String(255), unique=True, nullable=False)
+    password = Column(String(255), nullable=False)
+
+
 class ConsortiumModel(Base):
     __tablename__ = 'consortiums'
 

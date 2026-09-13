@@ -103,9 +103,9 @@ class SQLiteBackend(BaseBackend):
 class DAOFactory:
     @staticmethod
     def resolve_backend_name():
-        backend_name = os.environ.get('DB_BACKEND', 'mongo').strip().lower()
+        backend_name = os.environ.get('DB_BACKEND', 'sqlite').strip().lower()
         if backend_name not in {'mongo', 'postgres', 'sqlite'}:
-            backend_name = 'mongo'
+            backend_name = 'sqlite'
         return backend_name
 
     @staticmethod
