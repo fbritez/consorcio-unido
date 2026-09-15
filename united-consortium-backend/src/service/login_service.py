@@ -1,5 +1,6 @@
 from src.DAO.dao_factory import DAOFactory
 from src.service.consorsium_service import ConsortiumService
+from src.service.password_service import PasswordService
 
 
 class LoginService:
@@ -7,6 +8,7 @@ class LoginService:
     def __init__(self, dao=None, consortium_service=None):
         self.dao = dao or DAOFactory.create_dao('login')
         self.consortium_service = consortium_service or ConsortiumService()
+        self.password_service = PasswordService()
 
     def validate_user_email(self, email):
 
@@ -14,10 +16,11 @@ class LoginService:
 
         return not bool(result)
 
-    def set_credentials(self, email, encrypted_password):
-        self.dao.insert({'user_email': email, 'password': encrypted_password})
+    def set_credentials(self, email, password):
+        hashed_password = self.password_service.hash_password(password)
+        self.dao.insert({'user_email': email, 'password': hashed_password})
 
-    def authenticate(self, email, encrypted_password):
+    def authenticate(self, email, password):
         users = self.dao.get_all({'user_email': email})
         if not users:
             return False
@@ -25,4 +28,4 @@ class LoginService:
         stored_password = user.get('password')
         if not stored_password:
             return False
-        return encrypted_password == stored_password
+        return self.password_service.verify_password(password, stored_password)
