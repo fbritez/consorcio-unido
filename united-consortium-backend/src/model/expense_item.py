@@ -22,9 +22,16 @@ class ExpenseItem:
         self.amount = self.amount / count
 
     def is_only_for_this_user(self, consortium_member):
-        p =[member for member in self.get_members() if member == consortium_member]
-        return p
+        for member in self.get_members():
+            if self._members_match(member, consortium_member):
+                return [member]
+        return []
+
+    def _members_match(self, member, target):
+        if isinstance(target, str):
+            return hasattr(member, 'get_email') and member.get_email() == target
+        return member == target
 
     def is_for(self, member):
-        return self.is_only_for_this_user(member) or not self.get_members()
+        return bool(self.is_only_for_this_user(member)) or not self.get_members()
 
