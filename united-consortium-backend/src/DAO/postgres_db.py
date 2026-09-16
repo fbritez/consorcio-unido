@@ -1,22 +1,26 @@
-import os
+"""Backwards compatible entry point for the PostgreSQL engine.
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+The mapping and the engine handling are shared with SQLite and live in
+:mod:`src.DAO.orm_db`.
+"""
 
-
-DATABASE_URL = os.getenv(
-    'DATABASE_URL',
-    'postgresql+psycopg2://postgres:postgres@localhost:5432/united_consortium'
+from src.DAO.orm_db import (  # noqa: F401
+    Base,
+    create_schema,
+    database_url,
+    get_db_session,
+    get_engine,
+    get_session,
+    postgres_database_url,
 )
 
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+
+DATABASE_URL = postgres_database_url()
 
 
-def get_db_session():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+def engine():
+    return get_engine(DATABASE_URL)
+
+
+def SessionLocal():
+    return get_session(DATABASE_URL)

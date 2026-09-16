@@ -86,7 +86,13 @@ class ExpensesReceiptService:
         return expenses
 
     def get_expenses_receipt(self, receipt_id):
-        return self.dao.get_all({'_id': ObjectId(receipt_id)})[0]
+        return self.dao.get_all({'_id': self._receipt_key(receipt_id)})[0]
+
+    def _receipt_key(self, receipt_id):
+        if DAOFactory.resolve_backend_name() != 'mongo':
+            return receipt_id
+        from bson import ObjectId
+        return ObjectId(receipt_id)
 
     def publish_receipt_close(self, expenses_receipt):
         consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
