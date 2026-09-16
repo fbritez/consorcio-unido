@@ -46,16 +46,29 @@ class ExpensesReceiptService:
             self.update_expenses_receipt(receipts)
 
     def update_expenses_receipt(self, new_receipt):
+        self._apply_default_members_to_items(new_receipt)
+
         query_obj = {'consortium_id': new_receipt.consortium_identifier(),
                      'year': new_receipt.get_year(),
                      'month': new_receipt.get_month()}
 
         if self.dao.get_all(query_obj):
-            result = self.dao.update_all(query_obj, new_receipt)
+            self.dao.update_all(query_obj, new_receipt)
         else:
-            result = self.dao.insert(new_receipt)
+            self.dao.insert(new_receipt)
 
-        return result
+        return self._get_sorted_expenses(new_receipt.consortium_identifier())
+
+    def _apply_default_members_to_items(self, new_receipt):
+        consortium = self.consortium_service.get_consortium(new_receipt.consortium_identifier())
+        for item in new_receipt.get_expenses_items():
+            if not item.get_members():
+                item.members = consortium.get_members()
+
+    def _get_sorted_expenses(self, consortium_id):
+        expenses = self.dao.get_all({'consortium_id': consortium_id})
+        expenses.sort(key=lambda exp: exp.get_sort_criteria(), reverse=True)
+        return expenses
 
     def generate_expenses_for(self, consortium, user_email):
 
@@ -73,7 +86,13 @@ class ExpensesReceiptService:
         return expenses
 
     def get_expenses_receipt(self, receipt_id):
-        return self.dao.get_all({'_id': ObjectId(receipt_id)})[0]
+        return self.dao.get_all({'_id': self._receipt_key(receipt_id)})[0]
+
+    def _receipt_key(self, receipt_id):
+        if DAOFactory.resolve_backend_name() != 'mongo':
+            return receipt_id
+        from bson import ObjectId
+        return ObjectId(receipt_id)
 
     def publish_receipt_close(self, expenses_receipt):
         consortium = self.consortium_service.get_consortium(expenses_receipt.consortium_identifier())
