@@ -2,6 +2,8 @@ import json
 
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
+
+from src.API.auth import authenticate
 from src.utils.utils import json_dumps
 import logging
 
@@ -9,7 +11,7 @@ import logging
 from src.service.claims_service import ClaimsService
 
 claims_api = Blueprint('claims_api', __name__)
-CORS(claims_api, suppport_credentials=True)
+CORS(claims_api, supports_credentials=True)
 
 service = ClaimsService()
 
@@ -20,7 +22,8 @@ def get_claims(consortium_id, member_name=None):
     return {'claims': [json_dumps(claim) for claim in claims]}
 
 @claims_api.route('/claims/claimsFor', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def get_claims_for():
     """Get claims for a consortium and optionally a member.
         --
@@ -46,7 +49,8 @@ def get_claims_for():
 
 
 @claims_api.route('/claims/all/claims', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def get_all_claims():
     """Get all claims for a consortium.
         --
@@ -66,7 +70,8 @@ def get_all_claims():
     return get_claims(consortium_id)
 
 @claims_api.route('/claims/update', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def update_claim():
     """Create or update a claim.
         --

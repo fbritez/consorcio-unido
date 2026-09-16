@@ -40,7 +40,15 @@ The **DAO Factory Pattern** (`src/DAO/dao_factory.py`) abstracts database operat
 
 - **`DB_BACKEND`**: Database backend selection (`sqlite`, `postgres`, `mongo`). Defaults to `sqlite`.
 - **`DB_ENV`**: Environment mode (`tests`, `uat`, `prod`). Used for data directory organization. Default is `uat`.
+- **`APP_ENV`**: Drives authentication. When it is `local`, `dev`, `development`, `test` or `tests` (default: `local`) every endpoint is served without validating the cookie or the token. Any other value (e.g. `uat`, `prod`) turns enforcement on.
+- **`AUTH_SECRET_KEY`**: Secret used to sign the session token. **Must be set in every non-local deployment**; without it a random per-process secret is used and sessions do not survive a restart or span workers.
+- **`AUTH_TOKEN_TTL_SECONDS`**: Session token lifetime. Defaults to 28800 (8 hours).
+- **`ALLOWED_ORIGINS`**: Comma separated CORS origins allowed to send the session cookie. Defaults to `http://localhost:3000,http://127.0.0.1:3000`. A wildcard is not usable because the cookie requires credentialed CORS.
 - **Virtual Environment**: `.venv-1/` (Python 3.9)
+
+### Authentication
+
+`src/service/token_service.py` issues and verifies HS256 JWTs (standard library only, no extra dependency). `src/API/auth.py` exposes the `@authenticate` decorator applied to every non-login endpoint; it reads the token from the `united_consortium_session` HttpOnly cookie (or an `Authorization: Bearer` header), verifies the signature and expiry, and only serves the request when the user named by the token still exists. `POST /authenticate` sets the cookie, `GET /session` reports the current session and `POST /logout` clears it.
 
 ## Development Setup
 

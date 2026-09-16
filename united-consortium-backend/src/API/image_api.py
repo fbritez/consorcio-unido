@@ -2,18 +2,21 @@ import json
 import io
 from flask import Blueprint, request, make_response, send_file
 from flask_cors import cross_origin, CORS
+
+from src.API.auth import authenticate
 import logging
 
 from src.service.image_service import ImageService
 
 image_api = Blueprint('image_api', __name__)
-CORS(image_api, suppport_credentials=True)
+CORS(image_api, supports_credentials=True)
 
 imageService = ImageService()
 
 
 @image_api.route('/storeTicket', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def store_expense_ticket():
     """Store an expense ticket image.
     --
@@ -42,7 +45,8 @@ def store_expense_ticket():
 
 
 @image_api.route('/getTicket', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def get_ticket():
     """Download an expense ticket image.
     --

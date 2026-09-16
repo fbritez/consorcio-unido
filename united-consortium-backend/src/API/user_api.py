@@ -1,17 +1,20 @@
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
 
+from src.API.auth import authenticate
+
 from src.API.utils import objects_to_json
 from src.service.user_service import UserService
 
 user_api = Blueprint('user_api', __name__)
-CORS(user_api, suppport_credentials=True)
+CORS(user_api, supports_credentials=True)
 
 service = UserService()
 
 
 @user_api.route('/userData', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def user_data():
     """Get user data by email.
         --

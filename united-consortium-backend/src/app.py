@@ -1,5 +1,8 @@
 # coding=utf-8
+import os
+
 from flask import Flask
+from flask_cors import CORS
 from flasgger import Swagger
 
 from src.API.image_api import image_api
@@ -20,6 +23,21 @@ app.config['SWAGGER'] = {
 }
 
 Swagger(app, template=swagger_template)
+
+# The session cookie is only sent on cross origin calls when credentials are
+# supported and the origin is listed explicitly, so a wildcard is not an option.
+ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000,http://127.0.0.1:3000').split(',')
+    if origin.strip()
+]
+
+# Set as app config too so the per blueprint CORS() and per route @cross_origin
+# declarations inherit the same origins instead of falling back to a wildcard.
+app.config['CORS_ORIGINS'] = ALLOWED_ORIGINS
+app.config['CORS_SUPPORTS_CREDENTIALS'] = True
+
+CORS(app, origins=ALLOWED_ORIGINS, supports_credentials=True)
 
 app.register_blueprint(consortium_api)
 app.register_blueprint(expenses_receipt_api)

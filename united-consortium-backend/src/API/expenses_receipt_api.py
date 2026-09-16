@@ -3,6 +3,8 @@ import json
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
 
+from src.API.auth import authenticate
+
 from src.service.emailService import EmailService
 from src.service.expense_receipt_service import ExpensesReceiptService
 from src.service.notification_service import NotificationService
@@ -10,14 +12,15 @@ from src.utils.utils import json_dumps
 import logging
 
 expenses_receipt_api = Blueprint('expenses_receipt_api', __name__)
-CORS(expenses_receipt_api, suppport_credentials=True)
+CORS(expenses_receipt_api, supports_credentials=True)
 
 service = ExpensesReceiptService()
 service.add_publishers([NotificationService(), EmailService()])
 
 
 @expenses_receipt_api.route('/expenses', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def expenses():
     """Get expenses for a consortium and user.
         --
@@ -47,7 +50,8 @@ def expenses():
 
 
 @expenses_receipt_api.route('/newExpenses', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def new_expenses():
     """Create or update an expense receipt.
         --
@@ -78,7 +82,8 @@ def new_expenses():
 
 
 @expenses_receipt_api.route('/expensesID', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def expenses_id():
     """Get an expense receipt by identifier.
         --
@@ -97,7 +102,8 @@ def expenses_id():
 
 
 @expenses_receipt_api.route('/generateReceipt', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def generate_receipt():
     """Generate a receipt for an expense.
         --

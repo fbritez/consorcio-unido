@@ -2,18 +2,21 @@ import json
 
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
+
+from src.API.auth import authenticate
 import logging
 
 from src.service.notification_service import NotificationService
 
 notification_api = Blueprint('notification_api', __name__)
-CORS(notification_api, suppport_credentials=True)
+CORS(notification_api, supports_credentials=True)
 
 service = NotificationService()
 
 
 @notification_api.route('/notification/notificationFor', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def get_notifications():
     """Get notifications for a consortium.
         --
@@ -36,7 +39,8 @@ def get_notifications():
 
 
 @notification_api.route('/notification/update', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def update_notifications():
     """Create or update a notification.
         --

@@ -1,5 +1,7 @@
 from flask import Blueprint, request
 from flask_cors import cross_origin, CORS
+
+from src.API.auth import authenticate
 import logging
 import json
 
@@ -7,13 +9,14 @@ from src.API.utils import object_to_json
 from src.service.consorsium_service import ConsortiumService
 
 consortium_api = Blueprint('consortium_api', __name__)
-CORS(consortium_api, suppport_credentials=True)
+CORS(consortium_api, supports_credentials=True)
 
 service = ConsortiumService()
 
 
 @consortium_api.route('/consortiums', methods=['GET'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def consortiums():
     """Get the consortiums associated with a user.
         --
@@ -36,7 +39,8 @@ def consortiums():
 
 
 @consortium_api.route('/updateConsortium', methods=['POST'])
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
+@authenticate
 def update_consortium():
     """Create or update a consortium.
         --
