@@ -214,6 +214,17 @@ class SettingsModel(Base):
     extra_properties = Column(Text)
 
 
+class NotificationReactionModel(Base):
+    __tablename__ = 'notification_reactions'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    notification_id = Column(Integer, ForeignKey('notifications.id'), nullable=False)
+    user_email = Column(String(255), nullable=False)
+    reaction_type = Column(String(50), nullable=False)
+
+    notification = relationship('NotificationModel')
+
+
 class ImageModel(Base):
     __tablename__ = 'images'
 

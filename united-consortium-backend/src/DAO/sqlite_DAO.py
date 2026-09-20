@@ -36,6 +36,10 @@ class NotificationDAO(_SQLiteBound, orm_DAO.NotificationDAO):
     pass
 
 
+class NotificationReactionDAO(_SQLiteBound, orm_DAO.NotificationReactionDAO):
+    pass
+
+
 class SettingsDAO(_SQLiteBound, orm_DAO.SettingsDAO):
     pass
 

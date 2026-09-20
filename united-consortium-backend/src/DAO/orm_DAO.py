@@ -26,6 +26,7 @@ from src.DAO.orm_models import (
     LoginModel,
     MemberExpensesReceiptModel,
     NotificationModel,
+    NotificationReactionModel,
     SettingsModel,
     UserModel,
 )
@@ -433,6 +434,14 @@ class NotificationDAO(BasicDataTypeDAO):
     columns = {'consortium_id': 'consortium_id', 'message': 'message',
                'publishDate': 'publishDate'}
     entity_columns = ('consortium_id', 'message', 'publishDate')
+
+
+class NotificationReactionDAO(BasicDataTypeDAO):
+    model = NotificationReactionModel
+    columns = {'notification_id': 'notification_id', 'user_email': 'user_email',
+               'reaction_type': 'reaction_type'}
+    entity_columns = ('notification_id', 'user_email', 'reaction_type')
+    integer_columns = ('notification_id',)
 
 
 class SettingsDAO(BasicDataTypeDAO):

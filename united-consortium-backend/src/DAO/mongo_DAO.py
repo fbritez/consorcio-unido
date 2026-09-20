@@ -177,6 +177,12 @@ class NotificationDAO(BasicDataTypeDAO):
         return self.db.notifications
 
 
+class NotificationReactionDAO(BasicDataTypeDAO):
+
+    def collection(self):
+        return self.db.notification_reactions
+
+
 class ClaimsDAO(GenericDAO):
 
     def collection(self):
