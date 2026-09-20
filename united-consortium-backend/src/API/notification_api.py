@@ -8,7 +8,7 @@ from src.service.notification_service import NotificationService
 from src.service.notification_reaction_service import NotificationReactionService
 
 notification_api = Blueprint('notification_api', __name__)
-CORS(notification_api, suppport_credentials=True)
+CORS(notification_api, support_credentials=True)
 
 service = NotificationService()
 reaction_service = NotificationReactionService()
@@ -111,6 +111,40 @@ def add_reaction():
         return json.dumps({'success': False, 'error': str(ex)}), 500, {'ContentType': 'application/json'}
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@notification_api.route('/notification/reactions/users', methods=['GET'])
+@cross_origin(support_credentials=True)
+def get_reactions_users():
+    """Get users who reacted to a notification.
+        --
+        tags:
+            - Notifications
+        parameters:
+            - name: notificationId
+                in: query
+                required: true
+                type: integer
+            - name: reactionType
+                in: query
+                required: false
+                type: string
+        responses:
+            200:
+                description: List of users who reacted
+    """
+    try:
+        notification_id = request.args.get('notificationId', type=int)
+        reaction_type = request.args.get('reactionType')
+
+        users = reaction_service.get_users_by_reaction(notification_id, reaction_type)
+
+        return json.dumps({
+            'users': users
+        }), 200, {'ContentType': 'application/json'}
+    except Exception as ex:
+        logging.error(ex)
+        return json.dumps({'success': False, 'error': str(ex)}), 500, {'ContentType': 'application/json'}
 
 
 @notification_api.route('/notification/reactions', methods=['GET'])

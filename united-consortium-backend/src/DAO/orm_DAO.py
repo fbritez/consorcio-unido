@@ -146,6 +146,12 @@ class ORMBaseDAO:
     def update(self, query_obj, new_element):
         return self.update_all(query_obj, new_element)
 
+    def delete(self, query_obj):
+        rows = self._rows(query_obj)
+        for row in rows:
+            self.db.delete(row)
+        self.db.commit()
+
     def _apply(self, row, element):
         for name in self.entity_columns:
             setattr(row, name, _to_column_value(_attribute(element, name)))
@@ -431,17 +437,29 @@ class BasicDataTypeDAO(ORMBaseDAO):
 
 class NotificationDAO(BasicDataTypeDAO):
     model = NotificationModel
-    columns = {'consortium_id': 'consortium_id', 'message': 'message',
+    columns = {'_id': 'id', 'id': 'id', 'consortium_id': 'consortium_id', 'message': 'message',
                'publishDate': 'publishDate'}
     entity_columns = ('consortium_id', 'message', 'publishDate')
+    integer_columns = ('_id', 'id')
+
+    def _document(self, row):
+        document = super()._document(row)
+        document['id'] = row.id
+        return document
 
 
 class NotificationReactionDAO(BasicDataTypeDAO):
     model = NotificationReactionModel
-    columns = {'notification_id': 'notification_id', 'user_email': 'user_email',
+    columns = {'_id': 'id', 'id': 'id', 'notification_id': 'notification_id', 'user_email': 'user_email',
                'reaction_type': 'reaction_type'}
     entity_columns = ('notification_id', 'user_email', 'reaction_type')
-    integer_columns = ('notification_id',)
+    integer_columns = ('_id', 'id', 'notification_id')
+
+    def _document(self, row):
+        return {name: getattr(row, name) for name in self.entity_columns}
+
+    def get(self, query_obj):
+        return [self._document(row) for row in self._rows(query_obj)]
 
 
 class SettingsDAO(BasicDataTypeDAO):
