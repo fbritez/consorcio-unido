@@ -19,6 +19,7 @@ class MongoBackend(BaseBackend):
             ImageDAO,
             LoginDAO,
             NotificationDAO,
+            NotificationReactionDAO,
             SettingsDAO,
             UserDAO,
         )
@@ -29,6 +30,7 @@ class MongoBackend(BaseBackend):
             'image': ImageDAO,
             'login': LoginDAO,
             'notification': NotificationDAO,
+            'notification_reaction': NotificationReactionDAO,
             'settings': SettingsDAO,
             'user': UserDAO,
         }
@@ -50,6 +52,7 @@ class PostgresBackend(BaseBackend):
             ImageDAO,
             LoginDAO,
             NotificationDAO,
+            NotificationReactionDAO,
             SettingsDAO,
             UserDAO,
         )
@@ -60,6 +63,7 @@ class PostgresBackend(BaseBackend):
             'image': ImageDAO,
             'login': LoginDAO,
             'notification': NotificationDAO,
+            'notification_reaction': NotificationReactionDAO,
             'settings': SettingsDAO,
             'user': UserDAO,
         }
@@ -81,6 +85,7 @@ class SQLiteBackend(BaseBackend):
             ImageDAO,
             LoginDAO,
             NotificationDAO,
+            NotificationReactionDAO,
             SettingsDAO,
             UserDAO,
         )
@@ -91,6 +96,7 @@ class SQLiteBackend(BaseBackend):
             'image': ImageDAO,
             'login': LoginDAO,
             'notification': NotificationDAO,
+            'notification_reaction': NotificationReactionDAO,
             'settings': SettingsDAO,
             'user': UserDAO,
         }

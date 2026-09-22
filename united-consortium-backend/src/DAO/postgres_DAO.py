@@ -35,6 +35,10 @@ class NotificationDAO(_PostgresBound, orm_DAO.NotificationDAO):
     pass
 
 
+class NotificationReactionDAO(_PostgresBound, orm_DAO.NotificationReactionDAO):
+    pass
+
+
 class SettingsDAO(_PostgresBound, orm_DAO.SettingsDAO):
     pass
 

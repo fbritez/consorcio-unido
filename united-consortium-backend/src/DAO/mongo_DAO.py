@@ -154,6 +154,8 @@ class BasicDataTypeDAO(GenericDAO):
         response = self.collection().find(query_obj)
         values = [value for value in response]
         for value in values:
+            if '_id' in value:
+                value['id'] = str(value['_id'])
             value.pop('_id', None)
         return values
 
@@ -175,6 +177,12 @@ class NotificationDAO(BasicDataTypeDAO):
 
     def collection(self):
         return self.db.notifications
+
+
+class NotificationReactionDAO(BasicDataTypeDAO):
+
+    def collection(self):
+        return self.db.notification_reactions
 
 
 class ClaimsDAO(GenericDAO):
