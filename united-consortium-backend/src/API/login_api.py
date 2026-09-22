@@ -110,3 +110,42 @@ def authenticate():
 
     return result
 
+@login_api.route('/sendContactMessage', methods=['POST'])
+@cross_origin(support_credentials=True)
+@handle_errors(return_error_code=500)
+def send_contact_message():
+    """Send a contact message to administrators.
+        --
+        tags:
+            - Login
+        parameters:
+            - in: body
+                name: contact
+                required: true
+                schema:
+                    type: object
+                    required:
+                        - name
+                        - email
+                        - message
+                    properties:
+                        name:
+                            type: string
+                        email:
+                            type: string
+                        message:
+                            type: string
+        responses:
+            200:
+                description: Message sent successfully
+            500:
+                description: Error sending message
+    """
+    name = request.json.get('name')
+    email = request.json.get('email')
+    message = request.json.get('message')
+
+    service.send_contact_message(name, email, message)
+
+    return json.dumps({'success': True, 'message': 'Mensaje enviado correctamente'}), 200, {'ContentType': 'application/json'}
+
