@@ -8,8 +8,8 @@ env/
 venv/
 .venv
 
-# Local databases
-data/UAT/
+# Databases
+data/
 
 # IDE
 .vscode/
